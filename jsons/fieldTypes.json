@@ -1,0 +1,12 @@
+{
+  "datePublished": "Date",
+  "updateDate": "Date",
+  "featureFlag": "Text",
+  "publishedText": "Text",
+  "description": "LongText",
+  "sortDate": "Date",
+  "docTitle": "Text",
+  "enableShare": "Boolean",
+  "contentType": "Text",
+  "primaryURL": "URL"
+}

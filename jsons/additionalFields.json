@@ -1,0 +1,10 @@
+{
+  "datePublished": "2015-05-01",
+  "publishedText": "May 2015",
+  "description": "Using AWS Spark Streaming and Spark SQL to implement a lambda design pattern.<p><a href=\"https://d1.awsstatic.com/whitepapers/lambda-architecure-on-for-batch-aws.pdf?did=wp_card&trk=wp_card\" target=\"_blank\">PDF</a></p><p class=\"m-subheadline\">Compute</p>",
+  "docTitle": "Lambda Architecture for Batch and Real-Time Processing on AWS with Spark Streaming and Spark SQL",
+  "sortDate": "2015-05-01",
+  "enableShare": "1",
+  "contentType": "Whitepaper",
+  "primaryURL": "https://d1.awsstatic.com/whitepapers/lambda-architecure-on-for-batch-aws.pdf?did=wp_card&trk=wp_card"
+}
