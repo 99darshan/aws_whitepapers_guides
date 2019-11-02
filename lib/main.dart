@@ -1,3 +1,4 @@
+import 'package:aws_whitepapers_guides/screens/filter_screen.dart';
 import 'package:aws_whitepapers_guides/screens/home_screen.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
@@ -34,7 +35,12 @@ class MyApp extends StatelessWidget {
           // is not restarted.
           primarySwatch: Colors.blue,
         ),
-        home: HomeScreen(),
+        //home: HomeScreen(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => HomeScreen(),
+          '/filterScreen': (context) => FilterScreen()
+        },
       ),
     );
   }

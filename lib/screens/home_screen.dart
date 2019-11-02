@@ -1,6 +1,4 @@
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
-import 'package:aws_whitepapers_guides/models/index.dart';
-import 'package:aws_whitepapers_guides/screens/filter_screen.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,8 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
               IconButton(
                 icon: Icon(Icons.filter_list),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => FilterScreen()));
+                  Navigator.pushReplacementNamed(context, '/filterScreen');
                 },
               )
             ],
