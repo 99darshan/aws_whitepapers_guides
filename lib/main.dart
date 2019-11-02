@@ -1,5 +1,7 @@
+import 'package:aws_whitepapers_guides/screens/bookmark_screen.dart';
 import 'package:aws_whitepapers_guides/screens/filter_screen.dart';
 import 'package:aws_whitepapers_guides/screens/home_screen.dart';
+import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<WhitepaperState>(
           builder: (_) => WhitepaperState(),
         ),
+        ChangeNotifierProvider<BookmarkState>(
+          builder: (_) => BookmarkState(),
+        )
         //Provider.value(value: WhitepaperBloc())
       ],
       child: MaterialApp(
@@ -39,7 +44,8 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => HomeScreen(),
-          '/filterScreen': (context) => FilterScreen()
+          '/filterScreen': (context) => FilterScreen(),
+          '/bookmarkScreen': (context) => BookmarkScreen()
         },
       ),
     );

@@ -4,13 +4,17 @@ import 'package:aws_whitepapers_guides/services/http_service.dart';
 import 'package:flutter/foundation.dart';
 
 class WhitepaperState extends ChangeNotifier {
+  static final WhitepaperState _singleton = WhitepaperState._();
+
+  // creates a WhitepaperState object and fetches the initial whitepapers while doing so
   WhitepaperState._() {
     print('fetching from named _ constructor in whitepaper object');
     fetchWhitepapers(List<String>());
   }
 
   factory WhitepaperState() {
-    return WhitepaperState._();
+    return _singleton;
+    //return WhitepaperState._();
   }
 
   RootAwsResponse _rootAwsResponse;

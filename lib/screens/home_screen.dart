@@ -31,6 +31,12 @@ class _HomeScreenState extends State<HomeScreen> {
             title: Text('Home'),
             actions: <Widget>[
               IconButton(
+                icon: Icon(Icons.collections_bookmark),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/bookmarkScreen');
+                },
+              ),
+              IconButton(
                 icon: Icon(Icons.filter_list),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/filterScreen');

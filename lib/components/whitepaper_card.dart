@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'package:aws_whitepapers_guides/models/index.dart';
+import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class WhitepaperCard extends StatefulWidget {
   final WhitepaperData whitepaperData;
@@ -55,9 +58,26 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                 ),
                 Row(
                   children: <Widget>[
-                    IconButton(
-                      icon: Icon(Icons.bookmark_border),
-                      onPressed: () {},
+                    Consumer<BookmarkState>(
+                      builder: (_, bookmarkState, __) {
+                        bool isBookmarked = bookmarkState.bookmarks
+                            .contains(widget.whitepaperData.item.id);
+                        return IconButton(
+                          icon: isBookmarked
+                              ? Icon(Icons.bookmark)
+                              : Icon(Icons.bookmark_border),
+                          onPressed: () {
+                            if (isBookmarked) {
+                              bookmarkState.removeBookmark(
+                                  widget.whitepaperData.item.id);
+                            } else {
+                              bookmarkState.addBookmark(
+                                  widget.whitepaperData.item.id,
+                                  json.encode(widget.whitepaperData.toJson()));
+                            }
+                          },
+                        );
+                      },
                     ),
                     IconButton(
                       icon: Icon(Icons.file_download),
