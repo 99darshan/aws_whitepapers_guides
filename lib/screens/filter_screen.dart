@@ -50,24 +50,12 @@ class _FilterScreenState extends State<FilterScreen> {
               Wrap(
                 //alignment: WrapAlignment.center,
                 spacing: 8.0,
-                children: <Widget>[
-                  FilterChipWidget(
-                    labelText: TypesFilter.whitepaper,
-                    filterBy: FilterBy.Types,
-                  ),
-                  FilterChipWidget(
-                    labelText: TypesFilter.technicalGuide,
-                    filterBy: FilterBy.Types,
-                  ),
-                  FilterChipWidget(
-                    labelText: TypesFilter.referenceMaterial,
-                    filterBy: FilterBy.Types,
-                  ),
-                  FilterChipWidget(
-                    labelText: TypesFilter.architectureDiagram,
-                    filterBy: FilterBy.Types,
-                  ),
-                ],
+                children: TypesFilter.types
+                    .map((item) => FilterChipWidget(
+                          labelText: item,
+                          filterBy: FilterBy.Types,
+                        ))
+                    .toList(),
               ),
               SizedBox(height: 8.0),
               Text('Categories', style: Theme.of(context).textTheme.title),

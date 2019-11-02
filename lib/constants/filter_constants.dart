@@ -9,6 +9,13 @@ class TypesFilter {
   static const referenceMaterial = "Reference Material";
   static const architectureDiagram = "Architecture Diagram";
 
+  static const List<String> types = [
+    TypesFilter.whitepaper,
+    TypesFilter.technicalGuide,
+    TypesFilter.referenceMaterial,
+    TypesFilter.architectureDiagram
+  ];
+
   static const Map<String, String> mapTypesFilterToQueryString = {
     TypesFilter.whitepaper: 'whitepaper',
     TypesFilter.technicalGuide: 'tech-guide',

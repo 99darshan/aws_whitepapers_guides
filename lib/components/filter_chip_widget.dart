@@ -36,11 +36,11 @@ class FilterChipWidgetState extends State<FilterChipWidget> {
         setState(() {
           _isSelected = isSelected;
         });
-        if (isSelected && widget.filterBy == FilterBy.Types) {
-          filterState.addTypesFilter(widget.labelText);
+        if (isSelected) {
+          filterState.addFilter(widget.labelText, widget.filterBy);
         }
-        if (!isSelected && widget.filterBy == FilterBy.Types) {
-          filterState.removeTypesFilter(widget.labelText);
+        if (!isSelected) {
+          filterState.removeFilter(widget.labelText, widget.filterBy);
         }
         // TODO: make function?? or just a map??
       },
