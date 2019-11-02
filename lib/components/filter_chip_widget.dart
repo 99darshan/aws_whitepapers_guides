@@ -20,8 +20,14 @@ class FilterChipWidgetState extends State<FilterChipWidget> {
   @override
   Widget build(BuildContext context) {
     final FilterState filterState = Provider.of<FilterState>(context);
-    if (widget.filterBy == FilterBy.Types &&
-        filterState.typesFilterList.contains(widget.labelText)) {
+    if ((widget.filterBy == FilterBy.Types &&
+            filterState.typesFilterList.contains(widget.labelText)) ||
+        (widget.filterBy == FilterBy.Categories &&
+            filterState.categoriesFilterList.contains(widget.labelText)) ||
+        (widget.filterBy == FilterBy.Industries &&
+            filterState.industriesFilterList.contains(widget.labelText)) ||
+        (widget.filterBy == FilterBy.Products &&
+            filterState.productsFilterList.contains(widget.labelText))) {
       setState(() {
         _isSelected = true;
       });

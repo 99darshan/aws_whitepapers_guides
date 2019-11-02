@@ -27,7 +27,19 @@ class TypesFilter {
 class CategoriesFilter {
   static const introduction = "Introduction to AWS";
   static const wellArchFramework = "Well-Architected Framework";
-  static const couldAdoptationFramework = "Cloud Adoptation Framework";
+  static const cloudAdoptationFramework = "Cloud Adoptation Framework";
+
+  static const List<String> categories = [
+    CategoriesFilter.introduction,
+    CategoriesFilter.wellArchFramework,
+    CategoriesFilter.cloudAdoptationFramework
+  ];
+
+  static const Map<String, String> mapCategoriesFilterToQueryString = {
+    CategoriesFilter.introduction: '',
+    CategoriesFilter.wellArchFramework: '',
+    CategoriesFilter.cloudAdoptationFramework: ''
+  };
 }
 
 class IndustriesFilter {
@@ -39,6 +51,28 @@ class IndustriesFilter {
   static const mediaEntertainment = "Media & Entertainment";
   static const telecommunications = "Telecommunications";
   static const travel = "Travel";
+
+  static const List<String> industries = [
+    IndustriesFilter.financialServices,
+    IndustriesFilter.government,
+    IndustriesFilter.healthcare,
+    IndustriesFilter.lifeSciences,
+    IndustriesFilter.manufacturing,
+    IndustriesFilter.mediaEntertainment,
+    IndustriesFilter.telecommunications,
+    IndustriesFilter.travel
+  ];
+
+  static const Map<String, String> mapIndustriesFilterToQueryString = {
+    IndustriesFilter.financialServices: '',
+    IndustriesFilter.government: '',
+    IndustriesFilter.healthcare: '',
+    IndustriesFilter.lifeSciences: '',
+    IndustriesFilter.manufacturing: '',
+    IndustriesFilter.mediaEntertainment: '',
+    IndustriesFilter.telecommunications: '',
+    IndustriesFilter.travel: ''
+  };
 }
 
 class ProductsFilter {
@@ -61,4 +95,48 @@ class ProductsFilter {
   static const securityIdentityCompliance = "Security, Identity & Compliance";
   static const serverless = "Serverless";
   static const storage = "Storage";
+
+  static const List<String> products = [
+    ProductsFilter.analyticsBigData,
+    ProductsFilter.applicationIntegration,
+    ProductsFilter.compute,
+    ProductsFilter.containers,
+    ProductsFilter.costManagement,
+    ProductsFilter.customerEngagement,
+    ProductsFilter.databases,
+    ProductsFilter.developerTools,
+    ProductsFilter.endUserComputing,
+    ProductsFilter.enterpriseApplications,
+    ProductsFilter.internetOfThings,
+    ProductsFilter.machineLearningAI,
+    ProductsFilter.managementGovernance,
+    ProductsFilter.mediaServices,
+    ProductsFilter.mobile,
+    ProductsFilter.networkingContentDelivery,
+    ProductsFilter.securityIdentityCompliance,
+    ProductsFilter.serverless,
+    ProductsFilter.storage
+  ];
+
+  static const Map<String, String> mapProductsFilterToQueryString = {
+    ProductsFilter.analyticsBigData: '',
+    ProductsFilter.applicationIntegration: '',
+    ProductsFilter.compute: '',
+    ProductsFilter.containers: '',
+    ProductsFilter.costManagement: '',
+    ProductsFilter.customerEngagement: '',
+    ProductsFilter.databases: '',
+    ProductsFilter.developerTools: '',
+    ProductsFilter.endUserComputing: '',
+    ProductsFilter.enterpriseApplications: '',
+    ProductsFilter.internetOfThings: '',
+    ProductsFilter.machineLearningAI: '',
+    ProductsFilter.managementGovernance: '',
+    ProductsFilter.mediaServices: '',
+    ProductsFilter.mobile: '',
+    ProductsFilter.networkingContentDelivery: '',
+    ProductsFilter.securityIdentityCompliance: '',
+    ProductsFilter.serverless: '',
+    ProductsFilter.storage: ''
+  };
 }

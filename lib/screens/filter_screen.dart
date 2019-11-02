@@ -64,11 +64,12 @@ class _FilterScreenState extends State<FilterScreen> {
               Wrap(
                 //alignment: WrapAlignment.center,
                 spacing: 8.0,
-                children: <Widget>[
-                  FilterChipWidget(labelText: 'Introduction to AWS'),
-                  FilterChipWidget(labelText: 'Well-Architected Framework'),
-                  FilterChipWidget(labelText: 'Cloud Adoptation Framework'),
-                ],
+                children: CategoriesFilter.categories
+                    .map((item) => FilterChipWidget(
+                          labelText: item,
+                          filterBy: FilterBy.Categories,
+                        ))
+                    .toList(),
               ),
               SizedBox(height: 8.0),
               Text('Industries', style: Theme.of(context).textTheme.title),
@@ -77,43 +78,23 @@ class _FilterScreenState extends State<FilterScreen> {
               Wrap(
                 //alignment: WrapAlignment.center,
                 spacing: 8.0,
-                children: <Widget>[
-                  FilterChipWidget(labelText: 'Financial Services'),
-                  FilterChipWidget(labelText: 'Government'),
-                  FilterChipWidget(labelText: 'Healthcare'),
-                  FilterChipWidget(labelText: 'Life Sciences'),
-                  FilterChipWidget(labelText: 'Manufacturing'),
-                  FilterChipWidget(labelText: 'Media & Entertainment'),
-                  FilterChipWidget(labelText: 'Telecommunications'),
-                  FilterChipWidget(labelText: 'Travel'),
-                ],
+                children: IndustriesFilter.industries
+                    .map((item) => FilterChipWidget(
+                          labelText: item,
+                          filterBy: FilterBy.Industries,
+                        ))
+                    .toList(),
               ),
               SizedBox(height: 8.0),
               Text('Products', style: Theme.of(context).textTheme.title),
               Wrap(
                 spacing: 8.0,
-                children: <Widget>[
-                  FilterChipWidget(labelText: 'Analytics & Big Data'),
-                  FilterChipWidget(labelText: 'Application Integration'),
-                  FilterChipWidget(labelText: 'Compute'),
-                  FilterChipWidget(labelText: 'Containers'),
-                  FilterChipWidget(labelText: 'Cost Management'),
-                  FilterChipWidget(labelText: 'Customer Engagement'),
-                  FilterChipWidget(labelText: 'Databases'),
-                  FilterChipWidget(labelText: 'Developer Tools'),
-                  FilterChipWidget(labelText: 'End-User Computing'),
-                  FilterChipWidget(labelText: 'Enterprise Applications'),
-                  FilterChipWidget(labelText: 'Internet of Things (IOT)'),
-                  FilterChipWidget(labelText: 'Machine Learning & AI'),
-                  FilterChipWidget(labelText: 'Management & Governance'),
-                  FilterChipWidget(labelText: 'Media Services'),
-                  FilterChipWidget(labelText: 'Mobile'),
-                  FilterChipWidget(labelText: 'Networking & Content Delivery'),
-                  FilterChipWidget(
-                      labelText: 'Security, Identity & Compliance'),
-                  FilterChipWidget(labelText: 'Serverless'),
-                  FilterChipWidget(labelText: 'Storage'),
-                ],
+                children: ProductsFilter.products
+                    .map((item) => FilterChipWidget(
+                          labelText: item,
+                          filterBy: FilterBy.Products,
+                        ))
+                    .toList(),
               )
             ],
           ),
