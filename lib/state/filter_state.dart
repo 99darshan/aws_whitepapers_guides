@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-class FilterBloc extends ChangeNotifier {
+class FilterState extends ChangeNotifier {
   List<String> _typesFilterList = [];
 
   List<String> get typesFilterList => _typesFilterList;

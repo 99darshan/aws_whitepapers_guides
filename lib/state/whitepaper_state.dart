@@ -3,14 +3,14 @@ import 'package:aws_whitepapers_guides/models/rootAwsResponse.dart';
 import 'package:aws_whitepapers_guides/services/http_service.dart';
 import 'package:flutter/foundation.dart';
 
-class WhitepaperBloc extends ChangeNotifier {
-  WhitepaperBloc._() {
+class WhitepaperState extends ChangeNotifier {
+  WhitepaperState._() {
     print('fetching from named _ constructor in whitepaper object');
     fetchWhitepapers(List<String>());
   }
 
-  factory WhitepaperBloc() {
-    return WhitepaperBloc._();
+  factory WhitepaperState() {
+    return WhitepaperState._();
   }
 
   RootAwsResponse _rootAwsResponse;

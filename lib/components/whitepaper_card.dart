@@ -67,6 +67,10 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                       icon: Icon(Icons.share),
                       onPressed: () {},
                     ),
+                    IconButton(
+                      icon: Icon(Icons.remove_red_eye),
+                      onPressed: () {},
+                    )
                   ],
                 )
               ],
