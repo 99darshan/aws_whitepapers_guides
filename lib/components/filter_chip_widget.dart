@@ -6,9 +6,8 @@ import 'package:provider/provider.dart';
 class FilterChipWidget extends StatefulWidget {
   final String labelText;
   final FilterBy filterBy;
-  //List<String> types;
-  // TODO: make filterby required
-  FilterChipWidget({Key key, @required this.labelText, this.filterBy})
+
+  FilterChipWidget({Key key, @required this.labelText, @required this.filterBy})
       : super(key: key);
 
   @override

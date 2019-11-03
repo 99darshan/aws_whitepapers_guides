@@ -5,11 +5,21 @@ part 'whitepaperData.g.dart';
 
 @JsonSerializable()
 class WhitepaperData {
-    WhitepaperData();
+  WhitepaperData();
 
-    List<Tag> tags;
-    Whitepaper item;
-    
-    factory WhitepaperData.fromJson(Map<String,dynamic> json) => _$WhitepaperDataFromJson(json);
-    Map<String, dynamic> toJson() => _$WhitepaperDataToJson(this);
+  List<Tag> tags;
+  Whitepaper item;
+
+  factory WhitepaperData.fromJson(Map<String, dynamic> json) =>
+      _$WhitepaperDataFromJson(json);
+  Map<String, dynamic> toJson() => _$WhitepaperDataToJson(this);
+
+  String getContentType() {
+    String contentType = '';
+    for (int i = 0; i < tags.length; i++) {
+      if (tags[i].tagNamespaceId.trim().toLowerCase() ==
+          'whitepapers#content-type') contentType = tags[i].name;
+    }
+    return contentType;
+  }
 }

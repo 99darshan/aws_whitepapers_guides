@@ -5,12 +5,6 @@ import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'home_screen.dart';
-
-// TODO: don't push filter_screen route, define route in main and use it, back button doesn't look intuitive
-// TODO: use the filter bloc to store the filterTypes and filterCategories list and use that block to filter the items
-// is the types and categories really necessary to be passed down the filter chip widget??? filter_bloc can be used maybe
-
 class FilterScreen extends StatefulWidget {
   FilterScreen({Key key}) : super(key: key);
 
@@ -33,8 +27,12 @@ class _FilterScreenState extends State<FilterScreen> {
             builder: (context, filterState, _) => IconButton(
               icon: Icon(Icons.done_all),
               onPressed: () {
-                whitepaperState.fetchWhitepapers(filterState.typesFilterList);
-                Navigator.pushReplacementNamed(context, '/');
+                whitepaperState.fetchFilteredWhitepapers(
+                    filterState.typesFilterList,
+                    filterState.categoriesFilterList,
+                    filterState.industriesFilterList,
+                    filterState.productsFilterList);
+                Navigator.pushReplacementNamed(context, '/whitepapersScreen');
               },
             ),
           )

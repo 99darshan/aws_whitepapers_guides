@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class WhitepaperCard extends StatefulWidget {
@@ -29,9 +30,7 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                 style: Theme.of(context).textTheme.headline),
             SizedBox(height: 8.0),
             Text(
-              widget.whitepaperData.item.additionalFields.description
-                      .split("<p>")[
-                  0], // TODO: think of a better way ?? will throw exception if split fails, put a getter for desc and pdf links in the model class
+              widget.whitepaperData.item.additionalFields.getDescriptionText(),
               style: Theme.of(context).textTheme.subhead,
             ),
             // TODO: Tags or Categories
@@ -41,59 +40,63 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
               color: Colors.white,
             ),
             SizedBox(height: 8.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    // TODO: check for tags index, place method to retrieve content type, categories and industry with in the tag model or inside whitepaperData and hadle fail safe there
-                    // index 1 doesn't guarantee content-type
-                    // loop over the tags array and based on tagNamespaceId distinguish content-type, categories, flag, industries and products
-                    Text(widget.whitepaperData.tags[1].name.toUpperCase()),
-                    SizedBox(width: 4.0),
-                    Text('|'),
-                    SizedBox(width: 4.0),
-                    Text('New')
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Consumer<BookmarkState>(
-                      builder: (_, bookmarkState, __) {
-                        bool isBookmarked = bookmarkState.bookmarks
-                            .contains(widget.whitepaperData.item.id);
-                        return IconButton(
-                          icon: isBookmarked
-                              ? Icon(Icons.bookmark)
-                              : Icon(Icons.bookmark_border),
-                          onPressed: () {
-                            if (isBookmarked) {
-                              bookmarkState.removeBookmark(
-                                  widget.whitepaperData.item.id);
-                            } else {
-                              bookmarkState.addBookmark(
-                                  widget.whitepaperData.item.id,
-                                  json.encode(widget.whitepaperData.toJson()));
-                            }
-                          },
-                        );
-                      },
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.file_download),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.share),
-                      onPressed: () {},
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.remove_red_eye),
-                      onPressed: () {},
-                    )
-                  ],
-                )
-              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      // TODO: check for tags index, place method to retrieve content type, categories and industry with in the tag model or inside whitepaperData and hadle fail safe there
+                      // index 1 doesn't guarantee content-type
+                      // loop over the tags array and based on tagNamespaceId distinguish content-type, categories, flag, industries and products
+                      Text(widget.whitepaperData.getContentType()),
+                      SizedBox(width: 4.0),
+                      Text('|'),
+                      SizedBox(width: 4.0),
+                      Text('New')
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Consumer<BookmarkState>(
+                        builder: (_, bookmarkState, __) {
+                          bool isBookmarked = bookmarkState.bookmarks
+                              .contains(widget.whitepaperData.item.id);
+                          return IconButton(
+                            icon: isBookmarked
+                                ? Icon(Icons.bookmark)
+                                : Icon(Icons.bookmark_border),
+                            onPressed: () {
+                              if (isBookmarked) {
+                                bookmarkState.removeBookmark(
+                                    widget.whitepaperData.item.id);
+                              } else {
+                                bookmarkState.addBookmark(
+                                    widget.whitepaperData.item.id,
+                                    json.encode(
+                                        widget.whitepaperData.toJson()));
+                              }
+                            },
+                          );
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.file_download),
+                        onPressed: () {},
+                      ),
+                      // IconButton(
+                      //   icon: Icon(Icons.share),
+                      //   onPressed: () {},
+                      // ),
+                      IconButton(
+                        icon: Icon(Icons.remove_red_eye),
+                        onPressed: () {},
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
           ],
         ),

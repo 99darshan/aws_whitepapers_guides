@@ -57,4 +57,11 @@ class FilterState extends ChangeNotifier {
         return;
     }
   }
+
+  resetAllFilters() {
+    this._typesFilterList.clear();
+    this._categoriesFilterList.clear();
+    this._industriesFilterList.clear();
+    this._productsFilterList.clear();
+  }
 }

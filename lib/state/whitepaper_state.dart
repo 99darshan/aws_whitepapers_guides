@@ -9,7 +9,8 @@ class WhitepaperState extends ChangeNotifier {
   // creates a WhitepaperState object and fetches the initial whitepapers while doing so
   WhitepaperState._() {
     print('fetching from named _ constructor in whitepaper object');
-    fetchWhitepapers(List<String>());
+    //fetchWhitepapers(List<String>());
+    initFetchWhitepapers();
   }
 
   factory WhitepaperState() {
@@ -20,6 +21,7 @@ class WhitepaperState extends ChangeNotifier {
   RootAwsResponse _rootAwsResponse;
   bool _isFetchingData = false;
   // TODO: page number?? paginated results and size
+
   static const _baseUrl =
       'https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&size=100&item.locale=en_US&page=0';
 
@@ -31,7 +33,17 @@ class WhitepaperState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future fetchWhitepapers(List<String> typeFiltersList) async {
+  Future initFetchWhitepapers() async {
+    setIsFetchingData(true);
+    _rootAwsResponse = await HttpService.fetchData(_baseUrl);
+    setIsFetchingData(false);
+  }
+
+  Future fetchFilteredWhitepapers(
+      List<String> typeFiltersList,
+      List<String> categoryFiltersList,
+      List<String> industryFiltersList,
+      List<String> productFiltersList) async {
     setIsFetchingData(true);
     String queryUrl = _baseUrl;
 
@@ -52,7 +64,6 @@ class WhitepaperState extends ChangeNotifier {
       }
     }
     // TODO: do the same for other filters
-
     // TODO: can't encode the url for some reason, encoding manually for now
     // call http service after queryUrl is formed
     _rootAwsResponse = await HttpService.fetchData(queryUrl);

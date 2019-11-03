@@ -31,6 +31,7 @@ class BookmarkState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // id is being used as a key to store bookmarks in shared preferences
   addBookmark(String key, String payload) async {
     //final prefs = await SharedPreferences.getInstance();
     bool isAdded = await _prefs.setString(key, payload);
