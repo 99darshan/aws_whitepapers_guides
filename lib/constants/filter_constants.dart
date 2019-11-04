@@ -43,7 +43,9 @@ class CategoriesFilter {
 }
 
 class IndustriesFilter {
+  static const education = "Education";
   static const financialServices = "Financial Services";
+  static const gameTech = "Game Tech";
   static const government = "Government";
   static const healthcare = "Healthcare";
   static const lifeSciences = "Life Sciences";
@@ -53,7 +55,9 @@ class IndustriesFilter {
   static const travel = "Travel";
 
   static const List<String> industries = [
+    IndustriesFilter.education,
     IndustriesFilter.financialServices,
+    IndustriesFilter.gameTech,
     IndustriesFilter.government,
     IndustriesFilter.healthcare,
     IndustriesFilter.lifeSciences,
@@ -64,14 +68,16 @@ class IndustriesFilter {
   ];
 
   static const Map<String, String> mapIndustriesFilterToQueryString = {
-    IndustriesFilter.financialServices: '',
-    IndustriesFilter.government: '',
-    IndustriesFilter.healthcare: '',
-    IndustriesFilter.lifeSciences: '',
-    IndustriesFilter.manufacturing: '',
-    IndustriesFilter.mediaEntertainment: '',
-    IndustriesFilter.telecommunications: '',
-    IndustriesFilter.travel: ''
+    IndustriesFilter.education: 'education',
+    IndustriesFilter.financialServices: 'financial-services',
+    IndustriesFilter.gameTech: 'gaming',
+    IndustriesFilter.government: 'government',
+    IndustriesFilter.healthcare: 'healthcare',
+    IndustriesFilter.lifeSciences: 'life-sciences',
+    IndustriesFilter.manufacturing: 'manufacturing',
+    IndustriesFilter.mediaEntertainment: 'media-entertainment',
+    IndustriesFilter.telecommunications: 'telecommunications',
+    IndustriesFilter.travel: 'travel'
   };
 }
 
