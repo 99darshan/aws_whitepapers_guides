@@ -125,24 +125,24 @@ class ProductsFilter {
   ];
 
   static const Map<String, String> mapProductsFilterToQueryString = {
-    ProductsFilter.analyticsBigData: '',
-    ProductsFilter.applicationIntegration: '',
-    ProductsFilter.compute: '',
-    ProductsFilter.containers: '',
-    ProductsFilter.costManagement: '',
-    ProductsFilter.customerEngagement: '',
-    ProductsFilter.databases: '',
-    ProductsFilter.developerTools: '',
-    ProductsFilter.endUserComputing: '',
-    ProductsFilter.enterpriseApplications: '',
-    ProductsFilter.internetOfThings: '',
-    ProductsFilter.machineLearningAI: '',
-    ProductsFilter.managementGovernance: '',
-    ProductsFilter.mediaServices: '',
-    ProductsFilter.mobile: '',
-    ProductsFilter.networkingContentDelivery: '',
-    ProductsFilter.securityIdentityCompliance: '',
-    ProductsFilter.serverless: '',
-    ProductsFilter.storage: ''
+    ProductsFilter.analyticsBigData: 'analytics',
+    ProductsFilter.applicationIntegration: 'app-integration',
+    ProductsFilter.compute: 'compute',
+    ProductsFilter.containers: 'containers',
+    ProductsFilter.costManagement: 'cost-mgmt',
+    ProductsFilter.customerEngagement: 'customer-engage',
+    ProductsFilter.databases: 'databases',
+    ProductsFilter.developerTools: 'devtools',
+    ProductsFilter.endUserComputing: 'euc',
+    ProductsFilter.enterpriseApplications: 'enterprise-app',
+    ProductsFilter.internetOfThings: 'iot',
+    ProductsFilter.machineLearningAI: 'ai-ml',
+    ProductsFilter.managementGovernance: 'mgmt-govern',
+    ProductsFilter.mediaServices: 'media-services',
+    ProductsFilter.mobile: 'mobile',
+    ProductsFilter.networkingContentDelivery: 'network',
+    ProductsFilter.securityIdentityCompliance: 'security-identity-compliance',
+    ProductsFilter.serverless: 'serverless',
+    ProductsFilter.storage: 'storage'
   };
 }
