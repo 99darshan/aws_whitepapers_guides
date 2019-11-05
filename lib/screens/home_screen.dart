@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .textTheme
                                   .subhead
                                   .copyWith(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold),
                             ),
                             Container(
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           context, '/whitepapersScreen');
                     },
                     child: Container(
-                        width: 200.0, //TODO: check overflow??
+                        width: 250.0, //TODO: check overflow??
                         margin: EdgeInsets.symmetric(horizontal: 8.0),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -158,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   .textTheme
                                   .subhead
                                   .copyWith(
-                                      color: Colors.black,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.bold),
                             ),
                             Container(

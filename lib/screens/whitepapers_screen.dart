@@ -37,19 +37,30 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
             child: Icon(Icons.home),
           ),
           appBar: AppBar(
-            title: Text('Whitepapers'),
+            elevation: 0.0,
+            backgroundColor: Colors.transparent,
+            title: Text(
+              'Whitepapers',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline
+                  .copyWith(color: Colors.teal, fontWeight: FontWeight.bold),
+            ),
             actions: <Widget>[
               IconButton(
+                color: Colors.teal,
                 icon: Icon(Icons.search),
                 onPressed: () {}, // TODO: implement search
               ),
               IconButton(
+                color: Colors.teal,
                 icon: Icon(Icons.collections_bookmark),
                 onPressed: () {
                   Navigator.pushNamed(context, '/bookmarkScreen');
                 },
               ),
               IconButton(
+                color: Colors.teal,
                 icon: Icon(Icons.filter_list),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/filterScreen');

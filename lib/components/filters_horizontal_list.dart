@@ -32,11 +32,11 @@ class FiltersHorizontalList extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/whitepapersScreen');
             },
             child: Container(
-                width: 200.0, //TODO: check overflow??
+                width: 210.0, //TODO: check overflow??
                 margin: EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                   gradient:
-                      LinearGradient(colors: [Colors.purple, Colors.blue]),
+                      LinearGradient(colors: [Colors.indigo, Colors.teal]),
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
                 padding: EdgeInsets.all(16.0),
@@ -47,11 +47,11 @@ class FiltersHorizontalList extends StatelessWidget {
                     Text(
                       filters[index],
                       style: Theme.of(context).textTheme.subhead.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                          color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Container(
                       padding: EdgeInsets.all(4.0),
-                      color: Colors.purpleAccent,
+                      color: Colors.indigoAccent,
                       child: Text('${index + 1} of ${filters.length}'),
                     )
                   ],
