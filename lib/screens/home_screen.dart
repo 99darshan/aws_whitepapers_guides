@@ -1,9 +1,9 @@
+import 'package:aws_whitepapers_guides/components/filters_horizontal_list.dart';
 import 'package:aws_whitepapers_guides/components/gradient_button.dart';
 import 'package:aws_whitepapers_guides/constants/filter_constants.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -19,135 +19,166 @@ class _HomeScreenState extends State<HomeScreen> {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
     FilterState filterState = Provider.of<FilterState>(context);
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 0.0,
-      //   //backgroundColor: Colors.transparent,
-      // ),
-      floatingActionButton: SpeedDial(
-        // TODO: overlay colors
-        animatedIcon: AnimatedIcons.menu_close,
-        children: [
-          SpeedDialChild(
-            child: Icon(Icons.search),
-            label: 'Search Whitepapers',
-            onTap: () {},
+      appBar: AppBar(
+        elevation: 0.0,
+        //title: Text('Home'),
+        backgroundColor: Colors.transparent,
+        actions: <Widget>[
+          CircleAvatar(
+            backgroundColor: Colors.teal[200],
+            child: IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {},
+            ),
           ),
-          SpeedDialChild(
-            child: Icon(Icons.bookmark),
-            label: 'View Bookmarks',
-            onTap: () {
-              Navigator.pushNamed(context, '/bookmarkScreen');
-            },
-          )
+          SizedBox(width: 20.0),
+          CircleAvatar(
+            backgroundColor: Colors.teal[200],
+            child: IconButton(
+              icon: Icon(Icons.collections_bookmark),
+              onPressed: () {},
+            ),
+          ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(bottom: 24.0),
+        padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-              height: MediaQuery.of(context).size.height * 0.4,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      // TODO: get this network image from local
-                      image: NetworkImage(
-                          'https://d1.awsstatic.com/webteam/homepage/heroes/backgrounds/Site-Merch_Blue_Pattern_06_Hero-BG.7d47bbb326ce6d8cf1fe024aed2f682d939ddf63.png'))),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "AWS Whitepapers & Guides ",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline
-                        .copyWith(color: Colors.white),
-                  ),
-                  SizedBox(height: 16.0),
-                  Text(
-                    "Expand your knowledge of the cloud with AWS technical content authored by AWS and the AWS community, including technical whitepapers, technical guides, reference material, and reference architecture diagrams. ",
-                    style: Theme.of(context)
-                        .textTheme
-                        .subhead
-                        .copyWith(color: Colors.white70),
-                  ),
-                  SizedBox(height: 16.0),
-                  GradientButton(
-                    buttonText: 'View All',
-                    onPressed: () async {
-                      // fetch all whitepapers
-                      await whitepaperState.initFetchWhitepapers();
+            Text("AWS Whitepapers & Guides ",
+                style: Theme.of(context)
+                    .textTheme
+                    .display1
+                    .copyWith(fontWeight: FontWeight.bold, color: Colors.teal)),
+            SizedBox(height: 16.0),
+            GradientButton(
+              buttonText: 'View All',
+              onPressed: () async {
+                // fetch all whitepapers
+                await whitepaperState.initFetchWhitepapers();
+                Navigator.pushReplacementNamed(context, '/whitepapersScreen');
+              },
+            ),
+            SizedBox(height: 24.0),
+            Text('Categories', style: Theme.of(context).textTheme.title),
+            SizedBox(height: 16.0),
+            SizedBox(
+              height: 150.0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: CategoriesFilter.categories.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    onTap: () async {
+                      filterState.addFilter(CategoriesFilter.categories[index],
+                          FilterBy.Categories);
+                      await whitepaperState.fetchFilteredWhitepapers(
+                          filterState.typesFilterList,
+                          filterState.categoriesFilterList,
+                          filterState.industriesFilterList,
+                          filterState.productsFilterList);
                       Navigator.pushReplacementNamed(
                           context, '/whitepapersScreen');
                     },
-                  ),
-                ],
+                    child: Container(
+                        width: 200.0, //TODO: check overflow??
+                        margin: EdgeInsets.symmetric(horizontal: 8.0),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Colors.teal, Colors.green]),
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                        ),
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              CategoriesFilter.categories[index],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subhead
+                                  .copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(4.0),
+                              color: Colors.greenAccent,
+                              child: Text(
+                                  '${index + 1} of ${CategoriesFilter.categories.length}'),
+                            )
+                          ],
+                        )),
+                  );
+                },
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text('Categories', style: Theme.of(context).textTheme.title),
-                  SizedBox(height: 16.0),
-                  ...CategoriesFilter.categories.map((item) => InkWell(
-                        onTap: () async {
-                          filterState.addFilter(item, FilterBy.Categories);
-                          await whitepaperState.fetchFilteredWhitepapers(
-                              filterState.typesFilterList,
-                              filterState.categoriesFilterList,
-                              filterState.industriesFilterList,
-                              filterState.productsFilterList);
-                          Navigator.pushReplacementNamed(
-                              context, '/whitepapersScreen');
-                        },
-                        child: Card(
-                          // TODO: add box decoration
-                          child: Container(
-                              decoration: BoxDecoration(
-                                  // borderRadius:
-                                  //     BorderRadius.all(Radius.circular(4.0)),
-                                  border: Border(
-                                      left: BorderSide(
-                                          color: Colors.red, width: 4.0))),
-                              padding: EdgeInsets.all(16.0),
-                              child: Text(item)),
+            SizedBox(height: 16.0),
+            Text('Types', style: Theme.of(context).textTheme.title),
+            SizedBox(height: 16.0),
+            SizedBox(
+              height: 150.0,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: TypesFilter.types.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                    //TODO: change splash color
+                    onTap: () async {
+                      filterState.addFilter(
+                          TypesFilter.types[index], FilterBy.Categories);
+                      await whitepaperState.fetchFilteredWhitepapers(
+                          filterState.typesFilterList,
+                          filterState.categoriesFilterList,
+                          filterState.industriesFilterList,
+                          filterState.productsFilterList);
+                      Navigator.pushReplacementNamed(
+                          context, '/whitepapersScreen');
+                    },
+                    child: Container(
+                        width: 200.0, //TODO: check overflow??
+                        margin: EdgeInsets.symmetric(horizontal: 8.0),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Colors.purple, Colors.blue]),
+                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
-                      ))
-                ],
+                        padding: EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              TypesFilter.types[index],
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subhead
+                                  .copyWith(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(4.0),
+                              color: Colors.purpleAccent,
+                              child: Text(
+                                  '${index + 1} of ${TypesFilter.types.length}'),
+                            )
+                          ],
+                        )),
+                  );
+                },
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Text('Types', style: Theme.of(context).textTheme.title),
-                  SizedBox(height: 16.0),
-                  ...TypesFilter.types.map((item) => InkWell(
-                        onTap: () async {
-                          filterState.addFilter(item, FilterBy.Types);
-                          await whitepaperState.fetchFilteredWhitepapers(
-                              filterState.typesFilterList,
-                              filterState.categoriesFilterList,
-                              filterState.industriesFilterList,
-                              filterState.productsFilterList);
-                          Navigator.pushReplacementNamed(
-                              context, '/whitepapersScreen');
-                        },
-                        child: Card(
-                          // TODO: add box decoration
-                          child: Container(
-                              padding: EdgeInsets.all(16.0), child: Text(item)),
-                        ),
-                      ))
-                ],
-              ),
+            SizedBox(height: 16.0),
+            Text('Products', style: Theme.of(context).textTheme.title),
+            SizedBox(height: 16.0),
+            FiltersHorizontalList(
+              filters: ProductsFilter.products,
+              filterBy: FilterBy.Products,
             )
           ],
         ),

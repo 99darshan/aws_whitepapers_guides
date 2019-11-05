@@ -16,6 +16,13 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bookmarks'),
+        actions: <Widget>[
+          //TODO: search through bookmarks
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Consumer<BookmarkState>(
         builder: (context, bookmarkState, _) {
