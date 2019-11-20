@@ -32,7 +32,7 @@ class FiltersHorizontalList extends StatelessWidget {
               Navigator.pushReplacementNamed(context, '/whitepapersScreen');
             },
             child: Container(
-                width: 210.0, //TODO: check overflow??
+                width: 280.0, //TODO: check overflow??
                 margin: EdgeInsets.symmetric(horizontal: 8.0),
                 decoration: BoxDecoration(
                   gradient:
@@ -46,13 +46,20 @@ class FiltersHorizontalList extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       filters[index],
-                      style: Theme.of(context).textTheme.subhead.copyWith(
+                      style: Theme.of(context).textTheme.headline.copyWith(
                           color: Colors.white, fontWeight: FontWeight.bold),
                     ),
                     Container(
+                      margin: EdgeInsets.only(top: 4.0),
                       padding: EdgeInsets.all(4.0),
-                      color: Colors.indigoAccent,
-                      child: Text('${index + 1} of ${filters.length}'),
+                      color: Colors.indigo,
+                      child: Text(
+                        '${index + 1} of ${filters.length}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .subhead
+                            .copyWith(color: Colors.white),
+                      ),
                     )
                   ],
                 )),

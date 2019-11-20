@@ -17,7 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
-    FilterState filterState = Provider.of<FilterState>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -25,20 +24,23 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.transparent,
         actions: <Widget>[
           CircleAvatar(
-            backgroundColor: Colors.teal[200],
+            backgroundColor: Colors.teal,
             child: IconButton(
+              color: Colors.white,
               icon: Icon(Icons.search),
               onPressed: () {},
             ),
           ),
-          SizedBox(width: 20.0),
+          SizedBox(width: 16.0),
           CircleAvatar(
-            backgroundColor: Colors.teal[200],
+            backgroundColor: Colors.teal,
             child: IconButton(
+              color: Colors.white,
               icon: Icon(Icons.collections_bookmark),
               onPressed: () {},
             ),
           ),
+          SizedBox(width: 16.0),
         ],
       ),
       body: SingleChildScrollView(
@@ -63,122 +65,48 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             SizedBox(height: 24.0),
-            Text('Categories', style: Theme.of(context).textTheme.title),
+            Text('Categories',
+                style: Theme.of(context)
+                    .textTheme
+                    .display1
+                    .copyWith(fontWeight: FontWeight.bold)),
             SizedBox(height: 16.0),
-            SizedBox(
-              height: 150.0,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: CategoriesFilter.categories.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () async {
-                      filterState.addFilter(CategoriesFilter.categories[index],
-                          FilterBy.Categories);
-                      await whitepaperState.fetchFilteredWhitepapers(
-                          filterState.typesFilterList,
-                          filterState.categoriesFilterList,
-                          filterState.industriesFilterList,
-                          filterState.productsFilterList);
-                      Navigator.pushReplacementNamed(
-                          context, '/whitepapersScreen');
-                    },
-                    child: Container(
-                        width: 200.0, //TODO: check overflow??
-                        margin: EdgeInsets.symmetric(horizontal: 8.0),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.teal, Colors.green]),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        padding: EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              CategoriesFilter.categories[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subhead
-                                  .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(4.0),
-                              color: Colors.greenAccent,
-                              child: Text(
-                                  '${index + 1} of ${CategoriesFilter.categories.length}'),
-                            )
-                          ],
-                        )),
-                  );
-                },
-              ),
+            FiltersHorizontalList(
+              filterBy: FilterBy.Categories,
+              filters: CategoriesFilter.categories,
             ),
             SizedBox(height: 16.0),
-            Text('Types', style: Theme.of(context).textTheme.title),
+            Text('Types',
+                style: Theme.of(context)
+                    .textTheme
+                    .display1
+                    .copyWith(fontWeight: FontWeight.bold)),
             SizedBox(height: 16.0),
-            SizedBox(
-              height: 150.0,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: TypesFilter.types.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    //TODO: change splash color
-                    onTap: () async {
-                      filterState.addFilter(
-                          TypesFilter.types[index], FilterBy.Categories);
-                      await whitepaperState.fetchFilteredWhitepapers(
-                          filterState.typesFilterList,
-                          filterState.categoriesFilterList,
-                          filterState.industriesFilterList,
-                          filterState.productsFilterList);
-                      Navigator.pushReplacementNamed(
-                          context, '/whitepapersScreen');
-                    },
-                    child: Container(
-                        width: 250.0, //TODO: check overflow??
-                        margin: EdgeInsets.symmetric(horizontal: 8.0),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.purple, Colors.blue]),
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        ),
-                        padding: EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              TypesFilter.types[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subhead
-                                  .copyWith(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(4.0),
-                              color: Colors.purpleAccent,
-                              child: Text(
-                                  '${index + 1} of ${TypesFilter.types.length}'),
-                            )
-                          ],
-                        )),
-                  );
-                },
-              ),
+            FiltersHorizontalList(
+              filters: TypesFilter.types,
+              filterBy: FilterBy.Types,
             ),
             SizedBox(height: 16.0),
-            Text('Products', style: Theme.of(context).textTheme.title),
+            Text('Products',
+                style: Theme.of(context)
+                    .textTheme
+                    .display1
+                    .copyWith(fontWeight: FontWeight.bold)),
             SizedBox(height: 16.0),
             FiltersHorizontalList(
               filters: ProductsFilter.products,
               filterBy: FilterBy.Products,
+            ),
+            SizedBox(height: 16.0),
+            Text('Industries',
+                style: Theme.of(context)
+                    .textTheme
+                    .display1
+                    .copyWith(fontWeight: FontWeight.bold)),
+            SizedBox(height: 16.0),
+            FiltersHorizontalList(
+              filters: IndustriesFilter.industries,
+              filterBy: FilterBy.Industries,
             )
           ],
         ),
