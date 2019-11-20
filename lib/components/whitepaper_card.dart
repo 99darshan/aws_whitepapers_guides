@@ -17,8 +17,7 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.red[
-          200], // Card color vary based on whitepapers, guides and reference, use gardient
+      color: Colors.teal,
       child: Container(
         padding: EdgeInsets.all(16.0),
         width: double.infinity,
@@ -27,11 +26,15 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(widget.whitepaperData.item.additionalFields.docTitle,
-                style: Theme.of(context).textTheme.headline),
+                style: Theme.of(context).textTheme.headline.copyWith(
+                    fontWeight: FontWeight.bold, color: Colors.white)),
             SizedBox(height: 8.0),
             Text(
               widget.whitepaperData.item.additionalFields.getDescriptionText(),
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context)
+                  .textTheme
+                  .subhead
+                  .copyWith(color: Colors.white54),
             ),
             // TODO: Tags or Categories
             SizedBox(height: 16.0),

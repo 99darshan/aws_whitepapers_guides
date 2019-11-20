@@ -40,7 +40,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
             elevation: 0.0,
             backgroundColor: Colors.transparent,
             title: Text(
-              'Whitepapers',
+              'AWS Whitepapers',
               style: Theme.of(context)
                   .textTheme
                   .headline
@@ -69,6 +69,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
             ],
           ),
           body: Container(
+              padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
               child: whitepaperState.isFetchingData
                   ? Center(child: CircularProgressIndicator())
                   : ListView.builder(

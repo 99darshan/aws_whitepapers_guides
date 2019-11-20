@@ -33,7 +33,7 @@ class FiltersHorizontalList extends StatelessWidget {
             },
             child: Container(
                 width: 280.0, //TODO: check overflow??
-                margin: EdgeInsets.symmetric(horizontal: 8.0),
+                margin: EdgeInsets.only(left: 16.0),
                 decoration: BoxDecoration(
                   gradient:
                       LinearGradient(colors: [Colors.indigo, Colors.teal]),
