@@ -18,9 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar(
-          floating: false,
+          floating: true,
           pinned: true,
-          expandedHeight: 220.0,
+          expandedHeight: MediaQuery.of(context).size.height * 0.3,
           //centerTitle: false,
           //automaticallyImplyLeading: false,
           actions: <Widget>[
@@ -28,7 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
               //backgroundColor: Colors.blue,
               label: Text('View All',
                   style: Theme.of(context).textTheme.subtitle.copyWith(
-                      color: Colors.blue, fontWeight: FontWeight.bold)),
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold)),
               onPressed: () async {
                 // fetch all whitepapers
                 await whitepaperState.initFetchWhitepapers();
@@ -36,12 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
             IconButton(
-              color: Colors.white,
+              //color: Theme.of(context).primaryColor,
               icon: Icon(Icons.search),
               onPressed: () {},
             ),
             IconButton(
-              color: Colors.white,
+              //color: Theme.of(context).primaryColor,
               icon: Icon(Icons.collections_bookmark),
               onPressed: () {
                 Navigator.pushNamed(context, '/bookmarkScreen');
@@ -53,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
               "https://d1.awsstatic.com/webteam/homepage/heroes/backgrounds/Site-Merch_Blue_Pattern_06_Hero-BG.7d47bbb326ce6d8cf1fe024aed2f682d939ddf63.png",
               fit: BoxFit.fill,
             ),
-            title: Text("AWS Whitepapers"),
+            title:
+                Text("AWS Whitepapers", style: TextStyle(color: Colors.white)),
             centerTitle: false,
             titlePadding: EdgeInsets.only(left: 16.0, bottom: 16.0),
           ),

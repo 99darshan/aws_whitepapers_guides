@@ -37,30 +37,22 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
             child: Icon(Icons.home),
           ),
           appBar: AppBar(
-            elevation: 0.0,
-            backgroundColor: Colors.transparent,
-            title: Text(
-              'AWS Whitepapers',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline
-                  .copyWith(color: Colors.teal, fontWeight: FontWeight.bold),
-            ),
+            title: Text('AWS Whitepapers'),
             actions: <Widget>[
               IconButton(
-                color: Colors.teal,
+                //color: Colors.teal,
                 icon: Icon(Icons.search),
                 onPressed: () {}, // TODO: implement search
               ),
               IconButton(
-                color: Colors.teal,
+                //color: Colors.teal,
                 icon: Icon(Icons.collections_bookmark),
                 onPressed: () {
                   Navigator.pushNamed(context, '/bookmarkScreen');
                 },
               ),
               IconButton(
-                color: Colors.teal,
+                //color: Colors.teal,
                 icon: Icon(Icons.filter_list),
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/filterScreen');
@@ -69,7 +61,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
             ],
           ),
           body: Container(
-              padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+              padding: EdgeInsets.symmetric(vertical: 08.0, horizontal: 8.0),
               child: whitepaperState.isFetchingData
                   ? Center(child: CircularProgressIndicator())
                   : ListView.builder(
