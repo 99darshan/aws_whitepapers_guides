@@ -7,7 +7,14 @@ import 'package:provider/provider.dart';
 class FiltersHorizontalList extends StatelessWidget {
   final List<String> filters;
   final FilterBy filterBy;
-  const FiltersHorizontalList({Key key, this.filters, this.filterBy})
+  final Color gradientStartColor;
+  final Color gradientEndColor;
+  const FiltersHorizontalList(
+      {Key key,
+      this.filters,
+      this.filterBy,
+      this.gradientStartColor,
+      this.gradientEndColor})
       : super(key: key);
 
   @override
@@ -17,14 +24,15 @@ class FiltersHorizontalList extends StatelessWidget {
     return SizedBox(
       height: 150.0,
       child: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 16.0),
         scrollDirection: Axis.horizontal,
         itemCount: filters.length,
         itemBuilder: (context, index) {
           return InkWell(
             //TODO: change splash color
-            onTap: () async {
+            onTap: () {
               filterState.addFilter(filters[index], filterBy);
-              await whitepaperState.fetchFilteredWhitepapers(
+              whitepaperState.fetchFilteredWhitepapers(
                   filterState.typesFilterList,
                   filterState.categoriesFilterList,
                   filterState.industriesFilterList,
@@ -33,11 +41,11 @@ class FiltersHorizontalList extends StatelessWidget {
             },
             child: Container(
                 width: 280.0, //TODO: check overflow??
-                margin: EdgeInsets.only(left: 16.0),
+                margin: EdgeInsets.only(right: 16.0),
                 decoration: BoxDecoration(
-                  gradient:
-                      LinearGradient(colors: [Colors.indigo, Colors.teal]),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  gradient: LinearGradient(
+                      colors: [this.gradientStartColor, this.gradientEndColor]),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 ),
                 padding: EdgeInsets.all(16.0),
                 child: Column(
@@ -46,13 +54,15 @@ class FiltersHorizontalList extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       filters[index],
-                      style: Theme.of(context).textTheme.headline.copyWith(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline
+                          .copyWith(color: Colors.white),
                     ),
                     Container(
-                      margin: EdgeInsets.only(top: 4.0),
+                      //margin: EdgeInsets.only(top: 4.0),
                       padding: EdgeInsets.all(4.0),
-                      color: Colors.indigo,
+                      //color: this.gradientEndColor,
                       child: Text(
                         '${index + 1} of ${filters.length}',
                         style: Theme.of(context)

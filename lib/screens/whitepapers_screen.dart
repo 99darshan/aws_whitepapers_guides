@@ -34,7 +34,10 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
               filterState.resetAllFilters();
               Navigator.pushReplacementNamed(context, '/');
             },
-            child: Icon(Icons.home),
+            child: Icon(
+              Icons.home,
+              color: Theme.of(context).secondaryHeaderColor,
+            ),
           ),
           appBar: AppBar(
             title: Text('AWS Whitepapers'),

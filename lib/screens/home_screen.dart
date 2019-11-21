@@ -30,9 +30,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   style: Theme.of(context).textTheme.subtitle.copyWith(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.bold)),
-              onPressed: () async {
+              onPressed: () {
                 // fetch all whitepapers
-                await whitepaperState.initFetchWhitepapers();
+                whitepaperState.initFetchWhitepapers();
                 Navigator.pushReplacementNamed(context, '/whitepapersScreen');
               },
             ),
@@ -73,6 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
             FiltersHorizontalList(
               filterBy: FilterBy.Categories,
               filters: CategoriesFilter.categories,
+              gradientStartColor: Colors.indigo,
+              gradientEndColor: Colors.teal,
             ),
             Padding(
               padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
@@ -85,6 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
             FiltersHorizontalList(
               filters: TypesFilter.types,
               filterBy: FilterBy.Types,
+              gradientStartColor: Colors.deepPurple,
+              gradientEndColor: Colors.deepOrange,
             ),
             Padding(
               padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
@@ -97,6 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
             FiltersHorizontalList(
               filters: ProductsFilter.products,
               filterBy: FilterBy.Products,
+              gradientStartColor: Colors.indigo,
+              gradientEndColor: Colors.teal,
             ),
             Padding(
               padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
@@ -109,6 +115,8 @@ class _HomeScreenState extends State<HomeScreen> {
             FiltersHorizontalList(
               filters: IndustriesFilter.industries,
               filterBy: FilterBy.Industries,
+              gradientStartColor: Colors.deepPurple,
+              gradientEndColor: Colors.deepOrange,
             ),
             SizedBox(
               height: 32.0,
