@@ -27,6 +27,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
       body: Consumer<BookmarkState>(
         builder: (context, bookmarkState, _) {
           return Container(
+            padding: EdgeInsets.all(8.0),
             child: ListView.builder(
               itemCount: bookmarkState.bookmarks.length,
               itemBuilder: (context, index) {

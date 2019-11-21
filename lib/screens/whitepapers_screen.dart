@@ -61,7 +61,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
             ],
           ),
           body: Container(
-              padding: EdgeInsets.symmetric(vertical: 08.0, horizontal: 8.0),
+              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
               child: whitepaperState.isFetchingData
                   ? Center(child: CircularProgressIndicator())
                   : ListView.builder(

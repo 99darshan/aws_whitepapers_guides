@@ -39,12 +39,16 @@ class _FilterScreenState extends State<FilterScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
         child: Consumer<FilterState>(
           builder: (context, filterBloc, _) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Types', style: Theme.of(context).textTheme.title),
+              Text('Types',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontWeight: FontWeight.bold)),
               SizedBox(height: 8.0),
               // FILTER BY CONTENT TYPES
               Wrap(
@@ -57,8 +61,16 @@ class _FilterScreenState extends State<FilterScreen> {
                         ))
                     .toList(),
               ),
-              SizedBox(height: 8.0),
-              Text('Categories', style: Theme.of(context).textTheme.title),
+              Divider(
+                thickness: 2.0,
+                height: 32.0,
+              ),
+              //SizedBox(height: 8.0),
+              Text('Categories',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontWeight: FontWeight.bold)),
               SizedBox(height: 8.0),
               // FILTER BY CATEGORIES
               Wrap(
@@ -71,8 +83,16 @@ class _FilterScreenState extends State<FilterScreen> {
                         ))
                     .toList(),
               ),
-              SizedBox(height: 8.0),
-              Text('Industries', style: Theme.of(context).textTheme.title),
+              Divider(
+                thickness: 2.0,
+                height: 32.0,
+              ),
+              //SizedBox(height: 8.0),
+              Text('Industries',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontWeight: FontWeight.bold)),
               SizedBox(height: 8.0),
               // FILTER BY INDUSTRY
               Wrap(
@@ -85,8 +105,18 @@ class _FilterScreenState extends State<FilterScreen> {
                         ))
                     .toList(),
               ),
+              Divider(
+                thickness: 2.0,
+                height: 32.0,
+              ),
+              //SizedBox(height: 8.0),
+              Text('Products',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontWeight: FontWeight.bold)),
               SizedBox(height: 8.0),
-              Text('Products', style: Theme.of(context).textTheme.title),
+
               Wrap(
                 spacing: 8.0,
                 children: ProductsFilter.products
