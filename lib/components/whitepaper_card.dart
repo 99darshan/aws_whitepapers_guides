@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:aws_whitepapers_guides/models/index.dart';
+import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -96,7 +97,13 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                         Icons.picture_as_pdf,
                         color: Theme.of(context).primaryColor,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return PdfViewScreen(
+                              currentWhitepaper: widget.whitepaperData);
+                        }));
+                      },
                     ),
                     IconButton(
                       icon: Icon(Icons.file_download,

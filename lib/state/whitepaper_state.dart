@@ -1,4 +1,5 @@
 import 'package:aws_whitepapers_guides/constants/filter_constants.dart';
+import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/models/rootAwsResponse.dart';
 import 'package:aws_whitepapers_guides/services/http_service.dart';
 import 'package:flutter/foundation.dart';
@@ -20,6 +21,7 @@ class WhitepaperState extends ChangeNotifier {
 
   RootAwsResponse _rootAwsResponse;
   bool _isFetchingData = false;
+  WhitepaperData _currentWhitepaper;
   // TODO: page number?? paginated results and size
 
   static const _baseUrl =
@@ -27,6 +29,11 @@ class WhitepaperState extends ChangeNotifier {
 
   RootAwsResponse get rootAwsResponse => _rootAwsResponse;
   bool get isFetchingData => _isFetchingData;
+  WhitepaperData get currentWhitepaper => _currentWhitepaper;
+
+  void setCurrentWhitepaper(WhitepaperData whitepaper) {
+    _currentWhitepaper = whitepaper;
+  }
 
   void setIsFetchingData(bool newValue) {
     _isFetchingData = newValue;

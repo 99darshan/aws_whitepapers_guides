@@ -1,6 +1,7 @@
 import 'package:aws_whitepapers_guides/screens/bookmark_screen.dart';
 import 'package:aws_whitepapers_guides/screens/filter_screen.dart';
 import 'package:aws_whitepapers_guides/screens/home_screen.dart';
+import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/screens/whitepapers_screen.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
           '/whitepapersScreen': (context) => WhitepapersScreen(),
           '/filterScreen': (context) => FilterScreen(),
           '/bookmarkScreen': (context) => BookmarkScreen(),
+          //'/pdfViewScreen': (context) => PdfViewScreen()
         },
       ),
     );
