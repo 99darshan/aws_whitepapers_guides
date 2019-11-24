@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:aws_whitepapers_guides/models/index.dart';
+import 'package:aws_whitepapers_guides/services/download_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -22,7 +23,9 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.file_download),
-            onPressed: () {},
+            onPressed: () {
+              DownloadService.downloadWhitepaper(widget.currentWhitepaper);
+            },
           )
         ],
       ),
