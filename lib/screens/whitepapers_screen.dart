@@ -1,4 +1,5 @@
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
+import 'package:aws_whitepapers_guides/screens/filter_screen.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,8 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                 //color: Colors.teal,
                 icon: Icon(Icons.filter_list),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/filterScreen');
+                  //Navigator.pushReplacementNamed(context, '/filterScreen');
+                  Navigator.pushNamed(context, '/filterScreen');
                 },
               )
             ],
