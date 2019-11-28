@@ -11,6 +11,8 @@ class BookmarkScreen extends StatefulWidget {
 }
 
 class _BookmarkScreenState extends State<BookmarkScreen> {
+  final GlobalKey<AnimatedListState> _animationKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +26,42 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
           ),
         ],
       ),
+      // TODO: if no bookmarked items exists
       body: Consumer<BookmarkState>(
         builder: (context, bookmarkState, _) {
           return Container(
             padding: EdgeInsets.all(8.0),
-            child: ListView.builder(
-              itemCount: bookmarkState.bookmarks.length,
-              itemBuilder: (context, index) {
+            child: AnimatedList(
+              key: _animationKey,
+              initialItemCount: bookmarkState.bookmarks.length,
+              itemBuilder: (context, index, animation) {
                 return WhitepaperCard(
-                  whitepaperData: bookmarkState.getBookmarkedItem(
-                      bookmarkState.bookmarks.elementAt(index)),
-                );
+                    whitepaperData: bookmarkState.getBookmarkedItem(
+                        bookmarkState.bookmarks.elementAt(index)),
+                    onBookmarkDeleteAnimation: () {
+                      _animationKey.currentState.removeItem(index,
+                          (context, animation) {
+                        return SlideTransition(
+                            position: Tween<Offset>(
+                                    begin: Offset(2.0, 0.0), end: Offset.zero)
+                                .animate(animation),
+                            child: WhitepaperCard(
+                              whitepaperData: bookmarkState.getBookmarkedItem(
+                                  bookmarkState.bookmarks.elementAt(index + 1)),
+                            ));
+                      }, duration: Duration(seconds: 1));
+                    });
               },
             ),
+            // child: ListView.builder(
+            //   itemCount: bookmarkState.bookmarks.length,
+            //   itemBuilder: (context, index) {
+            //     return WhitepaperCard(
+            //       whitepaperData: bookmarkState.getBookmarkedItem(
+            //           bookmarkState.bookmarks.elementAt(index)),
+            //     );
+            //   },
+            // ),
           );
         },
       ),

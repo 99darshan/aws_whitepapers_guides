@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 
 class WhitepaperCard extends StatefulWidget {
   final WhitepaperData whitepaperData;
-  WhitepaperCard({Key key, this.whitepaperData}) : super(key: key);
+  final Function onBookmarkDeleteAnimation;
+  WhitepaperCard({Key key, this.whitepaperData, this.onBookmarkDeleteAnimation})
+      : super(key: key);
 
   @override
   _WhitepaperCardState createState() => _WhitepaperCardState();
@@ -87,6 +89,7 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                             if (isBookmarked) {
                               bookmarkState.removeBookmark(
                                   widget.whitepaperData.item.id);
+                              widget.onBookmarkDeleteAnimation();
                             } else {
                               bookmarkState.addBookmark(
                                   widget.whitepaperData.item.id,
