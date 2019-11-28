@@ -19,7 +19,15 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.currentWhitepaper.item.additionalFields.docTitle),
+        title: Hero(
+            tag: '${widget.currentWhitepaper.item.name}',
+            child: Text(
+              widget.currentWhitepaper.item.additionalFields.docTitle,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline
+                  .copyWith(color: Colors.white),
+            )),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.file_download),
@@ -40,6 +48,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
             print('does snapshot when downloading file has error : ' +
                 snapshot.hasError.toString());
             if (snapshot.hasError) {
+              // TODO: error card on downloading
               return Text(snapshot.error.toString());
             } else {
               print(snapshot.data);

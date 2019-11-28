@@ -26,11 +26,14 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(widget.whitepaperData.item.additionalFields.docTitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline
-                    .copyWith(fontWeight: FontWeight.bold)),
+            Hero(
+              tag: '${widget.whitepaperData.item.name}',
+              child: Text(widget.whitepaperData.item.additionalFields.docTitle,
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline
+                      .copyWith(fontWeight: FontWeight.bold)),
+            ),
 
             Divider(thickness: 2.0, height: 32.0),
             Text(
