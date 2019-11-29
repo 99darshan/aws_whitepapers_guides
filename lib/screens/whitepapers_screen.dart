@@ -1,6 +1,4 @@
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
-import 'package:aws_whitepapers_guides/components/whitepapers_listview.dart';
-import 'package:aws_whitepapers_guides/screens/filter_screen.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';

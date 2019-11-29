@@ -87,9 +87,14 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                                   color: Theme.of(context).primaryColor),
                           onPressed: () {
                             if (isBookmarked) {
-                              bookmarkState.removeBookmark(
-                                  widget.whitepaperData.item.id);
-                              widget.onBookmarkDeleteAnimation();
+                              if (widget.onBookmarkDeleteAnimation != null) {
+                                widget.onBookmarkDeleteAnimation();
+                                bookmarkState.removeBookmark(
+                                    widget.whitepaperData.item.id);
+                              } else {
+                                bookmarkState.removeBookmark(
+                                    widget.whitepaperData.item.id);
+                              }
                             } else {
                               bookmarkState.addBookmark(
                                   widget.whitepaperData.item.id,
