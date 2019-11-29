@@ -28,14 +28,11 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Hero(
-              tag: '${widget.whitepaperData.item.name}',
-              child: Text(widget.whitepaperData.item.additionalFields.docTitle,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline
-                      .copyWith(fontWeight: FontWeight.bold)),
-            ),
+            Text(widget.whitepaperData.item.additionalFields.docTitle,
+                style: Theme.of(context)
+                    .textTheme
+                    .headline
+                    .copyWith(fontWeight: FontWeight.bold)),
 
             Divider(thickness: 2.0, height: 32.0),
             Text(
@@ -91,6 +88,8 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                                 widget.onBookmarkDeleteAnimation();
                                 bookmarkState.removeBookmark(
                                     widget.whitepaperData.item.id);
+                                // NOTE: this needs to be called because the bookmark screen will still have the old bookmarks set items, calling getAllBookmarks will set the bookmarks object to the recent state and notify listeners
+                                bookmarkState.getAllBookmarks();
                               } else {
                                 bookmarkState.removeBookmark(
                                     widget.whitepaperData.item.id);

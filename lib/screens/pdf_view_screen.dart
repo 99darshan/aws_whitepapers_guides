@@ -19,15 +19,9 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Hero(
-            tag: '${widget.currentWhitepaper.item.name}',
-            child: Text(
-              widget.currentWhitepaper.item.additionalFields.docTitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline
-                  .copyWith(color: Colors.white),
-            )),
+        title: Text(
+          widget.currentWhitepaper.item.additionalFields.docTitle,
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.file_download),

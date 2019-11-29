@@ -2,6 +2,7 @@ import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:provider/provider.dart';
 
 // TODO: when offline display from stored json or cache updated json
