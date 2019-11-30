@@ -24,7 +24,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                     Tween<Offset>(begin: Offset(2.0, 0.0), end: Offset.zero)
                         .animate(animation),
                 child: _buildItem(whitepaperData, index));
-          }, duration: Duration(milliseconds: 800));
+          }, duration: Duration(milliseconds: 500));
         });
   }
 

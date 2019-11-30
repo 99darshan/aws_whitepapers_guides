@@ -7,12 +7,13 @@ class DownloadsState extends ChangeNotifier {
   Future<List<String>> get allDownloadedFilesName => _allDownloadedFilesName;
 
   DownloadsState._() {
-    _fetchAllDownloadedFilesName();
+    fetchAllDownloadedFilesName();
     notifyListeners();
   }
 
-  _fetchAllDownloadedFilesName() {
+  fetchAllDownloadedFilesName() {
     _allDownloadedFilesName = DownloadService.getDownloadedFilesName();
+    notifyListeners();
   }
 
   factory DownloadsState() {
@@ -23,7 +24,7 @@ class DownloadsState extends ChangeNotifier {
     await DownloadService.deleteFile(fileName);
     // once an item is deleted the list containing all the downloaded file names should be updated as well,
     // we could re-fetch the files from local storage or just delete the item from the _allDownloadedFilesName List.
-    _fetchAllDownloadedFilesName();
+    fetchAllDownloadedFilesName();
     notifyListeners();
   }
 }

@@ -10,7 +10,7 @@ class DownloadService {
   static Future downloadWhitepaper(WhitepaperData whitepaper) async {
     var taskId = await FlutterDownloader.enqueue(
       url: whitepaper.item.additionalFields.primaryURL,
-      fileName: whitepaper.item.name,
+      fileName: whitepaper.item.additionalFields.docTitle,
       savedDir: await _findLocalPath(),
       showNotification: true,
       openFileFromNotification: true,

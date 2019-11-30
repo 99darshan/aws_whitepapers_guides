@@ -3,6 +3,7 @@ import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/services/download_service.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
+import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -118,14 +119,18 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                         }));
                       },
                     ),
-                    IconButton(
-                      icon: Icon(Icons.file_download,
-                          color: Theme.of(context).primaryColor),
-                      onPressed: () {
-                        DownloadService.downloadWhitepaper(
-                            widget.whitepaperData);
-                      },
-                    ),
+                    Consumer<DownloadsState>(
+                        builder: (context, downloadState, _) {
+                      return IconButton(
+                        icon: Icon(Icons.file_download,
+                            color: Theme.of(context).primaryColor),
+                        onPressed: () {
+                          DownloadService.downloadWhitepaper(
+                              widget.whitepaperData);
+                          downloadState.fetchAllDownloadedFilesName();
+                        },
+                      );
+                    }),
                   ],
                 )
               ],
