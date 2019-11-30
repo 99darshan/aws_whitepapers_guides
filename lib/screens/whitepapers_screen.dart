@@ -30,58 +30,60 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
     FilterState filterState = Provider.of<FilterState>(context);
     return Consumer<WhitepaperState>(builder: (context, whitepaperState, _) {
       return Scaffold(
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              // reset all existing filters when navigating to home
-              filterState.resetAllFilters();
-              Navigator.pushReplacementNamed(context, '/');
-            },
-            child: Icon(
-              Icons.home,
-              color: Theme.of(context).secondaryHeaderColor,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            // reset all existing filters when navigating to home
+            filterState.resetAllFilters();
+            Navigator.pushReplacementNamed(context, '/');
+          },
+          child: Icon(
+            Icons.home,
+            color: Theme.of(context).secondaryHeaderColor,
+          ),
+        ),
+        appBar: AppBar(
+          title: Text('AWS Whitepapers'),
+          actions: <Widget>[
+            IconButton(
+              //color: Colors.teal,
+              icon: Icon(Icons.search),
+              onPressed: () {}, // TODO: implement search
             ),
-          ),
-          appBar: AppBar(
-            title: Text('AWS Whitepapers'),
-            actions: <Widget>[
-              IconButton(
-                //color: Colors.teal,
-                icon: Icon(Icons.search),
-                onPressed: () {}, // TODO: implement search
-              ),
-              IconButton(
-                //color: Colors.teal,
-                icon: Icon(Icons.collections_bookmark),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/bookmarkScreen');
-                },
-              ),
-              IconButton(
-                //color: Colors.teal,
-                icon: Icon(Icons.filter_list),
-                onPressed: () {
-                  //Navigator.pushReplacementNamed(context, '/filterScreen');
-                  Navigator.pushNamed(context, '/filterScreen');
-                },
-              )
-            ],
-          ),
-          body: Container(
-            padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-            child: whitepaperState.isFetchingData
-                ? ShimmerList()
-                //? Center(child: CircularProgressIndicator())
+            IconButton(
+              //color: Colors.teal,
+              icon: Icon(Icons.collections_bookmark),
+              onPressed: () {
+                Navigator.pushNamed(context, '/bookmarkScreen');
+              },
+            ),
+            IconButton(
+              //color: Colors.teal,
+              icon: Icon(Icons.filter_list),
+              onPressed: () {
+                //Navigator.pushReplacementNamed(context, '/filterScreen');
+                Navigator.pushNamed(context, '/filterScreen');
+              },
+            )
+          ],
+        ),
+        body: Container(
+          color: Colors.grey[200],
+          //padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+          child: whitepaperState.isFetchingData
+              ? ShimmerList()
+              //? Center(child: CircularProgressIndicator())
 
-                // TODO: show no data widget if filtered result fetches no cards
-                : ListView.builder(
-                    itemCount: whitepaperState.rootAwsResponse.items.length,
-                    itemBuilder: (context, index) {
-                      return WhitepaperCard(
-                          whitepaperData:
-                              whitepaperState.rootAwsResponse.items[index]);
-                    },
-                  ),
-          ));
+              // TODO: show no data widget if filtered result fetches no cards
+              : ListView.builder(
+                  itemCount: whitepaperState.rootAwsResponse.items.length,
+                  itemBuilder: (context, index) {
+                    return WhitepaperCard(
+                        whitepaperData:
+                            whitepaperState.rootAwsResponse.items[index]);
+                  },
+                ),
+        ),
+      );
     });
   }
 }

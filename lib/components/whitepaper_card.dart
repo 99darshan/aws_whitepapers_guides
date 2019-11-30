@@ -21,7 +21,9 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      margin: EdgeInsets.symmetric(vertical: 4.0),
+      elevation: 2.0,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

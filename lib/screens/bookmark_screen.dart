@@ -24,7 +24,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                     Tween<Offset>(begin: Offset(2.0, 0.0), end: Offset.zero)
                         .animate(animation),
                 child: _buildItem(whitepaperData, index));
-          }, duration: Duration(milliseconds: 500));
+          }, duration: Duration(milliseconds: 800));
         });
   }
 
@@ -44,7 +44,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
       ),
       // TODO: if no bookmarked items exists
       body: Container(
-        padding: EdgeInsets.all(8.0),
+        color: Colors.grey[200],
+        //padding: EdgeInsets.all(8.0),
         child: bookmarkState.bookmarks.length > 0
             ? AnimatedList(
                 key: _animationKey,
@@ -57,42 +58,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                 },
               )
             : Text("no bookmarks found"),
-        // child: ListView.builder(
-        //   itemCount: bookmarkState.bookmarks.length,
-        //   itemBuilder: (context, index) {
-        //     return WhitepaperCard(
-        //       whitepaperData: bookmarkState.getBookmarkedItem(
-        //           bookmarkState.bookmarks.elementAt(index)),
-        //     );
-        //   },
-        // ),
       ),
-      // body: Container(
-      //     child: FutureBuilder(
-      //   future: BookmarkService.getAllKeys(),
-      //   builder: (context, AsyncSnapshot<Set<String>> snapshot) {
-      //     if (snapshot.hasData) {
-      //       return ListView.builder(
-      //         itemCount: snapshot.data.length,
-      //         itemBuilder: (context, index) {
-      //           return FutureBuilder(
-      //             future: BookmarkService.getBookmarkedItem(
-      //                 snapshot.data.elementAt(index)),
-      //             builder: (_, itemSnapshot) {
-      //               return itemSnapshot.connectionState == ConnectionState.done
-      //                   ? WhitepaperCard(
-      //                       whitepaperData: itemSnapshot.data,
-      //                     )
-      //                   : Container();
-      //             },
-      //           );
-      //         },
-      //       );
-      //     } else {
-      //       return Text('No Bookmarks found');
-      //     }
-      //   },
-      // )),
     );
   }
 }
