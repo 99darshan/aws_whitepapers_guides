@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:aws_whitepapers_guides/services/download_service.dart';
+import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DownloadsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    DownloadsState downloadsState = Provider.of<DownloadsState>(context);
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -14,7 +17,7 @@ class DownloadsScreen extends StatelessWidget {
         body: Container(
           color: Colors.grey[200],
           child: FutureBuilder(
-              future: DownloadService.getDownloadedFilesName(),
+              future: downloadsState.allDownloadedFilesName,
               builder: (context, snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return Center(
@@ -29,7 +32,10 @@ class DownloadsScreen extends StatelessWidget {
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            //downloadsState.deleteFile(snapshot.data[index]);
+                            //DownloadService.deleteFile(snapshot.data[index]);
+                          },
                           child: Card(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.zero),
@@ -42,7 +48,10 @@ class DownloadsScreen extends StatelessWidget {
                                 title: Text(snapshot.data[index]),
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    downloadsState
+                                        .deleteFile(snapshot.data[index]);
+                                  },
                                 ),
                               ),
                             ),

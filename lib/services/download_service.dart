@@ -18,6 +18,14 @@ class DownloadService {
     //_showDownloadDialog(article);
   }
 
+  static Future deleteFile(String fileName) async {
+    String path = await _findLocalPath();
+    path = '$path/$fileName';
+
+    final dir = Directory(path);
+    await dir.delete(recursive: true);
+  }
+
   static Future<List<String>> getDownloadedFilesName() async {
     List<String> fileNamesIndir = [];
     String path = await _findLocalPath();

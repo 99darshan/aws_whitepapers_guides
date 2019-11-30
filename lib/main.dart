@@ -5,6 +5,7 @@ import 'package:aws_whitepapers_guides/screens/home_screen.dart';
 import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/screens/whitepapers_screen.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
+import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<BookmarkState>(
           builder: (_) => BookmarkState(),
-        )
+        ),
+        ChangeNotifierProvider<DownloadsState>(
+          builder: (_) => DownloadsState(),
+        ),
         //Provider.value(value: WhitepaperBloc())
       ],
       child: MaterialApp(
