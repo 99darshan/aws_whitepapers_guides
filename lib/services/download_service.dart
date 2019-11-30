@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:path/path.dart' as pathLib;
 
 import 'package:aws_whitepapers_guides/models/whitepaperData.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
@@ -15,6 +16,21 @@ class DownloadService {
       openFileFromNotification: true,
     );
     //_showDownloadDialog(article);
+  }
+
+  static Future<List<String>> getDownloadedFilesName() async {
+    List<String> fileNamesIndir = [];
+    String path = await _findLocalPath();
+    // _findl local path will create directory if it doesn't exists initially
+    final dir = new Directory(path);
+    List<FileSystemEntity> dirContents = dir.listSync();
+    for (FileSystemEntity item in dirContents) {
+      if (item is File) {
+        print('filepath ' + item.path);
+        fileNamesIndir.add(pathLib.basename(item.path));
+      }
+    }
+    return fileNamesIndir;
   }
 
   // TODO: answer this https://stackoverflow.com/questions/51776109/how-to-get-the-absolute-path-to-the-download-folder/51777119

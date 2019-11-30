@@ -3,7 +3,6 @@ import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import 'package:provider/provider.dart';
 
 // TODO: when offline display from stored json or cache updated json
@@ -44,6 +43,12 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
         appBar: AppBar(
           title: Text('AWS Whitepapers'),
           actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.file_download),
+              onPressed: () {
+                Navigator.pushNamed(context, '/downloadsScreen');
+              },
+            ),
             IconButton(
               //color: Colors.teal,
               icon: Icon(Icons.search),
