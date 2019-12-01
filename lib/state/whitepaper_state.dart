@@ -20,6 +20,7 @@ class WhitepaperState extends ChangeNotifier {
   }
 
   RootAwsResponse _rootAwsResponse;
+  RootAwsResponse _searchAwsReponse;
   bool _isFetchingData = false;
   WhitepaperData _currentWhitepaper;
   // TODO: page number?? paginated results and size
@@ -28,6 +29,7 @@ class WhitepaperState extends ChangeNotifier {
       'https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&size=100&item.locale=en_US&page=0';
 
   RootAwsResponse get rootAwsResponse => _rootAwsResponse;
+  RootAwsResponse get searchAwsResponse => _searchAwsReponse;
   bool get isFetchingData => _isFetchingData;
   WhitepaperData get currentWhitepaper => _currentWhitepaper;
 
@@ -43,6 +45,14 @@ class WhitepaperState extends ChangeNotifier {
   Future initFetchWhitepapers() async {
     setIsFetchingData(true);
     _rootAwsResponse = await HttpService.fetchData(_baseUrl);
+    setIsFetchingData(false);
+  }
+
+  Future fetchWhitepapersBySearchKeywords(String searchKeyword) async {
+    setIsFetchingData(true);
+    String queryUrl = '$_baseUrl&q=$searchKeyword&q_operator=AND';
+    _searchAwsReponse = await HttpService.fetchData(queryUrl);
+    //notifyListeners();
     setIsFetchingData(false);
   }
 

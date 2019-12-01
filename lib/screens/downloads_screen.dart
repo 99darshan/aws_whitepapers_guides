@@ -54,7 +54,7 @@ class DownloadsScreen extends StatelessWidget {
   }
 
   Widget _buildDownloadsListItem(context, index, item, downloadsState) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => PdfViewScreen(
@@ -63,7 +63,7 @@ class DownloadsScreen extends StatelessWidget {
       },
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-        margin: EdgeInsets.symmetric(vertical: 4.0),
+        margin: EdgeInsets.symmetric(vertical: 1.0),
         elevation: 2.0,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -86,7 +86,7 @@ class DownloadsScreen extends StatelessWidget {
                           context, index, item, downloadsState),
                     ),
                   );
-                }, duration: Duration(milliseconds: 1500));
+                }, duration: Duration(milliseconds: 700));
               },
             ),
           ),
