@@ -8,6 +8,7 @@ import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _pageController = PageController();
   var _screens = [
     HomeScreen(),
     //WhitepapersScreen(),
@@ -32,6 +34,7 @@ class _MyAppState extends State<MyApp> {
     BookmarkScreen(),
     DownloadsScreen()
   ];
+
   int _selectedScreenIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -83,53 +86,105 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           body: SafeArea(
-            child: _screens[_selectedScreenIndex],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-              //fixedColor: Theme.of(context).primaryColor,
-              //backgroundColor: Theme.of(context).accentColor,
-              selectedItemColor: Colors.orange,
-              //unselectedItemColor: Colors.grey,
-              showUnselectedLabels: true,
-              currentIndex: _selectedScreenIndex,
-              type: BottomNavigationBarType.fixed,
-              onTap: (index) {
+            //child: _screens[_selectedScreenIndex],
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
                 setState(() {
                   _selectedScreenIndex = index;
                 });
               },
-              items: [
-                BottomNavigationBarItem(
+              children: <Widget>[
+                HomeScreen(),
+                SearchScreen(),
+                BookmarkScreen(),
+                DownloadsScreen()
+              ],
+            ),
+          ),
+          bottomNavigationBar: BottomNavyBar(
+            selectedIndex: _selectedScreenIndex,
+            animationDuration: Duration(milliseconds: 300),
+            onItemSelected: (index) {
+              setState(() {
+                _selectedScreenIndex = index;
+                _pageController.animateToPage(index,
+                    curve: Curves.easeIn,
+                    duration: Duration(milliseconds: 300));
+              });
+            },
+            //backgroundColor: Colors.white10,
+            showElevation: true,
+            items: [
+              BottomNavyBarItem(
                   title: Text('Home'),
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                ),
-                // BottomNavigationBarItem(
-                //   title: Text('Whitepapers'),
-                //   icon: Icon(
-                //     Icons.receipt,
-                //   ),
-                // ),
-                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  activeColor: Colors.orange,
+                  inactiveColor: Colors.grey),
+              BottomNavyBarItem(
                   title: Text('Search'),
                   icon: Icon(
                     Icons.search,
                   ),
-                ),
-                BottomNavigationBarItem(
+                  activeColor: Colors.orange,
+                  inactiveColor: Colors.grey),
+              BottomNavyBarItem(
                   title: Text('Bookmarks'),
-                  icon: Icon(
-                    Icons.collections_bookmark,
-                  ),
-                ),
-                BottomNavigationBarItem(
+                  icon: Icon(Icons.collections_bookmark),
+                  activeColor: Colors.orange,
+                  inactiveColor: Colors.grey),
+              BottomNavyBarItem(
                   title: Text('Downloads'),
-                  icon: Icon(
-                    Icons.file_download,
-                  ),
-                ),
-              ]),
+                  icon: Icon(Icons.file_download),
+                  activeColor: Colors.orange,
+                  inactiveColor: Colors.grey),
+            ],
+          ),
+          // bottomNavigationBar: BottomNavigationBar(
+          //     //fixedColor: Theme.of(context).primaryColor,
+          //     //backgroundColor: Theme.of(context).accentColor,
+          //     selectedItemColor: Colors.orange,
+          //     //unselectedItemColor: Colors.grey,
+          //     showUnselectedLabels: true,
+          //     currentIndex: _selectedScreenIndex,
+          //     type: BottomNavigationBarType.fixed,
+          //     onTap: (index) {
+          //       setState(() {
+          //         _selectedScreenIndex = index;
+          //       });
+          //     },
+          //     items: [
+          //       BottomNavigationBarItem(
+          //         title: Text('Home'),
+          //         icon: Icon(
+          //           Icons.home,
+          //         ),
+          //       ),
+          //       // BottomNavigationBarItem(
+          //       //   title: Text('Whitepapers'),
+          //       //   icon: Icon(
+          //       //     Icons.receipt,
+          //       //   ),
+          //       // ),
+          //       BottomNavigationBarItem(
+          //         title: Text('Search'),
+          //         icon: Icon(
+          //           Icons.search,
+          //         ),
+          //       ),
+          //       BottomNavigationBarItem(
+          //         title: Text('Bookmarks'),
+          //         icon: Icon(
+          //           Icons.collections_bookmark,
+          //         ),
+          //       ),
+          //       BottomNavigationBarItem(
+          //         title: Text('Downloads'),
+          //         icon: Icon(
+          //           Icons.file_download,
+          //         ),
+          //       ),
+          //     ]),
         ),
         //initialRoute: '/',
         routes: {
