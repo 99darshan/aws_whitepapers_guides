@@ -45,24 +45,6 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
           title: Text('AWS Whitepapers'),
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.file_download),
-              onPressed: () {
-                Navigator.pushNamed(context, '/downloadsScreen');
-              },
-            ),
-            IconButton(
-              //color: Colors.teal,
-              icon: Icon(Icons.search),
-              onPressed: () {}, // TODO: implement search
-            ),
-            IconButton(
-              //color: Colors.teal,
-              icon: Icon(Icons.collections_bookmark),
-              onPressed: () {
-                Navigator.pushNamed(context, '/bookmarkScreen');
-              },
-            ),
-            IconButton(
               //color: Colors.teal,
               icon: Icon(Icons.filter_list),
               onPressed: () {

@@ -23,33 +23,21 @@ class _HomeScreenState extends State<HomeScreen> {
           expandedHeight: MediaQuery.of(context).size.height * 0.3,
           //centerTitle: false,
           //automaticallyImplyLeading: false,
-          actions: <Widget>[
-            ActionChip(
-              //backgroundColor: Colors.blue,
-              label: Text('View All',
-                  style: Theme.of(context).textTheme.subtitle.copyWith(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold)),
-              onPressed: () {
-                // fetch all whitepapers
-                whitepaperState.initFetchWhitepapers();
-                Navigator.of(context)
-                    .pushReplacementNamed('/whitepapersScreen');
-              },
-            ),
-            IconButton(
-              //color: Theme.of(context).primaryColor,
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            ),
-            IconButton(
-              //color: Theme.of(context).primaryColor,
-              icon: Icon(Icons.collections_bookmark),
-              onPressed: () {
-                Navigator.pushNamed(context, '/bookmarkScreen');
-              },
-            ),
-          ],
+          // actions: <Widget>[
+          //   ActionChip(
+          //     //backgroundColor: Colors.blue,
+          //     label: Text('View All',
+          //         style: Theme.of(context).textTheme.subtitle.copyWith(
+          //             color: Theme.of(context).primaryColor,
+          //             fontWeight: FontWeight.bold)),
+          //     onPressed: () {
+          //       // fetch all whitepapers
+          //       whitepaperState.initFetchWhitepapers();
+          //       Navigator.of(context)
+          //           .pushReplacementNamed('/whitepapersScreen');
+          //     },
+          //   ),
+          // ],
           flexibleSpace: FlexibleSpaceBar(
             background: Image.network(
               "https://d1.awsstatic.com/webteam/homepage/heroes/backgrounds/Site-Merch_Blue_Pattern_06_Hero-BG.7d47bbb326ce6d8cf1fe024aed2f682d939ddf63.png",
