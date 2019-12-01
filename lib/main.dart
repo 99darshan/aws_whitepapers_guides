@@ -104,13 +104,14 @@ class _MyAppState extends State<MyApp> {
           ),
           bottomNavigationBar: BottomNavyBar(
             selectedIndex: _selectedScreenIndex,
-            animationDuration: Duration(milliseconds: 300),
+            //animationDuration: Duration(milliseconds: 300),
             onItemSelected: (index) {
               setState(() {
                 _selectedScreenIndex = index;
-                _pageController.animateToPage(index,
-                    curve: Curves.easeIn,
-                    duration: Duration(milliseconds: 300));
+                _pageController.jumpToPage(index);
+                // _pageController.animateToPage(index,
+                //     curve: Curves.easeIn,
+                //     duration: Duration(milliseconds: 300));
               });
             },
             //backgroundColor: Colors.white10,

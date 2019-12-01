@@ -73,17 +73,20 @@ class DownloadsScreen extends StatelessWidget {
             trailing: IconButton(
               icon: Icon(Icons.delete),
               onPressed: () {
+                downloadsState.deleteFile(item);
                 _downloadsAnimatedListKey.currentState.removeItem(index,
                     (context, animation) {
-                  return SlideTransition(
-                    position:
-                        Tween<Offset>(begin: Offset(2.0, 0.0), end: Offset.zero)
-                            .animate(animation),
-                    child: _buildDownloadsListItem(
-                        context, index, item, downloadsState),
+                  return FadeTransition(
+                    opacity: CurvedAnimation(
+                        curve: Curves.easeIn, parent: animation),
+                    child: SizeTransition(
+                      sizeFactor: CurvedAnimation(
+                          parent: animation, curve: Curves.easeOutCubic),
+                      child: _buildDownloadsListItem(
+                          context, index, item, downloadsState),
+                    ),
                   );
-                }, duration: Duration(milliseconds: 700));
-                downloadsState.deleteFile(item);
+                }, duration: Duration(milliseconds: 1500));
               },
             ),
           ),
