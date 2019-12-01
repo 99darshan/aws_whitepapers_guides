@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/services/download_service.dart';
 import 'package:flutter/foundation.dart';
@@ -7,8 +8,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 
 class PdfViewScreen extends StatefulWidget {
-  final WhitepaperData currentWhitepaper;
-  PdfViewScreen({Key key, @required this.currentWhitepaper}) : super(key: key);
+  final WhitepaperData
+      currentWhitepaper; // when view pdf is clicked from bookmarks and whitepapers screen
+  final String whitepaperFileName; // when viewed from downloads screen
+  PdfViewScreen({Key key, this.currentWhitepaper, this.whitepaperFileName})
+      : super(key: key);
 
   @override
   _PdfViewScreenState createState() => _PdfViewScreenState();
@@ -20,24 +24,32 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          widget.currentWhitepaper.item.additionalFields.docTitle,
+          widget.currentWhitepaper != null
+              ? widget.currentWhitepaper.item.additionalFields.docTitle
+              : widget.whitepaperFileName,
         ),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.file_download),
-            onPressed: () {
-              DownloadService.downloadWhitepaper(widget.currentWhitepaper);
-            },
-          )
+          widget.currentWhitepaper != null
+              ? IconButton(
+                  icon: Icon(Icons.file_download),
+                  onPressed: () {
+                    DownloadService.downloadWhitepaper(
+                        widget.currentWhitepaper);
+                  },
+                )
+              : SizedBox(width: 0, height: 0)
         ],
       ),
       body: FutureBuilder(
-        future: createFileOfPdfUrl(),
+        future: widget.currentWhitepaper != null
+            ? createFileOfPdfUrl()
+            : DownloadService.getDownloadedFilePath(widget.whitepaperFileName),
         builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            // return Center(
+            //   child: CircularProgressIndicator(),
+            // );
+            return ShimmerList();
           } else {
             print('does snapshot when downloading file has error : ' +
                 snapshot.hasError.toString());
@@ -47,7 +59,9 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
             } else {
               print(snapshot.data);
               return PDFView(
-                filePath: snapshot.data.path,
+                filePath: widget.currentWhitepaper != null
+                    ? snapshot.data.path
+                    : snapshot.data,
                 enableSwipe: true,
                 swipeHorizontal: false,
                 autoSpacing: true,

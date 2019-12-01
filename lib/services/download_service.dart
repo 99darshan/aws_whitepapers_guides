@@ -8,13 +8,14 @@ import 'package:path_provider/path_provider.dart';
 class DownloadService {
   // this download function reference will be passed to any view pdf screen as well
   static Future downloadWhitepaper(WhitepaperData whitepaper) async {
-    var taskId = await FlutterDownloader.enqueue(
+    String taskId = await FlutterDownloader.enqueue(
       url: whitepaper.item.additionalFields.primaryURL,
       fileName: whitepaper.item.additionalFields.docTitle,
       savedDir: await _findLocalPath(),
       showNotification: true,
       openFileFromNotification: true,
     );
+
     //_showDownloadDialog(article);
   }
 
@@ -24,6 +25,12 @@ class DownloadService {
 
     final dir = Directory(path);
     await dir.delete(recursive: true);
+  }
+
+  static Future<File> getDownloadedFile(String fileName) async {
+    String path = await _findLocalPath();
+    print('getting file.....');
+    return File('$path/$fileName.pdf');
   }
 
   static Future<List<String>> getDownloadedFilesName() async {
@@ -39,6 +46,11 @@ class DownloadService {
       }
     }
     return fileNamesIndir;
+  }
+
+  static Future<String> getDownloadedFilePath(String fileName) async {
+    String path = await _findLocalPath();
+    return '$path/$fileName';
   }
 
   // TODO: answer this https://stackoverflow.com/questions/51776109/how-to-get-the-absolute-path-to-the-download-folder/51777119

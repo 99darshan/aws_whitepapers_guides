@@ -38,7 +38,8 @@ class _FilterScreenState extends State<FilterScreen> {
                     filterState.categoriesFilterList,
                     filterState.industriesFilterList,
                     filterState.productsFilterList);
-                Navigator.pushReplacementNamed(context, '/whitepapersScreen');
+                return Navigator.of(context)
+                    .popAndPushNamed('/whiteppaersScreen');
               },
             ),
           ],
