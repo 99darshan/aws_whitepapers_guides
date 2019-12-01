@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DownloadsScreen extends StatelessWidget {
+  final GlobalKey<AnimatedListState> _downloadsAnimatedListKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     DownloadsState downloadsState = Provider.of<DownloadsState>(context);
@@ -36,42 +37,56 @@ class DownloadsScreen extends StatelessWidget {
                     return Text(snapshot.error.toString());
                   } else {
                     // TODO: show downloaded item is the count is zero
-                    return ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => PdfViewScreen(
-                                      whitepaperFileName: snapshot.data[index],
-                                    )));
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero),
-                            margin: EdgeInsets.symmetric(vertical: 4.0),
-                            elevation: 2.0,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: ListTile(
-                                leading: null,
-                                title: Text(snapshot.data[index]),
-                                trailing: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  onPressed: () {
-                                    downloadsState
-                                        .deleteFile(snapshot.data[index]);
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
+                    return AnimatedList(
+                      key: _downloadsAnimatedListKey,
+                      initialItemCount: snapshot.data.length,
+                      itemBuilder: (context, index, animation) {
+                        return _buildDownloadsListItem(context, index,
+                            snapshot.data[index], downloadsState);
                       },
                     );
                   }
                 }
               }),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDownloadsListItem(context, index, item, downloadsState) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => PdfViewScreen(
+                  whitepaperFileName: item,
+                )));
+      },
+      child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        margin: EdgeInsets.symmetric(vertical: 4.0),
+        elevation: 2.0,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListTile(
+            leading: null,
+            title: Text(item),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                _downloadsAnimatedListKey.currentState.removeItem(index,
+                    (context, animation) {
+                  return SlideTransition(
+                    position:
+                        Tween<Offset>(begin: Offset(2.0, 0.0), end: Offset.zero)
+                            .animate(animation),
+                    child: _buildDownloadsListItem(
+                        context, index, item, downloadsState),
+                  );
+                }, duration: Duration(milliseconds: 700));
+                downloadsState.deleteFile(item);
+              },
+            ),
+          ),
         ),
       ),
     );

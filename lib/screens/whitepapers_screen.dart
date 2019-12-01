@@ -33,7 +33,8 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
           onPressed: () {
             // reset all existing filters when navigating to home
             filterState.resetAllFilters();
-            Navigator.pushReplacementNamed(context, '/');
+
+            Navigator.of(context).pushReplacementNamed('/');
           },
           child: Icon(
             Icons.home,

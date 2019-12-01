@@ -33,7 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {
                 // fetch all whitepapers
                 whitepaperState.initFetchWhitepapers();
-                Navigator.pushReplacementNamed(context, '/whitepapersScreen');
+                Navigator.of(context)
+                    .pushReplacementNamed('/whitepapersScreen');
               },
             ),
             IconButton(

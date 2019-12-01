@@ -2,7 +2,7 @@ import 'package:aws_whitepapers_guides/screens/bookmark_screen.dart';
 import 'package:aws_whitepapers_guides/screens/downloads_screen.dart';
 import 'package:aws_whitepapers_guides/screens/filter_screen.dart';
 import 'package:aws_whitepapers_guides/screens/home_screen.dart';
-import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
+import 'package:aws_whitepapers_guides/screens/search_screen.dart';
 import 'package:aws_whitepapers_guides/screens/whitepapers_screen.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
@@ -11,16 +11,34 @@ import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   await FlutterDownloader.initialize();
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var _screens = [
+    HomeScreen(),
+    WhitepapersScreen(),
+    SearchScreen(),
+    BookmarkScreen(),
+    DownloadsScreen()
+  ];
+  int _selectedScreenIndex = 0;
+  @override
   Widget build(BuildContext context) {
+    // Changes color of status bar
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+      statusBarColor: Theme.of(context).primaryColor,
+    ));
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<FilterState>(
@@ -59,10 +77,59 @@ class MyApp extends StatelessWidget {
               ),
         ),
         debugShowCheckedModeBanner: false,
-        //home: HomeScreen(),
-        initialRoute: '/',
+        home: Scaffold(
+          body: SafeArea(
+            child: _screens[_selectedScreenIndex],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+              //fixedColor: Theme.of(context).primaryColor,
+              //backgroundColor: Theme.of(context).accentColor,
+              //selectedItemColor: Theme.of(context).accentColor,
+              //unselectedItemColor: Colors.grey,
+              showUnselectedLabels: true,
+              currentIndex: _selectedScreenIndex,
+              type: BottomNavigationBarType.fixed,
+              onTap: (index) {
+                setState(() {
+                  _selectedScreenIndex = index;
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                  title: Text('Home'),
+                  icon: Icon(
+                    Icons.home,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  title: Text('Whitepapers'),
+                  icon: Icon(
+                    Icons.receipt,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  title: Text('Search'),
+                  icon: Icon(
+                    Icons.search,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  title: Text('Bookmarks'),
+                  icon: Icon(
+                    Icons.collections_bookmark,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  title: Text('Downloads'),
+                  icon: Icon(
+                    Icons.file_download,
+                  ),
+                ),
+              ]),
+        ),
+        //initialRoute: '/',
         routes: {
-          '/': (context) => HomeScreen(),
+          //'/': (context) => HomeScreen(),
           '/whitepapersScreen': (context) => WhitepapersScreen(),
           '/filterScreen': (context) => FilterScreen(),
           '/bookmarkScreen': (context) => BookmarkScreen(),
