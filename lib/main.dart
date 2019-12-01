@@ -27,7 +27,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _screens = [
     HomeScreen(),
-    WhitepapersScreen(),
+    //WhitepapersScreen(),
     SearchScreen(),
     BookmarkScreen(),
     DownloadsScreen()
@@ -62,6 +62,10 @@ class _MyAppState extends State<MyApp> {
           brightness: Brightness.light,
           primaryColor: Colors.lightBlue[800],
           accentColor: Colors.orange[600],
+          // colorScheme: ColorScheme(
+          //     primary: Colors.lightBlue[800],
+          //     secondary: Colors.orange[600],
+          //     onError: Colors.red),
 
           // Define the default font family.
           //fontFamily: 'Montserrat',
@@ -84,7 +88,7 @@ class _MyAppState extends State<MyApp> {
           bottomNavigationBar: BottomNavigationBar(
               //fixedColor: Theme.of(context).primaryColor,
               //backgroundColor: Theme.of(context).accentColor,
-              //selectedItemColor: Theme.of(context).accentColor,
+              selectedItemColor: Colors.orange,
               //unselectedItemColor: Colors.grey,
               showUnselectedLabels: true,
               currentIndex: _selectedScreenIndex,
@@ -101,12 +105,12 @@ class _MyAppState extends State<MyApp> {
                     Icons.home,
                   ),
                 ),
-                BottomNavigationBarItem(
-                  title: Text('Whitepapers'),
-                  icon: Icon(
-                    Icons.receipt,
-                  ),
-                ),
+                // BottomNavigationBarItem(
+                //   title: Text('Whitepapers'),
+                //   icon: Icon(
+                //     Icons.receipt,
+                //   ),
+                // ),
                 BottomNavigationBarItem(
                   title: Text('Search'),
                   icon: Icon(
@@ -132,8 +136,8 @@ class _MyAppState extends State<MyApp> {
           //'/': (context) => HomeScreen(),
           '/whitepapersScreen': (context) => WhitepapersScreen(),
           '/filterScreen': (context) => FilterScreen(),
-          '/bookmarkScreen': (context) => BookmarkScreen(),
-          '/downloadsScreen': (context) => DownloadsScreen()
+          //'/bookmarkScreen': (context) => BookmarkScreen(),
+          //'/downloadsScreen': (context) => DownloadsScreen()
           //'/pdfViewScreen': (context) => PdfViewScreen()
         },
       ),

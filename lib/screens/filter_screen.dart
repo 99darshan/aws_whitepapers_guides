@@ -18,7 +18,7 @@ class _FilterScreenState extends State<FilterScreen> {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
     FilterState filterState = Provider.of<FilterState>(context);
     return WillPopScope(
-      onWillPop: () async {
+      onWillPop: () {
         whitepaperState.fetchFilteredWhitepapers(
             filterState.typesFilterList,
             filterState.categoriesFilterList,

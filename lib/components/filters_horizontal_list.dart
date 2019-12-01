@@ -37,7 +37,8 @@ class FiltersHorizontalList extends StatelessWidget {
                   filterState.categoriesFilterList,
                   filterState.industriesFilterList,
                   filterState.productsFilterList);
-              Navigator.of(context).pushReplacementNamed('/whitepapersScreen');
+
+              Navigator.of(context).pushNamed('/whitepapersScreen');
             },
             child: Container(
                 width: 280.0, //TODO: check overflow??
