@@ -6,8 +6,8 @@ class ShimmerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
+    return SingleChildScrollView(
+      //width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -16,7 +16,7 @@ class ShimmerList extends StatelessWidget {
             baseColor: Colors.grey[300],
             highlightColor: Colors.grey[100],
             child: Column(
-              children: [0, 1, 2, 3, 4, 5]
+              children: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
                   .map((_) => Padding(
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Row(

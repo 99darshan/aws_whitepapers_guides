@@ -86,7 +86,7 @@ class DownloadsScreen extends StatelessWidget {
                           context, index, item, downloadsState),
                     ),
                   );
-                }, duration: Duration(milliseconds: 700));
+                }, duration: Duration(milliseconds: 1200));
               },
             ),
           ),
