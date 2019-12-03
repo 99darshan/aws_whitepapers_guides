@@ -9,6 +9,7 @@ class SearchState extends ChangeNotifier {
 
   updateRecentSearches(String searchTerm) {
     if (!_recentSearches.contains(searchTerm)) {
+      if (_recentSearches.length > 10) _recentSearches.removeAt(0);
       _recentSearches.add(searchTerm);
       _prefs.setStringList("RECENT_WHITEPAPERS_SEARCHES", _recentSearches);
     }

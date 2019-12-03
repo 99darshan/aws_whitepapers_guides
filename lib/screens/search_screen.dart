@@ -70,14 +70,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: _isSearching
             ? ShimmerList()
             : _searchResults == null
-                ? searchState.recentSearches.length > 0
-                    ? ListView.builder(
-                        itemCount: searchState.recentSearches.length,
-                        itemBuilder: (context, index) {
-                          return Text(searchState.recentSearches[index]);
-                        },
-                      )
-                    : Text("No Recent Searches!!")
+                ? _recentSearches(context, searchState)
                 : _searchResults.items.length > 0
                     ? ListView.builder(
                         shrinkWrap: false,
@@ -88,6 +81,41 @@ class _SearchScreenState extends State<SearchScreen> {
                         },
                       )
                     : Text("No results found"),
+      ),
+    );
+  }
+
+  Widget _recentSearches(BuildContext context, SearchState searchState) {
+    return Container(
+      margin: EdgeInsets.only(top: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(
+              "Recent Searches",
+              style: Theme.of(context).textTheme.title,
+            ),
+          ),
+          searchState.recentSearches.length > 0
+              ? Expanded(
+                  flex: 2,
+                  child: ListView.builder(
+                    itemCount: searchState.recentSearches.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: EdgeInsets.only(bottom: 1.0),
+                        child: ListTile(
+                          title: Text(searchState.recentSearches[index]),
+                        ),
+                      );
+                    },
+                  ))
+              : SizedBox(width: 0.0)
+        ],
       ),
     );
   }
