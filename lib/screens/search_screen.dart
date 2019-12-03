@@ -28,13 +28,17 @@ class _SearchScreenState extends State<SearchScreen> {
         title: Padding(
           padding: EdgeInsets.all(8.0),
           child: TextFormField(
+            initialValue: _searchText,
+            // validator: (value) {
+            //   return value.isEmpty ? 'Search term can not be empty !!' : null;
+            // },
             //autofocus: true,
             decoration: InputDecoration(
               hintText: 'Search Whitepapers',
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               focusColor: Colors.white,
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                //borderRadius: BorderRadius.circular(20.0),
                 borderSide: BorderSide(
                   color: Colors.white,
                 ),
@@ -45,20 +49,21 @@ class _SearchScreenState extends State<SearchScreen> {
                   Icon(Icons.search, color: Theme.of(context).primaryColor),
             ),
             onFieldSubmitted: (value) async {
-              print('searching...');
-              setState(() {
-                _searchText = value;
-                _isSearching = true;
-              });
-              print('search text is $_searchText');
-              await whitepaperState
-                  .fetchWhitepapersBySearchKeywords(_searchText);
-              searchState.updateRecentSearches(_searchText);
+              await _onSearch(whitepaperState, searchState, value);
+              // print('searching...');
+              // setState(() {
+              //   _searchText = value;
+              //   _isSearching = true;
+              // });
+              // print('search text is $_searchText');
+              // await whitepaperState
+              //     .fetchWhitepapersBySearchKeywords(_searchText);
+              // searchState.updateRecentSearches(_searchText);
 
-              setState(() {
-                _isSearching = false;
-                _searchResults = whitepaperState.searchAwsResponse;
-              });
+              // setState(() {
+              //   _isSearching = false;
+              //   _searchResults = whitepaperState.searchAwsResponse;
+              // });
             },
           ),
         ),
@@ -70,7 +75,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: _isSearching
             ? ShimmerList()
             : _searchResults == null
-                ? _recentSearches(context, searchState)
+                ? _recentSearches(context, whitepaperState, searchState)
                 : _searchResults.items.length > 0
                     ? ListView.builder(
                         shrinkWrap: false,
@@ -85,7 +90,25 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _recentSearches(BuildContext context, SearchState searchState) {
+  _onSearch(WhitepaperState whitepaperState, SearchState searchState,
+      String value) async {
+    print('searching...');
+    setState(() {
+      _searchText = value;
+      _isSearching = true;
+    });
+    print('search text is $_searchText');
+    await whitepaperState.fetchWhitepapersBySearchKeywords(_searchText);
+    searchState.updateRecentSearches(_searchText);
+
+    setState(() {
+      _isSearching = false;
+      _searchResults = whitepaperState.searchAwsResponse;
+    });
+  }
+
+  Widget _recentSearches(BuildContext context, WhitepaperState whitepaperState,
+      SearchState searchState) {
     return Container(
       margin: EdgeInsets.only(top: 8.0),
       child: Column(
@@ -106,10 +129,16 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: ListView.builder(
                     itemCount: searchState.recentSearches.length,
                     itemBuilder: (context, index) {
-                      return Card(
-                        margin: EdgeInsets.only(bottom: 1.0),
-                        child: ListTile(
-                          title: Text(searchState.recentSearches[index]),
+                      return InkWell(
+                        onTap: () {
+                          _onSearch(whitepaperState, searchState,
+                              searchState.recentSearches[index]);
+                        },
+                        child: Card(
+                          margin: EdgeInsets.only(bottom: 1.0),
+                          child: ListTile(
+                            title: Text(searchState.recentSearches[index]),
+                          ),
                         ),
                       );
                     },
