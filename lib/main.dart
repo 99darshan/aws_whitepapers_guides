@@ -7,6 +7,7 @@ import 'package:aws_whitepapers_guides/screens/whitepapers_screen.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
+import 'package:aws_whitepapers_guides/state/search_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider<DownloadsState>(
           builder: (_) => DownloadsState(),
+        ),
+        ChangeNotifierProvider<SearchState>(
+          builder: (_) => SearchState(),
         ),
         //Provider.value(value: WhitepaperBloc())
       ],

@@ -6,7 +6,6 @@ import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:provider/provider.dart';
 
 class WhitepaperCard extends StatefulWidget {

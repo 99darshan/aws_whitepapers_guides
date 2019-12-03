@@ -1,6 +1,7 @@
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
+import 'package:aws_whitepapers_guides/state/search_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -21,6 +22,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
+    SearchState searchState = Provider.of<SearchState>(context);
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -51,6 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
               print('search text is $_searchText');
               await whitepaperState
                   .fetchWhitepapersBySearchKeywords(_searchText);
+              searchState.updateRecentSearches(_searchText);
 
               setState(() {
                 _isSearching = false;
@@ -67,7 +70,14 @@ class _SearchScreenState extends State<SearchScreen> {
         child: _isSearching
             ? ShimmerList()
             : _searchResults == null
-                ? Text("show recent sarches widget")
+                ? searchState.recentSearches.length > 0
+                    ? ListView.builder(
+                        itemCount: searchState.recentSearches.length,
+                        itemBuilder: (context, index) {
+                          return Text(searchState.recentSearches[index]);
+                        },
+                      )
+                    : Text("No Recent Searches!!")
                 : _searchResults.items.length > 0
                     ? ListView.builder(
                         shrinkWrap: false,
