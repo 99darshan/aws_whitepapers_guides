@@ -37,12 +37,10 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              // reset all existing filters when navigating to home
-              filterState.resetAllFilters();
-              Navigator.of(context).pop('/');
+              Navigator.pushNamed(context, '/filterScreen');
             },
             child: Icon(
-              Icons.home,
+              Icons.filter_list,
               color: Theme.of(context).secondaryHeaderColor,
             ),
           ),
@@ -51,10 +49,11 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
             actions: <Widget>[
               IconButton(
                 //color: Colors.teal,
-                icon: Icon(Icons.filter_list),
+                icon: Icon(Icons.home),
                 onPressed: () {
-                  //Navigator.pushReplacementNamed(context, '/filterScreen');
-                  Navigator.pushNamed(context, '/filterScreen');
+                  // reset all existing filters when navigating to home
+                  filterState.resetAllFilters();
+                  Navigator.of(context).pop('/');
                 },
               )
             ],
