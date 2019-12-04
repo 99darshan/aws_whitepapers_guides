@@ -80,9 +80,49 @@ class WhitepaperState extends ChangeNotifier {
         }
       }
     }
-    // TODO: do the same for other filters
+
+    if (categoryFiltersList.length > 0) {
+      queryUrl = '$queryUrl&tags.id=whitepapers';
+      for (int i = 0; i < categoryFiltersList.length; i++) {
+        if (i == categoryFiltersList.length - 1) {
+          queryUrl =
+              '$queryUrl%23content-category%23${CategoriesFilter.mapCategoriesFilterToQueryString[categoryFiltersList[i]]}';
+        } else {
+          queryUrl =
+              '$queryUrl%23content-category%23${CategoriesFilter.mapCategoriesFilterToQueryString[categoryFiltersList[i]]}%7Cwhitepapers';
+        }
+      }
+    }
+
+    if (productFiltersList.length > 0) {
+      queryUrl = '$queryUrl&tags.id=whitepapers';
+      for (int i = 0; i < productFiltersList.length; i++) {
+        if (i == productFiltersList.length - 1) {
+          queryUrl =
+              '$queryUrl%23categories%23${ProductsFilter.mapProductsFilterToQueryString[productFiltersList[i]]}';
+        } else {
+          queryUrl =
+              '$queryUrl%23categories%23${ProductsFilter.mapProductsFilterToQueryString[productFiltersList[i]]}%7Cwhitepapers';
+        }
+      }
+    }
+
+    if (industryFiltersList.length > 0) {
+      queryUrl = '$queryUrl&tags.id=whitepapers';
+      for (int i = 0; i < industryFiltersList.length; i++) {
+        if (i == industryFiltersList.length - 1) {
+          queryUrl =
+              '$queryUrl%23industry%23${IndustriesFilter.mapIndustriesFilterToQueryString[industryFiltersList[i]]}';
+        } else {
+          queryUrl =
+              '$queryUrl%23content-category%23${IndustriesFilter.mapIndustriesFilterToQueryString[industryFiltersList[i]]}%7Cwhitepapers';
+        }
+      }
+    }
     // TODO: can't encode the url for some reason, encoding manually for now
     // call http service after queryUrl is formed
+
+    print("query url: $queryUrl");
     _rootAwsResponse = await HttpService.fetchData(queryUrl);
     //notifyListeners();
     setIsFetchingData(false);

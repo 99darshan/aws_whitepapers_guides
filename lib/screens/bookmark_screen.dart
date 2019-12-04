@@ -19,11 +19,14 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
         whitepaperData: whitepaperData,
         onBookmarkDeleteAnimation: () {
           _animationKey.currentState.removeItem(index, (context, animation) {
-            return SlideTransition(
-                position:
-                    Tween<Offset>(begin: Offset(2.0, 0.0), end: Offset.zero)
-                        .animate(animation),
-                child: _buildItem(whitepaperData, index));
+            return FadeTransition(
+              opacity: CurvedAnimation(curve: Curves.easeIn, parent: animation),
+              child: SlideTransition(
+                  position:
+                      Tween<Offset>(begin: Offset(2.0, 0.0), end: Offset.zero)
+                          .animate(animation),
+                  child: _buildItem(whitepaperData, index)),
+            );
           }, duration: Duration(milliseconds: 500));
         });
   }

@@ -34,11 +34,11 @@ class CategoriesFilter {
     CategoriesFilter.wellArchFramework,
     CategoriesFilter.cloudAdoptationFramework
   ];
-
+//content-category%23cloud-adopt-framework%7Cwhitepapers%23content-category%23well-arch-framework%7Cwhitepapers%23content-category%23intro
   static const Map<String, String> mapCategoriesFilterToQueryString = {
-    CategoriesFilter.introduction: '',
-    CategoriesFilter.wellArchFramework: '',
-    CategoriesFilter.cloudAdoptationFramework: ''
+    CategoriesFilter.introduction: 'intro',
+    CategoriesFilter.wellArchFramework: 'well-arch-framework',
+    CategoriesFilter.cloudAdoptationFramework: 'cloud-adopt-framework'
   };
 }
 
