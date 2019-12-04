@@ -7,12 +7,28 @@ class SearchState extends ChangeNotifier {
   List<String> _recentSearches = [];
   List<String> get recentSearches => _recentSearches;
 
+  SearchState._() {
+    getSharedPrefInstance();
+    getAllRecentSearches();
+    notifyListeners();
+  }
+
+  factory SearchState() {
+    return _singleton;
+  }
+
   updateRecentSearches(String searchTerm) {
     if (!_recentSearches.contains(searchTerm)) {
       if (_recentSearches.length > 10) _recentSearches.removeAt(0);
       _recentSearches.add(searchTerm);
       _prefs.setStringList("RECENT_WHITEPAPERS_SEARCHES", _recentSearches);
     }
+    notifyListeners();
+  }
+
+  deleteAllRecentSearches() async {
+    _prefs.remove("RECENT_WHITEPAPERS_SEARHES");
+    _recentSearches.removeRange(0, _recentSearches.length);
     notifyListeners();
   }
 
@@ -27,15 +43,5 @@ class SearchState extends ChangeNotifier {
     // if no recent searches are saved, the key doesn't exists and _recentSearches will be null, set it to empty array
     if (_recentSearches == null) _recentSearches = [];
     notifyListeners();
-  }
-
-  SearchState._() {
-    getSharedPrefInstance();
-    getAllRecentSearches();
-    notifyListeners();
-  }
-
-  factory SearchState() {
-    return _singleton;
   }
 }

@@ -28,6 +28,10 @@ class BookmarkState extends ChangeNotifier {
     // Note: the field _prefs which exposes the instance of sharedPreference is not used here because this method and the getSharedPrefInstance which sets the _prefs are called from named constructor and _pref still be null by the time it is being accessed here, so this functions gets the instance of sharedpreferences on its own
     final prefs = await SharedPreferences.getInstance();
     _bookmarks = prefs.getKeys();
+    // This key stores recent searches for whitepapers and not a bookmarked whitepaper
+    if (_bookmarks.contains("RECENT_WHITEPAPERS_SEARCHES"))
+      _bookmarks.remove("RECENT_WHITEPAPERS_SEARCHES");
+
     notifyListeners();
   }
 
@@ -52,7 +56,7 @@ class BookmarkState extends ChangeNotifier {
 
   WhitepaperData getBookmarkedItem(String key) {
     //final prefs = await SharedPreferences.getInstance();
-    final data = _prefs.getString(key);
+    String data = _prefs.getString(key);
     return WhitepaperData.fromJson(json.decode(data));
   }
 }

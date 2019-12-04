@@ -28,11 +28,12 @@ class _SearchScreenState extends State<SearchScreen> {
         title: Padding(
           padding: EdgeInsets.all(8.0),
           child: TextFormField(
-            initialValue: _searchText,
+            //initialValue: _searchText,
             // validator: (value) {
             //   return value.isEmpty ? 'Search term can not be empty !!' : null;
             // },
             //autofocus: true,
+            textInputAction: TextInputAction.search,
             decoration: InputDecoration(
               hintText: 'Search Whitepapers',
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -50,20 +51,6 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             onFieldSubmitted: (value) async {
               await _onSearch(whitepaperState, searchState, value);
-              // print('searching...');
-              // setState(() {
-              //   _searchText = value;
-              //   _isSearching = true;
-              // });
-              // print('search text is $_searchText');
-              // await whitepaperState
-              //     .fetchWhitepapersBySearchKeywords(_searchText);
-              // searchState.updateRecentSearches(_searchText);
-
-              // setState(() {
-              //   _isSearching = false;
-              //   _searchResults = whitepaperState.searchAwsResponse;
-              // });
             },
           ),
         ),
@@ -71,6 +58,8 @@ class _SearchScreenState extends State<SearchScreen> {
       // TODO: recent searches and no result
       body: Container(
         color: Colors.grey[200],
+        height: double.infinity,
+        width: double.infinity,
         //padding: EdgeInsets.all(8.0),
         child: _isSearching
             ? ShimmerList()
@@ -109,43 +98,60 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget _recentSearches(BuildContext context, WhitepaperState whitepaperState,
       SearchState searchState) {
-    return Container(
-      margin: EdgeInsets.only(top: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Text(
-              "Recent Searches",
-              style: Theme.of(context).textTheme.title,
-            ),
-          ),
-          searchState.recentSearches.length > 0
-              ? Expanded(
-                  flex: 2,
-                  child: ListView.builder(
-                    itemCount: searchState.recentSearches.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          _onSearch(whitepaperState, searchState,
-                              searchState.recentSearches[index]);
-                        },
-                        child: Card(
-                          margin: EdgeInsets.only(bottom: 1.0),
-                          child: ListTile(
-                            title: Text(searchState.recentSearches[index]),
-                          ),
+    return searchState.recentSearches.length > 0
+        ? Container(
+            //margin: EdgeInsets.only(top: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                  child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          "Recent Searches",
+                          style: Theme.of(context).textTheme.title,
                         ),
-                      );
-                    },
-                  ))
-              : SizedBox(width: 0.0)
-        ],
-      ),
-    );
+                        IconButton(
+                          icon: Icon(
+                            Icons.clear,
+                            color: Colors.blue,
+                          ),
+                          onPressed: () {
+                            searchState.deleteAllRecentSearches();
+                          },
+                        ),
+                      ]),
+                ),
+                Expanded(
+                    flex: 2,
+                    child: ListView.builder(
+                      itemCount: searchState.recentSearches.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            _onSearch(whitepaperState, searchState,
+                                searchState.recentSearches[index]);
+                          },
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero),
+                            margin: EdgeInsets.only(bottom: 1.0),
+                            child: ListTile(
+                              title: Text(searchState.recentSearches[index]),
+                            ),
+                          ),
+                        );
+                      },
+                    ))
+              ],
+            ),
+          )
+        : Text(
+            "No Recent Search Items. Start Searching Now!!"); // TODO: style this
   }
 }
