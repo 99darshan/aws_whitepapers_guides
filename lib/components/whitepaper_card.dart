@@ -75,7 +75,8 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                   // index 1 doesn't guarantee content-type
                   // loop over the tags array and based on tagNamespaceId distinguish content-type, categories, flag, industries and products
                   text: TextSpan(
-                      text: '${widget.whitepaperData.getContentType()} | NEW',
+                      text:
+                          '${widget.whitepaperData.item.additionalFields.contentType} | ${widget.whitepaperData.item.additionalFields.featureFlag}',
                       style: Theme.of(context)
                           .textTheme
                           .subhead

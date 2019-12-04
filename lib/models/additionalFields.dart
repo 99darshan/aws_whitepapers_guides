@@ -1,12 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:html/parser.dart' as htmlParser;
-
 part 'additionalFields.g.dart';
 
 @JsonSerializable()
 class AdditionalFields {
   AdditionalFields();
 
+  String featureFlag;
   String datePublished;
   String publishedText;
   String description;

@@ -8,6 +8,7 @@ part of 'additionalFields.dart';
 
 AdditionalFields _$AdditionalFieldsFromJson(Map<String, dynamic> json) {
   return AdditionalFields()
+    ..featureFlag = json['featureFlag'] as String
     ..datePublished = json['datePublished'] as String
     ..publishedText = json['publishedText'] as String
     ..description = json['description'] as String
@@ -20,6 +21,7 @@ AdditionalFields _$AdditionalFieldsFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$AdditionalFieldsToJson(AdditionalFields instance) =>
     <String, dynamic>{
+      'featureFlag': instance.featureFlag,
       'datePublished': instance.datePublished,
       'publishedText': instance.publishedText,
       'description': instance.description,
