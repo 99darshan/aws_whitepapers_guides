@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'package:aws_whitepapers_guides/components/pill.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/services/download_service.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
-import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +30,10 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.whitepaperData.item.additionalFields.contentType ==
+        "Reference Architecture Diagram")
+      widget.whitepaperData.item.additionalFields.contentType =
+          "Architecture Diagram";
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       margin: EdgeInsets.symmetric(vertical: 4.0),
@@ -45,14 +49,11 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                     .textTheme
                     .headline
                     .copyWith(fontWeight: FontWeight.bold)),
-
             Divider(thickness: 2.0, height: 32.0),
             Text(
                 widget.whitepaperData.item.additionalFields
                     .getDescriptionText(),
                 style: Theme.of(context).textTheme.subhead),
-            // TODO: Tags or Categories
-            // TODO: replace them with actual tags, dummy tags for now
             SizedBox(height: 12.0),
             Wrap(
               spacing: 8.0,
@@ -65,23 +66,37 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
             SizedBox(height: 8.0),
             Divider(thickness: 2.0, height: 12.0),
             //SizedBox(height: 8.0),
-            // TODO: replace single child scroll view with a row
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // TODO: Replace this row of texts with RichTexts
               children: <Widget>[
-                RichText(
-                  // TODO: check for tags index, place method to retrieve content type, categories and industry with in the tag model or inside whitepaperData and hadle fail safe there
-                  // index 1 doesn't guarantee content-type
-                  // loop over the tags array and based on tagNamespaceId distinguish content-type, categories, flag, industries and products
-                  text: TextSpan(
-                      text:
-                          '${widget.whitepaperData.item.additionalFields.contentType} | ${widget.whitepaperData.item.additionalFields.featureFlag}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subhead
-                          .copyWith(fontWeight: FontWeight.bold)),
+                Row(
+                  children: <Widget>[
+                    Pill(
+                      backgroundColor: Colors.grey[800],
+                      text: Text(
+                        '${widget.whitepaperData.item.additionalFields.contentType}',
+                        style: TextStyle(fontSize: 12.0, color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(width: 8.0),
+                    Pill(
+                        backgroundColor: Colors.orange,
+                        text: Text(
+                          '${widget.whitepaperData.item.additionalFields.featureFlag}',
+                          style: TextStyle(fontSize: 12.0, color: Colors.white),
+                        ))
+                  ],
                 ),
+
+                // RichText(
+                //   text: TextSpan(
+                //       text:
+                //           '${widget.whitepaperData.item.additionalFields.contentType} | ${widget.whitepaperData.item.additionalFields.featureFlag}',
+                //       style: Theme.of(context)
+                //           .textTheme
+                //           .subhead
+                //           .copyWith(fontWeight: FontWeight.bold)),
+                // ),
                 Row(
                   children: <Widget>[
                     Consumer<BookmarkState>(
