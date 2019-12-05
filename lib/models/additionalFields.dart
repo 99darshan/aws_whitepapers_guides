@@ -26,12 +26,23 @@ class AdditionalFields {
     try {
       var doc = htmlParser.parse(this.description);
       //print('desc text: ' + doc.querySelectorAll('p')[0].text);
-      print('html parser output: ' + doc.querySelector('a').text);
+      //print('html parser output: ' + doc.querySelector('a').text);
       print('html parser output: ' + doc.querySelector('a').attributes['href']);
+      print('html parser p tags: ' + doc.querySelectorAll('p')[1].text);
 
       return this.description.split('<p>')[0];
     } catch (e) {
       return '';
+    }
+  }
+
+  List<String> getIndustriesProductsTags() {
+    try {
+      var doc = htmlParser.parse(this.description);
+      print('html parser p tags: ' + doc.querySelectorAll('p')[1].text);
+      return doc.querySelectorAll('p')[1].text.split('|');
+    } catch (e) {
+      return [];
     }
   }
 }

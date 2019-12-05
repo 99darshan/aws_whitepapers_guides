@@ -5,11 +5,12 @@ part 'whitepaperData.g.dart';
 
 @JsonSerializable()
 class WhitepaperData {
-    WhitepaperData();
+  WhitepaperData();
 
-    List<Tag> tags;
-    Whitepaper item;
-    
-    factory WhitepaperData.fromJson(Map<String,dynamic> json) => _$WhitepaperDataFromJson(json);
-    Map<String, dynamic> toJson() => _$WhitepaperDataToJson(this);
+  List<Tag> tags;
+  Whitepaper item;
+
+  factory WhitepaperData.fromJson(Map<String, dynamic> json) =>
+      _$WhitepaperDataFromJson(json);
+  Map<String, dynamic> toJson() => _$WhitepaperDataToJson(this);
 }

@@ -4,6 +4,7 @@ import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/services/download_service.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
+import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -55,12 +56,11 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
             SizedBox(height: 12.0),
             Wrap(
               spacing: 8.0,
-              children: <Widget>[
-                ActionChip(label: Text("Compute"), onPressed: () {}),
-                ActionChip(label: Text("IOT"), onPressed: () {}),
-                ActionChip(label: Text("Storage"), onPressed: () {}),
-                ActionChip(label: Text("Healthcare"), onPressed: () {})
-              ],
+              children: widget.whitepaperData.item.additionalFields
+                  .getIndustriesProductsTags()
+                  .map(
+                      (item) => ActionChip(label: Text(item), onPressed: () {}))
+                  .toList(),
             ),
             SizedBox(height: 8.0),
             Divider(thickness: 2.0, height: 12.0),
