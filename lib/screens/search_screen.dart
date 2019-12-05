@@ -1,3 +1,4 @@
+import 'package:aws_whitepapers_guides/components/no_data.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
@@ -118,8 +119,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         IconButton(
                           icon: Icon(
-                            Icons.clear,
-                            color: Colors.blue,
+                            Icons.delete,
+                            color: Colors.blueGrey,
                           ),
                           onPressed: () {
                             searchState.deleteAllRecentSearches();
@@ -151,7 +152,23 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
           )
-        : Text(
-            "No Recent Search Items. Start Searching Now!!"); // TODO: style this
+        :
+        // no recet searches widget
+        Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              NoData(asset: 'assets/svg/no_data.svg'),
+              SizedBox(height: 8.0),
+              Text(
+                "No Recent Searches! \n You can Start Searching For Whitepapers! ",
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .display1
+                    .copyWith(fontSize: 16.0, fontWeight: FontWeight.bold),
+              )
+            ],
+          );
   }
 }

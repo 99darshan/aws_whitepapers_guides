@@ -55,6 +55,9 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                     .getDescriptionText(),
                 style: Theme.of(context).textTheme.subhead),
             SizedBox(height: 12.0),
+            // Text(widget.whitepaperData.item.additionalFields
+            //     .getIndustriesProductsTags()
+            //     .join("|")),
             Wrap(
               spacing: 8.0,
               children: widget.whitepaperData.item.additionalFields
@@ -79,12 +82,16 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                       ),
                     ),
                     SizedBox(width: 8.0),
-                    Pill(
-                        backgroundColor: Colors.orange,
-                        text: Text(
-                          '${widget.whitepaperData.item.additionalFields.featureFlag}',
-                          style: TextStyle(fontSize: 12.0, color: Colors.white),
-                        ))
+                    widget.whitepaperData.item.additionalFields.featureFlag !=
+                            null
+                        ? Pill(
+                            backgroundColor: Colors.orange,
+                            text: Text(
+                              '${widget.whitepaperData.item.additionalFields.featureFlag}',
+                              style: TextStyle(
+                                  fontSize: 12.0, color: Colors.white),
+                            ))
+                        : SizedBox(width: 0.0),
                   ],
                 ),
 
