@@ -1,3 +1,4 @@
+import 'package:aws_whitepapers_guides/components/no_data.dart';
 import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:flutter/material.dart';
@@ -37,14 +38,33 @@ class DownloadsScreen extends StatelessWidget {
                     return Text(snapshot.error.toString());
                   } else {
                     // TODO: show downloaded item is the count is zero
-                    return AnimatedList(
-                      key: _downloadsAnimatedListKey,
-                      initialItemCount: snapshot.data.length,
-                      itemBuilder: (context, index, animation) {
-                        return _buildDownloadsListItem(context, index,
-                            snapshot.data[index], downloadsState);
-                      },
-                    );
+                    return snapshot.data.length > 0
+                        ? AnimatedList(
+                            key: _downloadsAnimatedListKey,
+                            initialItemCount: snapshot.data.length,
+                            itemBuilder: (context, index, animation) {
+                              return _buildDownloadsListItem(context, index,
+                                  snapshot.data[index], downloadsState);
+                            },
+                          )
+                        : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            //crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              NoData(asset: 'assets/svg/no_data.svg'),
+                              SizedBox(height: 8.0),
+                              Text(
+                                "You haven't downloaded any files yet! \n \n Please press the refresh button above to fetch recent downloads. ",
+                                textAlign: TextAlign.center,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .display1
+                                    .copyWith(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          );
                   }
                 }
               }),
