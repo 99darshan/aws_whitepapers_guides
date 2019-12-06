@@ -20,8 +20,8 @@ class WhitepaperState extends ChangeNotifier {
   }
 
   Future<RootAwsResponse> _rootAwsResponse;
-  RootAwsResponse _searchAwsReponse;
-  bool _isFetchingData = false;
+  Future<RootAwsResponse> _searchAwsReponse;
+  //bool _isFetchingData = false;
   WhitepaperData _currentWhitepaper;
   // TODO: page number?? paginated results and size
 
@@ -30,31 +30,31 @@ class WhitepaperState extends ChangeNotifier {
 
   Future<RootAwsResponse> get rootAwsResponse => _rootAwsResponse;
   // TODO: what if network error while saerching
-  RootAwsResponse get searchAwsResponse => _searchAwsReponse;
-  bool get isFetchingData => _isFetchingData;
+  Future<RootAwsResponse> get searchAwsResponse => _searchAwsReponse;
+  //bool get isFetchingData => _isFetchingData;
   WhitepaperData get currentWhitepaper => _currentWhitepaper;
 
   void setCurrentWhitepaper(WhitepaperData whitepaper) {
     _currentWhitepaper = whitepaper;
   }
 
-  void setIsFetchingData(bool newValue) {
-    _isFetchingData = newValue;
-    notifyListeners();
-  }
+  // void setIsFetchingData(bool newValue) {
+  //   _isFetchingData = newValue;
+  //   notifyListeners();
+  // }
 
-  Future initFetchWhitepapers() {
-    setIsFetchingData(true);
+  initFetchWhitepapers() {
+    //setIsFetchingData(true);
     _rootAwsResponse = HttpService.fetchData(_baseUrl);
-    setIsFetchingData(false);
+    //setIsFetchingData(false);
   }
 
-  Future fetchWhitepapersBySearchKeywords(String searchKeyword) async {
-    setIsFetchingData(true);
+  fetchWhitepapersBySearchKeywords(String searchKeyword) {
+    //setIsFetchingData(true);
     String queryUrl = '$_baseUrl&q=$searchKeyword&q_operator=AND';
-    _searchAwsReponse = await HttpService.fetchData(queryUrl);
+    _searchAwsReponse = HttpService.fetchData(queryUrl);
     //notifyListeners();
-    setIsFetchingData(false);
+    //setIsFetchingData(false);
   }
 
   Future fetchFilteredWhitepapers(
@@ -62,7 +62,7 @@ class WhitepaperState extends ChangeNotifier {
       List<String> categoryFiltersList,
       List<String> industryFiltersList,
       List<String> productFiltersList) async {
-    setIsFetchingData(true);
+    //setIsFetchingData(true);
     String queryUrl = _baseUrl;
 
     if (typeFiltersList.length > 0) {
@@ -126,6 +126,6 @@ class WhitepaperState extends ChangeNotifier {
     print("query url: $queryUrl");
     _rootAwsResponse = HttpService.fetchData(queryUrl);
     //notifyListeners();
-    setIsFetchingData(false);
+    //setIsFetchingData(false);
   }
 }

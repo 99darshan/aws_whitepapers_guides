@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
@@ -18,7 +20,7 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   String _searchText;
   bool _isSearching = false;
-  RootAwsResponse
+  Future<RootAwsResponse>
       _searchResults; // store and use the results in a local variable to clear the previous search actions
   @override
   Widget build(BuildContext context) {
@@ -56,38 +58,61 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
         ),
       ),
-      // TODO: recent searches and no result
       body: Container(
-          color: Colors.grey[200],
-          height: double.infinity,
-          width: double.infinity,
-          //padding: EdgeInsets.all(8.0),
-          child: _isSearching
-              ? ShimmerList()
-              : _searchResults == null
-                  ? _recentSearches(context, whitepaperState, searchState)
-                  : _searchResults.items.length > 0
-                      ? ListView.builder(
-                          shrinkWrap: false,
-                          itemCount: _searchResults.items.length,
-                          itemBuilder: (context, index) {
-                            return WhitepaperCard(
-                                whitepaperData: _searchResults.items[index]);
-                          },
-                        )
-                      : ErrorAndInfoCard(
-                          assetName: 'assets/svg/no_search_items.svg',
-                          label: Text(
-                            "No results found for $_searchText",
-                            textAlign: TextAlign.center,
+        color: Colors.grey[200],
+        width: double.infinity,
+        child: _searchResults == null
+            ? _recentSearches(context, whitepaperState, searchState)
+            : FutureBuilder(
+                future: _searchResults,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState != ConnectionState.done) {
+                    return ShimmerList();
+                  } else {
+                    if (snapshot.hasError) {
+                      String errorAsset;
+                      String errorMessage;
+                      if (snapshot.error is SocketException) {
+                        errorAsset = 'assets/svg/no_internet.svg';
+                        errorMessage = "No Active Internet Connection Found !!";
+                      } else {
+                        errorAsset = 'assets/svg/unknown_error.svg';
+                        errorMessage = "Error Fetching Whitepapers !!";
+                      }
+                      return ErrorAndInfoCard(
+                        assetName: errorAsset,
+                        label: Text(errorMessage,
                             style: Theme.of(context)
                                 .textTheme
                                 .display1
                                 .copyWith(
                                     fontSize: 16.0,
-                                    fontWeight: FontWeight.bold),
-                          ),
-                        )),
+                                    fontWeight: FontWeight.bold)),
+                      );
+                    } else {
+                      return snapshot.data.items.length > 0
+                          ? ListView.builder(
+                              itemCount: snapshot.data.items.length,
+                              itemBuilder: (context, index) {
+                                return WhitepaperCard(
+                                    whitepaperData: snapshot.data.items[index]);
+                              },
+                            )
+                          : ErrorAndInfoCard(
+                              assetName: 'assets/svg/no_search_items.svg',
+                              label: Text("o results found for $_searchText!!",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .display1
+                                      .copyWith(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold)),
+                            );
+                    }
+                  }
+                },
+              ),
+      ),
     );
   }
 
