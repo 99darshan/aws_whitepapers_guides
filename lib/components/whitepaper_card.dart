@@ -62,8 +62,7 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
               spacing: 8.0,
               children: widget.whitepaperData.item.additionalFields
                   .getIndustriesProductsTags()
-                  .map(
-                      (item) => ActionChip(label: Text(item), onPressed: () {}))
+                  .map((item) => Chip(label: Text(item)))
                   .toList(),
             ),
             SizedBox(height: 8.0),
@@ -74,36 +73,35 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Pill(
-                      backgroundColor: Colors.grey[800],
-                      text: Text(
-                        '${widget.whitepaperData.item.additionalFields.contentType}',
-                        style: TextStyle(fontSize: 12.0, color: Colors.white),
-                      ),
+                    Text(
+                      '${widget.whitepaperData.item.additionalFields.contentType}',
+                      style: TextStyle(color: Colors.grey[600]),
                     ),
-                    SizedBox(width: 8.0),
                     widget.whitepaperData.item.additionalFields.featureFlag !=
                             null
-                        ? Pill(
-                            backgroundColor: Colors.orange,
-                            text: Text(
-                              '${widget.whitepaperData.item.additionalFields.featureFlag}',
-                              style: TextStyle(
-                                  fontSize: 12.0, color: Colors.white),
-                            ))
-                        : SizedBox(width: 0.0),
+                        ? Text(
+                            ' | ${widget.whitepaperData.item.additionalFields.featureFlag}',
+                            style: TextStyle(color: Colors.grey[600]),
+                          )
+                        : SizedBox(width: 0),
+                    // Pill(
+                    //   backgroundColor: Colors.grey[800],
+                    //   text: Text(
+                    //     '${widget.whitepaperData.item.additionalFields.contentType}',
+                    //     style: TextStyle(fontSize: 12.0, color: Colors.white),
+                    //   ),
+                    // ),
+                    // SizedBox(width: 8.0),
+                    // widget.whitepaperData.item.additionalFields.featureFlag != null
+                    //     ? Pill(
+                    //         backgroundColor: Colors.orange,
+                    //         text: Text(
+                    //           '${widget.whitepaperData.item.additionalFields.featureFlag}',
+                    //           style: TextStyle(fontSize: 12.0, color: Colors.white),
+                    //         ))
+                    //     : SizedBox(width: 0.0),
                   ],
                 ),
-
-                // RichText(
-                //   text: TextSpan(
-                //       text:
-                //           '${widget.whitepaperData.item.additionalFields.contentType} | ${widget.whitepaperData.item.additionalFields.featureFlag}',
-                //       style: Theme.of(context)
-                //           .textTheme
-                //           .subhead
-                //           .copyWith(fontWeight: FontWeight.bold)),
-                // ),
                 Row(
                   children: <Widget>[
                     Consumer<BookmarkState>(
