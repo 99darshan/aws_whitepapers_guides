@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/services/download_service.dart';
@@ -40,50 +41,69 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
               : SizedBox(width: 0, height: 0)
         ],
       ),
-      body: FutureBuilder(
-        future: widget.currentWhitepaper != null
-            ? createFileOfPdfUrl()
-            : DownloadService.getDownloadedFilePath(widget.whitepaperFileName),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState != ConnectionState.done) {
-            // return Center(
-            //   child: CircularProgressIndicator(),
-            // );
-            return ShimmerList();
-          } else {
-            print('does snapshot when downloading file has error : ' +
-                snapshot.hasError.toString());
-            if (snapshot.hasError) {
-              // TODO: error card on downloading
-              return Text(snapshot.error.toString());
+      body: Container(
+        width: double.infinity,
+        color: Colors.grey[200],
+        child: FutureBuilder(
+          future: widget.currentWhitepaper != null
+              ? createFileOfPdfUrl()
+              : DownloadService.getDownloadedFilePath(
+                  widget.whitepaperFileName),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState != ConnectionState.done) {
+              // return Center(
+              //   child: CircularProgressIndicator(),
+              // );
+              return ShimmerList();
             } else {
-              print(snapshot.data);
-              return PDFView(
-                filePath: widget.currentWhitepaper != null
-                    ? snapshot.data.path
-                    : snapshot.data,
-                enableSwipe: true,
-                swipeHorizontal: false,
-                autoSpacing: true,
-                pageFling: false,
-                nightMode: false,
-                onRender: (_pages) {},
-                onError: (error) {
-                  print(error.toString());
-                },
-                onPageError: (page, error) {
-                  print('$page: ${error.toString()}');
-                },
-                onViewCreated: (PDFViewController pdfViewController) {
-                  //.complete(pdfViewController);
-                },
-                onPageChanged: (int page, int total) {
-                  print('page change: $page/$total');
-                },
-              );
+              print('does snapshot when downloading file has error : ' +
+                  snapshot.hasError.toString());
+              if (snapshot.hasError) {
+                // TODO: error card on downloading
+                String errorAsset;
+                String errorMessage;
+                if (snapshot.error is SocketException) {
+                  errorAsset = 'assets/svg/no_internet.svg';
+                  errorMessage = "No Active Internet Connection Found !!";
+                } else {
+                  errorAsset = 'assets/svg/unknown_error.svg';
+                  errorMessage = "Error Fetching Pdf Data !!";
+                }
+                return ErrorAndInfoCard(
+                  assetName: errorAsset,
+                  label: Text(errorMessage,
+                      style: Theme.of(context).textTheme.display1.copyWith(
+                          fontSize: 16.0, fontWeight: FontWeight.bold)),
+                );
+              } else {
+                print(snapshot.data);
+                return PDFView(
+                  filePath: widget.currentWhitepaper != null
+                      ? snapshot.data.path
+                      : snapshot.data,
+                  enableSwipe: true,
+                  swipeHorizontal: false,
+                  autoSpacing: true,
+                  pageFling: false,
+                  nightMode: false,
+                  onRender: (_pages) {},
+                  onError: (error) {
+                    print(error.toString());
+                  },
+                  onPageError: (page, error) {
+                    print('$page: ${error.toString()}');
+                  },
+                  onViewCreated: (PDFViewController pdfViewController) {
+                    //.complete(pdfViewController);
+                  },
+                  onPageChanged: (int page, int total) {
+                    print('page change: $page/$total');
+                  },
+                );
+              }
             }
-          }
-        },
+          },
+        ),
       ),
     );
   }
