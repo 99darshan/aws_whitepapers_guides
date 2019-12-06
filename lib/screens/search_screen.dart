@@ -1,4 +1,4 @@
-import 'package:aws_whitepapers_guides/components/no_data.dart';
+import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
@@ -58,25 +58,36 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
       // TODO: recent searches and no result
       body: Container(
-        color: Colors.grey[200],
-        height: double.infinity,
-        width: double.infinity,
-        //padding: EdgeInsets.all(8.0),
-        child: _isSearching
-            ? ShimmerList()
-            : _searchResults == null
-                ? _recentSearches(context, whitepaperState, searchState)
-                : _searchResults.items.length > 0
-                    ? ListView.builder(
-                        shrinkWrap: false,
-                        itemCount: _searchResults.items.length,
-                        itemBuilder: (context, index) {
-                          return WhitepaperCard(
-                              whitepaperData: _searchResults.items[index]);
-                        },
-                      )
-                    : Text("No results found"),
-      ),
+          color: Colors.grey[200],
+          height: double.infinity,
+          width: double.infinity,
+          //padding: EdgeInsets.all(8.0),
+          child: _isSearching
+              ? ShimmerList()
+              : _searchResults == null
+                  ? _recentSearches(context, whitepaperState, searchState)
+                  : _searchResults.items.length > 0
+                      ? ListView.builder(
+                          shrinkWrap: false,
+                          itemCount: _searchResults.items.length,
+                          itemBuilder: (context, index) {
+                            return WhitepaperCard(
+                                whitepaperData: _searchResults.items[index]);
+                          },
+                        )
+                      : ErrorAndInfoCard(
+                          assetName: 'assets/svg/no_search_items.svg',
+                          label: Text(
+                            "No results found for $_searchText",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .display1
+                                .copyWith(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold),
+                          ),
+                        )),
     );
   }
 
@@ -152,23 +163,17 @@ class _SearchScreenState extends State<SearchScreen> {
               ],
             ),
           )
-        :
-        // no recet searches widget
-        Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              NoData(asset: 'assets/svg/no_data.svg'),
-              SizedBox(height: 8.0),
-              Text(
-                "No Recent Searches! \n You can Start Searching For Whitepapers! ",
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .display1
-                    .copyWith(fontSize: 16.0, fontWeight: FontWeight.bold),
-              )
-            ],
+        : ErrorAndInfoCard(
+            assetName: 'assets/svg/no_search_items.svg',
+            label: Text(
+              "No Recent Searches! \n You can Start Searching For Whitepapers! ",
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .display1
+                  .copyWith(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
           );
+    // no recet searches widget
   }
 }

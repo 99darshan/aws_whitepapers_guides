@@ -1,3 +1,4 @@
+import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
 import 'package:aws_whitepapers_guides/models/whitepaperData.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
@@ -45,9 +46,9 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
           ),
         ],
       ),
-      // TODO: if no bookmarked items exists
       body: Container(
         color: Colors.grey[200],
+        width: double.infinity,
         //padding: EdgeInsets.all(8.0),
         child: bookmarkState.bookmarks.length > 0
             ? AnimatedList(
@@ -60,7 +61,17 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
                       index);
                 },
               )
-            : Text("no bookmarks found"),
+            : ErrorAndInfoCard(
+                assetName: 'assets/svg/no_bookmarks.svg',
+                label: Text(
+                  "You haven't bookmarked any whitepapers yet !!",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontSize: 16.0, fontWeight: FontWeight.bold),
+                ),
+              ),
       ),
     );
   }

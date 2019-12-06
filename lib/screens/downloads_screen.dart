@@ -1,4 +1,4 @@
-import 'package:aws_whitepapers_guides/components/no_data.dart';
+import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:flutter/material.dart';
@@ -47,23 +47,18 @@ class DownloadsScreen extends StatelessWidget {
                                   snapshot.data[index], downloadsState);
                             },
                           )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            //crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              NoData(asset: 'assets/svg/no_data.svg'),
-                              SizedBox(height: 8.0),
-                              Text(
-                                "You haven't downloaded any files yet! \n \n Please press the refresh button above to fetch recent downloads. ",
-                                textAlign: TextAlign.center,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .display1
-                                    .copyWith(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                              )
-                            ],
+                        : ErrorAndInfoCard(
+                            assetName: 'assets/svg/no_downloads.svg',
+                            label: Text(
+                              "You haven't downloaded any files yet! \n Please press the refresh button above to fetch recent downloads. ",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .display1
+                                  .copyWith(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                            ),
                           );
                   }
                 }
