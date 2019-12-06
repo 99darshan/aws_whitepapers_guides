@@ -19,7 +19,7 @@ class WhitepaperState extends ChangeNotifier {
     //return WhitepaperState._();
   }
 
-  RootAwsResponse _rootAwsResponse;
+  Future<RootAwsResponse> _rootAwsResponse;
   RootAwsResponse _searchAwsReponse;
   bool _isFetchingData = false;
   WhitepaperData _currentWhitepaper;
@@ -28,7 +28,8 @@ class WhitepaperState extends ChangeNotifier {
   static const _baseUrl =
       'https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&size=100&item.locale=en_US&page=0';
 
-  RootAwsResponse get rootAwsResponse => _rootAwsResponse;
+  Future<RootAwsResponse> get rootAwsResponse => _rootAwsResponse;
+  // TODO: what if network error while saerching
   RootAwsResponse get searchAwsResponse => _searchAwsReponse;
   bool get isFetchingData => _isFetchingData;
   WhitepaperData get currentWhitepaper => _currentWhitepaper;
@@ -42,9 +43,9 @@ class WhitepaperState extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future initFetchWhitepapers() async {
+  Future initFetchWhitepapers() {
     setIsFetchingData(true);
-    _rootAwsResponse = await HttpService.fetchData(_baseUrl);
+    _rootAwsResponse = HttpService.fetchData(_baseUrl);
     setIsFetchingData(false);
   }
 
@@ -123,7 +124,7 @@ class WhitepaperState extends ChangeNotifier {
     // call http service after queryUrl is formed
 
     print("query url: $queryUrl");
-    _rootAwsResponse = await HttpService.fetchData(queryUrl);
+    _rootAwsResponse = HttpService.fetchData(queryUrl);
     //notifyListeners();
     setIsFetchingData(false);
   }

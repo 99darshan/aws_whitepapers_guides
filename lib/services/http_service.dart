@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:aws_whitepapers_guides/models/rootAwsResponse.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,9 +17,10 @@ class HttpService {
         // handle zero results?? for certain filter combinations if no results are found?
         throw Exception('Error fetching data from AWS');
       }
-    } catch (Exception) {
-      print('Unknown error occured during fetching data from AWS...');
-      return null; // TODO:handle this error in a better way
+    } on SocketException catch (_) {
+      throw SocketException('No Active Internet Connection');
+    } on Exception catch (_) {
+      throw Exception("Error fetching data from AWS");
     }
   }
 }

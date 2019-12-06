@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
@@ -62,32 +64,81 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
           body: Container(
             color: Colors.grey[200],
             width: double.infinity,
-            //padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-            child: whitepaperState.isFetchingData
-                ? ShimmerList()
-                //? Center(child: CircularProgressIndicator())
-                // TODO: Error on no network and unkown error
-                // TODO: show no data widget if filtered result fetches no cards
-                : whitepaperState.rootAwsResponse.items.length > 0
-                    ? ListView.builder(
-                        itemCount: whitepaperState.rootAwsResponse.items.length,
-                        itemBuilder: (context, index) {
-                          return WhitepaperCard(
-                              whitepaperData:
-                                  whitepaperState.rootAwsResponse.items[index]);
-                        },
-                      )
-                    : ErrorAndInfoCard(
-                        assetName: 'assets/svg/no_data.svg',
-                        label: Text("No Whitepapers Found !!",
-                            style: Theme.of(context)
-                                .textTheme
-                                .display1
-                                .copyWith(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold)),
-                      ),
+            child: FutureBuilder(
+              future: whitepaperState.rootAwsResponse,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return ShimmerList();
+                } else {
+                  if (snapshot.hasError) {
+                    String errorAsset;
+                    String errorMessage;
+                    if (snapshot.error is SocketException) {
+                      errorAsset = 'assets/svg/no_internet.svg';
+                      errorMessage = "No Active Internet Connection Found !!";
+                    } else {
+                      errorAsset = 'assets/svg/unknown_error.svg';
+                      errorMessage = "Error Fetching Whitepapers !!";
+                    }
+                    return ErrorAndInfoCard(
+                      assetName: errorAsset,
+                      label: Text(errorMessage,
+                          style: Theme.of(context).textTheme.display1.copyWith(
+                              fontSize: 16.0, fontWeight: FontWeight.bold)),
+                    );
+                  } else {
+                    return snapshot.data.items.length > 0
+                        ? ListView.builder(
+                            itemCount: snapshot.data.items.length,
+                            itemBuilder: (context, index) {
+                              return WhitepaperCard(
+                                  whitepaperData: snapshot.data.items[index]);
+                            },
+                          )
+                        : ErrorAndInfoCard(
+                            assetName: 'assets/svg/no_data.svg',
+                            label: Text("No Whitepapers Found !!",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .display1
+                                    .copyWith(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold)),
+                          );
+                  }
+                }
+              },
+            ),
           ),
+          // body: Container(
+          //   color: Colors.grey[200],
+          //   width: double.infinity,
+          //   //padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+          //   child: whitepaperState.isFetchingData
+          //       ? ShimmerList()
+          //       //? Center(child: CircularProgressIndicator())
+          //       // TODO: Error on no network and unkown error
+          //       // TODO: show no data widget if filtered result fetches no cards
+          //       : whitepaperState.rootAwsResponse.items.length > 0
+          //           ? ListView.builder(
+          //               itemCount: whitepaperState.rootAwsResponse.items.length,
+          //               itemBuilder: (context, index) {
+          //                 return WhitepaperCard(
+          //                     whitepaperData:
+          //                         whitepaperState.rootAwsResponse.items[index]);
+          //               },
+          //             )
+          //           : ErrorAndInfoCard(
+          //               assetName: 'assets/svg/no_data.svg',
+          //               label: Text("No Whitepapers Found !!",
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .display1
+          //                       .copyWith(
+          //                           fontSize: 16.0,
+          //                           fontWeight: FontWeight.bold)),
+          //             ),
+          // ),
         ),
       );
     });

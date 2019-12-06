@@ -84,22 +84,6 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                             style: TextStyle(color: Colors.grey[600]),
                           )
                         : SizedBox(width: 0),
-                    // Pill(
-                    //   backgroundColor: Colors.grey[800],
-                    //   text: Text(
-                    //     '${widget.whitepaperData.item.additionalFields.contentType}',
-                    //     style: TextStyle(fontSize: 12.0, color: Colors.white),
-                    //   ),
-                    // ),
-                    // SizedBox(width: 8.0),
-                    // widget.whitepaperData.item.additionalFields.featureFlag != null
-                    //     ? Pill(
-                    //         backgroundColor: Colors.orange,
-                    //         text: Text(
-                    //           '${widget.whitepaperData.item.additionalFields.featureFlag}',
-                    //           style: TextStyle(fontSize: 12.0, color: Colors.white),
-                    //         ))
-                    //     : SizedBox(width: 0.0),
                   ],
                 ),
                 Row(
