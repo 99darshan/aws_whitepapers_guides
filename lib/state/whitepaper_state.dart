@@ -19,21 +19,15 @@ class WhitepaperState extends ChangeNotifier {
   }
 
   List<Future<RootAwsResponse>> _rootAwsResponse = [];
-  Future<RootAwsResponse> _searchAwsReponse;
+  List<Future<RootAwsResponse>> _searchAwsReponse = [];
   int _pageSize = 10;
   int _pageNumber = 0;
   bool _hasNextPage = true;
-  // TODO: page number?? paginated results and size
-
-  // static const _baseUrl =
-  //     'https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&size=15&item.locale=en_US&page=';
-
   static const _baseUrl =
       'https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&item.locale=en_US';
 
   List<Future<RootAwsResponse>> get rootAwsResponse => _rootAwsResponse;
-  // TODO: what if network error while saerching
-  Future<RootAwsResponse> get searchAwsResponse => _searchAwsReponse;
+  List<Future<RootAwsResponse>> get searchAwsResponse => _searchAwsReponse;
   bool get hasNextPage => _hasNextPage;
 
   // NOTE: this function is redundent, fetchFiltersWhitepapers with blank filters as arguments can be called instead of this
@@ -49,13 +43,16 @@ class WhitepaperState extends ChangeNotifier {
 
   resetWhitepaperState() {
     _rootAwsResponse = [];
+    _searchAwsReponse = [];
     _hasNextPage = true;
     _pageNumber = 0;
   }
 
   fetchWhitepapersBySearchKeywords(String searchKeyword) {
-    String queryUrl = '$_baseUrl&q=$searchKeyword&q_operator=AND';
-    _searchAwsReponse = HttpService.fetchData(queryUrl);
+    String queryUrl =
+        '$_baseUrl&size=$_pageSize&page=$_pageNumber&q=$searchKeyword&q_operator=AND';
+    _searchAwsReponse.add(HttpService.fetchData(queryUrl));
+    notifyListeners();
   }
 
   updateHasNextPage(Metadata metadata) {

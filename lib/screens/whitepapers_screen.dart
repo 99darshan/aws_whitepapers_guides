@@ -108,27 +108,35 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
 
                             itemBuilder: (context, index) {
                               if (index == whitepaperData.length) {
-                                return whitepaperState.hasNextPage
-                                    ? IconButton(
-                                        icon: Icon(Icons.expand_more),
-                                        onPressed: () {
-                                          whitepaperState.setPageNumber();
-                                          whitepaperState
-                                              .fetchFilteredWhitepapers(
-                                                  filterState.typesFilterList,
-                                                  filterState
-                                                      .categoriesFilterList,
-                                                  filterState
-                                                      .industriesFilterList,
-                                                  filterState
-                                                      .productsFilterList);
-                                        },
-                                      )
-                                    : SizedBox(
-                                        height: 64.0,
-                                        child:
-                                            Text("more button or empty space"),
-                                      );
+                                return Container(
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 16.0),
+                                  child: whitepaperState.hasNextPage
+                                      ? OutlineButton(
+                                          highlightedBorderColor: Colors.orange,
+                                          splashColor: Colors.orange[200],
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Text("Show More"),
+                                          //color: Colors.orange,
+                                          borderSide:
+                                              BorderSide(color: Colors.orange),
+                                          onPressed: () {
+                                            whitepaperState.setPageNumber();
+                                            whitepaperState
+                                                .fetchFilteredWhitepapers(
+                                                    filterState.typesFilterList,
+                                                    filterState
+                                                        .categoriesFilterList,
+                                                    filterState
+                                                        .industriesFilterList,
+                                                    filterState
+                                                        .productsFilterList);
+                                          },
+                                        )
+                                      : SizedBox(
+                                          height: 64.0,
+                                        ),
+                                );
                               } else {
                                 return WhitepaperCard(
                                     whitepaperData: whitepaperData[index]);

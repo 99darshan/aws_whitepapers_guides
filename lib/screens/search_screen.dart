@@ -19,9 +19,8 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   String _searchText;
-  bool _isSearching = false;
-  Future<RootAwsResponse>
-      _searchResults; // store and use the results in a local variable to clear the previous search actions
+  List<Future<RootAwsResponse>> _searchResults =
+      []; // store and use the results in a local variable to clear the previous search actions
   @override
   Widget build(BuildContext context) {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
@@ -61,10 +60,10 @@ class _SearchScreenState extends State<SearchScreen> {
       body: Container(
         color: Colors.grey[200],
         width: double.infinity,
-        child: _searchResults == null
+        child: _searchResults.length == 0
             ? _recentSearches(context, whitepaperState, searchState)
             : FutureBuilder(
-                future: _searchResults,
+                future: Future.wait(_searchResults),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState != ConnectionState.done) {
                     return ShimmerList();
@@ -90,12 +89,52 @@ class _SearchScreenState extends State<SearchScreen> {
                                     fontWeight: FontWeight.bold)),
                       );
                     } else {
-                      return snapshot.data.items.length > 0
+                      // NOTE: snapshot.data is List<RootAwsResponse>
+                      List<WhitepaperData> searchedWhitepaperData = [];
+                      // update the has next page flag based on metadata of last RootAwsResponse
+                      whitepaperState.updateHasNextPage(
+                          snapshot.data[snapshot.data.length - 1].metadata);
+
+                      snapshot.data.forEach((rootAwsResItem) {
+                        // rootAWsResitem.items is itself a List<WhitepaperData>
+                        rootAwsResItem.items.forEach(
+                            (wpData) => searchedWhitepaperData.add(wpData));
+                      });
+
+                      return searchedWhitepaperData.length > 0
                           ? ListView.builder(
-                              itemCount: snapshot.data.items.length,
+                              // NOTE: the additional last item will either be a load more button or an empty sized box with height so the FAB won't hide the downloads icon on the last item
+                              itemCount: searchedWhitepaperData.length + 1,
                               itemBuilder: (context, index) {
+                                if (index == searchedWhitepaperData.length) {
+                                  return Container(
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 16.0),
+                                    child: whitepaperState.hasNextPage
+                                        ? OutlineButton(
+                                            highlightedBorderColor:
+                                                Colors.orange,
+                                            splashColor: Colors.orange[200],
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Text("Show More"),
+                                            //color: Colors.orange,
+                                            borderSide: BorderSide(
+                                                color: Colors.orange),
+                                            onPressed: () {
+                                              whitepaperState.setPageNumber();
+                                              whitepaperState
+                                                  .fetchWhitepapersBySearchKeywords(
+                                                      this._searchText);
+                                            },
+                                          )
+                                        : SizedBox(
+                                            height: 64.0,
+                                          ),
+                                  );
+                                }
                                 return WhitepaperCard(
-                                    whitepaperData: snapshot.data.items[index]);
+                                    whitepaperData:
+                                        searchedWhitepaperData[index]);
                               },
                             )
                           : ErrorAndInfoCard(
@@ -121,14 +160,13 @@ class _SearchScreenState extends State<SearchScreen> {
     print('searching...');
     setState(() {
       _searchText = value;
-      _isSearching = true;
     });
+    whitepaperState.resetWhitepaperState();
     print('search text is $_searchText');
     await whitepaperState.fetchWhitepapersBySearchKeywords(_searchText);
     searchState.updateRecentSearches(_searchText);
 
     setState(() {
-      _isSearching = false;
       _searchResults = whitepaperState.searchAwsResponse;
     });
   }
