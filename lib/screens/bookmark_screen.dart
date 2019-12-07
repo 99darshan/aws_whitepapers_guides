@@ -53,6 +53,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
         child: bookmarkState.bookmarks.length > 0
             ? AnimatedList(
                 key: _animationKey,
+                reverse: true,
                 initialItemCount: bookmarkState.bookmarks.length,
                 itemBuilder: (context, index, animation) {
                   return _buildItem(
