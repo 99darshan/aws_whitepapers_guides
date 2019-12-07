@@ -19,6 +19,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  TextEditingController _searchTextController = TextEditingController();
   String _searchText;
   List<Future<RootAwsResponse>> _searchResults =
       []; // store and use the results in a local variable to clear the previous search actions
@@ -36,6 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
             //   return value.isEmpty ? 'Search term can not be empty !!' : null;
             // },
             //autofocus: true,
+            controller: _searchTextController,
             textInputAction: TextInputAction.search,
             decoration: InputDecoration(
               hintText: 'Search Whitepapers',
@@ -153,6 +155,11 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
+  void dispose() {
+    _searchTextController.dispose();
+    super.dispose();
+  }
+
   _onSearch(WhitepaperState whitepaperState, SearchState searchState,
       String value) async {
     print('searching...');
@@ -167,6 +174,7 @@ class _SearchScreenState extends State<SearchScreen> {
     setState(() {
       _searchResults = whitepaperState.searchAwsResponse;
     });
+    _searchTextController.text = _searchText;
   }
 
   Widget _recentSearches(BuildContext context, WhitepaperState whitepaperState,
