@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
+import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +34,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
     return Consumer<WhitepaperState>(builder: (context, whitepaperState, _) {
       return WillPopScope(
         onWillPop: () {
+          whitepaperState.resetWhitepaperState();
           filterState.resetAllFilters();
           Navigator.of(context).pop('/');
           return;
@@ -56,6 +58,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                 onPressed: () {
                   // reset all existing filters when navigating to home
                   filterState.resetAllFilters();
+                  whitepaperState.resetWhitepaperState();
                   Navigator.of(context).pop('/');
                 },
               )
@@ -65,7 +68,8 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
             color: Colors.grey[200],
             width: double.infinity,
             child: FutureBuilder(
-              future: whitepaperState.rootAwsResponse,
+              // NOTE: multiple futures to handle multiple page requests
+              future: Future.wait(whitepaperState.rootAwsResponse),
               builder: (context, snapshot) {
                 if (snapshot.connectionState != ConnectionState.done) {
                   return ShimmerList();
@@ -87,12 +91,48 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                               fontSize: 16.0, fontWeight: FontWeight.bold)),
                     );
                   } else {
-                    return snapshot.data.items.length > 0
+                    // NOTE: snapshot.data is List<RootAwsResponse>
+                    List<WhitepaperData> whitepaperData = [];
+                    // update the has next page flag based on metadata of last RootAwsResponse
+                    whitepaperState.updateHasNextPage(
+                        snapshot.data[snapshot.data.length - 1].metadata);
+                    snapshot.data.forEach((rootAwsResItem) {
+                      // rootAWsResitem.items is itself a List<WhitepaperData>
+                      rootAwsResItem.items
+                          .forEach((wpData) => whitepaperData.add(wpData));
+                    });
+                    return whitepaperData.length > 0
                         ? ListView.builder(
-                            itemCount: snapshot.data.items.length,
+                            // NOTE: the additional last item will either be a load more button or an empty sized box with height so the FAB won't hide the downloads icon on the last item
+                            itemCount: whitepaperData.length + 1,
+
                             itemBuilder: (context, index) {
-                              return WhitepaperCard(
-                                  whitepaperData: snapshot.data.items[index]);
+                              if (index == whitepaperData.length) {
+                                return whitepaperState.hasNextPage
+                                    ? IconButton(
+                                        icon: Icon(Icons.expand_more),
+                                        onPressed: () {
+                                          whitepaperState.setPageNumber();
+                                          whitepaperState
+                                              .fetchFilteredWhitepapers(
+                                                  filterState.typesFilterList,
+                                                  filterState
+                                                      .categoriesFilterList,
+                                                  filterState
+                                                      .industriesFilterList,
+                                                  filterState
+                                                      .productsFilterList);
+                                        },
+                                      )
+                                    : SizedBox(
+                                        height: 64.0,
+                                        child:
+                                            Text("more button or empty space"),
+                                      );
+                              } else {
+                                return WhitepaperCard(
+                                    whitepaperData: whitepaperData[index]);
+                              }
                             },
                           )
                         : ErrorAndInfoCard(

@@ -7,54 +7,64 @@ import 'package:flutter/foundation.dart';
 class WhitepaperState extends ChangeNotifier {
   static final WhitepaperState _singleton = WhitepaperState._();
 
-  // creates a WhitepaperState object and fetches the initial whitepapers while doing so
+  // creates a WhitepaperState object
   WhitepaperState._() {
     print('fetching from named _ constructor in whitepaper object');
-    //fetchWhitepapers(List<String>());
-    initFetchWhitepapers();
+    // NOTE: uncomment below if whitepapers info needs to be fetched when loading the app, now it is only loaded when an action occurs on homescreen
+    //initFetchWhitepapers();
   }
 
   factory WhitepaperState() {
     return _singleton;
-    //return WhitepaperState._();
   }
 
-  Future<RootAwsResponse> _rootAwsResponse;
+  List<Future<RootAwsResponse>> _rootAwsResponse = [];
   Future<RootAwsResponse> _searchAwsReponse;
-  //bool _isFetchingData = false;
-  WhitepaperData _currentWhitepaper;
+  int _pageSize = 10;
+  int _pageNumber = 0;
+  bool _hasNextPage = true;
   // TODO: page number?? paginated results and size
 
-  static const _baseUrl =
-      'https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&size=100&item.locale=en_US&page=0';
+  // static const _baseUrl =
+  //     'https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&size=15&item.locale=en_US&page=';
 
-  Future<RootAwsResponse> get rootAwsResponse => _rootAwsResponse;
+  static const _baseUrl =
+      'https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&item.locale=en_US';
+
+  List<Future<RootAwsResponse>> get rootAwsResponse => _rootAwsResponse;
   // TODO: what if network error while saerching
   Future<RootAwsResponse> get searchAwsResponse => _searchAwsReponse;
-  //bool get isFetchingData => _isFetchingData;
-  WhitepaperData get currentWhitepaper => _currentWhitepaper;
+  bool get hasNextPage => _hasNextPage;
 
-  void setCurrentWhitepaper(WhitepaperData whitepaper) {
-    _currentWhitepaper = whitepaper;
+  // NOTE: this function is redundent, fetchFiltersWhitepapers with blank filters as arguments can be called instead of this
+  initFetchWhitepapers() async {
+    String queryUrl = '$_baseUrl&size=$_pageSize&page=$_pageNumber';
+    _rootAwsResponse.add(HttpService.fetchData(queryUrl));
+    notifyListeners();
   }
 
-  // void setIsFetchingData(bool newValue) {
-  //   _isFetchingData = newValue;
-  //   notifyListeners();
-  // }
+  setPageNumber() {
+    _pageNumber += 1;
+  }
 
-  initFetchWhitepapers() {
-    //setIsFetchingData(true);
-    _rootAwsResponse = HttpService.fetchData(_baseUrl);
-    //setIsFetchingData(false);
+  resetWhitepaperState() {
+    _rootAwsResponse = [];
+    _hasNextPage = true;
+    _pageNumber = 0;
   }
 
   fetchWhitepapersBySearchKeywords(String searchKeyword) {
-    //setIsFetchingData(true);
     String queryUrl = '$_baseUrl&q=$searchKeyword&q_operator=AND';
     _searchAwsReponse = HttpService.fetchData(queryUrl);
-    //notifyListeners();
-    //setIsFetchingData(false);
+  }
+
+  updateHasNextPage(Metadata metadata) {
+    if (metadata.count == 0) {
+      this._hasNextPage = false;
+    } else {
+      this._hasNextPage =
+          metadata.count + (_pageNumber * _pageSize) < metadata.totalHits;
+    }
   }
 
   Future fetchFilteredWhitepapers(
@@ -62,15 +72,15 @@ class WhitepaperState extends ChangeNotifier {
       List<String> categoryFiltersList,
       List<String> industryFiltersList,
       List<String> productFiltersList) async {
-    //setIsFetchingData(true);
-    String queryUrl = _baseUrl;
+    //String queryUrl = '$_baseUrl${this._pageNumber}';
+    String queryUrl = '$_baseUrl&size=$_pageSize&page=$_pageNumber';
 
     if (typeFiltersList.length > 0) {
       // Query String example with type filters
       // 1. With only one type filter applied |whitepapers is not used
       // 2. When multiple type filter is applied all filters have |whitepapers appended at end except for the last one
       // e.g. https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&size=15&item.locale=en_US&tags.id=whitepapers%23content-type%23whitepaper%7Cwhitepapers%23content-type%23tech-guide
-      queryUrl = '$_baseUrl&tags.id=whitepapers';
+      queryUrl = '$queryUrl&tags.id=whitepapers';
       for (int i = 0; i < typeFiltersList.length; i++) {
         if (i == typeFiltersList.length - 1) {
           queryUrl =
@@ -124,7 +134,10 @@ class WhitepaperState extends ChangeNotifier {
     // call http service after queryUrl is formed
 
     print("query url: $queryUrl");
-    _rootAwsResponse = HttpService.fetchData(queryUrl);
+    _rootAwsResponse.add(HttpService.fetchData(queryUrl));
+
+    notifyListeners();
+    //_rootAwsResponse = HttpService.fetchData(queryUrl);
     //notifyListeners();
     //setIsFetchingData(false);
   }
