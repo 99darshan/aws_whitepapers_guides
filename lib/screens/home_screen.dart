@@ -39,10 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(width: 8.0),
           ],
           flexibleSpace: FlexibleSpaceBar(
-            background: Image.network(
-              "https://d1.awsstatic.com/webteam/homepage/heroes/backgrounds/Site-Merch_Blue_Pattern_06_Hero-BG.7d47bbb326ce6d8cf1fe024aed2f682d939ddf63.png",
-              fit: BoxFit.fill,
-            ),
+            background: Image.asset('assets/img/aws_whitepapers_banner.png',
+                fit: BoxFit.fill),
+            // background: Image.network(
+            //   "https://d1.awsstatic.com/webteam/homepage/heroes/backgrounds/Site-Merch_Blue_Pattern_06_Hero-BG.7d47bbb326ce6d8cf1fe024aed2f682d939ddf63.png",
+            //   fit: BoxFit.fill,
+            // ),
             title:
                 Text("AWS Whitepapers", style: TextStyle(color: Colors.white)),
             centerTitle: false,

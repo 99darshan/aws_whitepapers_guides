@@ -60,6 +60,7 @@ flutter:
     - assets/svg/no_internet.svg
     - assets/svg/no_search_items.svg
     - assets/svg/unknown_error.svg
+    - assets/img/aws_whitepapers_banner.png
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
