@@ -38,13 +38,13 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bookmarks'),
-        actions: <Widget>[
-          //TODO: search through bookmarks
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          ),
-        ],
+        // actions: <Widget>[
+        //   //TODO: search through bookmarks
+        //   IconButton(
+        //     icon: Icon(Icons.search),
+        //     onPressed: () {},
+        //   ),
+        // ],
       ),
       body: Container(
         color: Colors.grey[200],
@@ -53,7 +53,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
         child: bookmarkState.bookmarks.length > 0
             ? AnimatedList(
                 key: _animationKey,
-                reverse: true,
+                //reverse: true,
                 initialItemCount: bookmarkState.bookmarks.length,
                 itemBuilder: (context, index, animation) {
                   return _buildItem(

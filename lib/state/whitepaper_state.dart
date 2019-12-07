@@ -20,7 +20,7 @@ class WhitepaperState extends ChangeNotifier {
 
   List<Future<RootAwsResponse>> _rootAwsResponse = [];
   List<Future<RootAwsResponse>> _searchAwsReponse = [];
-  int _pageSize = 10;
+  int _pageSize = 50;
   int _pageNumber = 0;
   bool _hasNextPage = true;
   static const _baseUrl =

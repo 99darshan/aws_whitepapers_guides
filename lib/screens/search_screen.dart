@@ -112,7 +112,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                 if (index == reversedSearchResults.length) {
                                   return Container(
                                     margin: EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 16.0),
+                                        vertical: 8.0,
+                                        horizontal:
+                                            MediaQuery.of(context).size.width *
+                                                0.25),
                                     child: whitepaperState.hasNextPage
                                         ? LoadMore(
                                             onPressed: () {

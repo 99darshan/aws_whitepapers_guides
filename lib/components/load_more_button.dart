@@ -11,7 +11,7 @@ class LoadMore extends StatelessWidget {
       splashColor: Colors.orange[200],
       padding: EdgeInsets.all(8.0),
       child: Text("Show More"),
-      //color: Colors.orange,
+      color: Colors.orange,
       borderSide: BorderSide(color: Colors.orange),
       onPressed: this.onPressed,
     );
