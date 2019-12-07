@@ -3,6 +3,7 @@ import 'package:aws_whitepapers_guides/components/pill.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/services/download_service.dart';
+import 'package:aws_whitepapers_guides/services/permission_service.dart';
 import 'package:aws_whitepapers_guides/state/bookmark_state.dart';
 import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +138,8 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                       return IconButton(
                         icon: Icon(Icons.file_download,
                             color: Theme.of(context).primaryColor),
-                        onPressed: () {
+                        onPressed: () async {
+                          await PermissionService.storagePermission();
                           DownloadService.downloadWhitepaper(
                               widget.whitepaperData);
                         },

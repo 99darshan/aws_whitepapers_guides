@@ -46,19 +46,19 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<FilterState>(
-          builder: (_) => new FilterState(),
+          create: (_) => new FilterState(),
         ),
         ChangeNotifierProvider<WhitepaperState>(
-          builder: (_) => WhitepaperState(),
+          create: (_) => WhitepaperState(),
         ),
         ChangeNotifierProvider<BookmarkState>(
-          builder: (_) => BookmarkState(),
+          create: (_) => BookmarkState(),
         ),
         ChangeNotifierProvider<DownloadsState>(
-          builder: (_) => DownloadsState(),
+          create: (_) => DownloadsState(),
         ),
         ChangeNotifierProvider<SearchState>(
-          builder: (_) => SearchState(),
+          create: (_) => SearchState(),
         ),
         //Provider.value(value: WhitepaperBloc())
       ],

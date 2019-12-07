@@ -3,6 +3,7 @@ import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/services/download_service.dart';
+import 'package:aws_whitepapers_guides/services/permission_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -33,7 +34,8 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
           widget.currentWhitepaper != null
               ? IconButton(
                   icon: Icon(Icons.file_download),
-                  onPressed: () {
+                  onPressed: () async {
+                    await PermissionService.storagePermission();
                     DownloadService.downloadWhitepaper(
                         widget.currentWhitepaper);
                   },
