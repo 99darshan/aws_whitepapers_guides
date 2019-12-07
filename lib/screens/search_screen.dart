@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
+import 'package:aws_whitepapers_guides/components/load_more_button.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
@@ -100,26 +101,20 @@ class _SearchScreenState extends State<SearchScreen> {
                         rootAwsResItem.items.forEach(
                             (wpData) => searchedWhitepaperData.add(wpData));
                       });
-
+                      // reverse the list so the latest items are displayed at top
+                      final reversedSearchResults =
+                          searchedWhitepaperData.reversed.toList();
                       return searchedWhitepaperData.length > 0
                           ? ListView.builder(
                               // NOTE: the additional last item will either be a load more button or an empty sized box with height so the FAB won't hide the downloads icon on the last item
-                              itemCount: searchedWhitepaperData.length + 1,
+                              itemCount: reversedSearchResults.length + 1,
                               itemBuilder: (context, index) {
-                                if (index == searchedWhitepaperData.length) {
+                                if (index == reversedSearchResults.length) {
                                   return Container(
                                     margin: EdgeInsets.symmetric(
                                         vertical: 8.0, horizontal: 16.0),
                                     child: whitepaperState.hasNextPage
-                                        ? OutlineButton(
-                                            highlightedBorderColor:
-                                                Colors.orange,
-                                            splashColor: Colors.orange[200],
-                                            padding: EdgeInsets.all(8.0),
-                                            child: Text("Show More"),
-                                            //color: Colors.orange,
-                                            borderSide: BorderSide(
-                                                color: Colors.orange),
+                                        ? LoadMore(
                                             onPressed: () {
                                               whitepaperState.setPageNumber();
                                               whitepaperState
@@ -134,7 +129,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                 }
                                 return WhitepaperCard(
                                     whitepaperData:
-                                        searchedWhitepaperData[index]);
+                                        reversedSearchResults[index]);
                               },
                             )
                           : ErrorAndInfoCard(

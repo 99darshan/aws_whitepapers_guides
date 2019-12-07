@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
+import 'package:aws_whitepapers_guides/components/load_more_button.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
@@ -101,25 +102,22 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                       rootAwsResItem.items
                           .forEach((wpData) => whitepaperData.add(wpData));
                     });
+                    // reverse the list so the latest items are displayed at top
+
+                    final reversedWhitepaperData =
+                        whitepaperData.reversed.toList();
                     return whitepaperData.length > 0
                         ? ListView.builder(
                             // NOTE: the additional last item will either be a load more button or an empty sized box with height so the FAB won't hide the downloads icon on the last item
-                            itemCount: whitepaperData.length + 1,
+                            itemCount: reversedWhitepaperData.length + 1,
 
                             itemBuilder: (context, index) {
-                              if (index == whitepaperData.length) {
+                              if (index == reversedWhitepaperData.length) {
                                 return Container(
                                   margin: EdgeInsets.symmetric(
                                       vertical: 8.0, horizontal: 16.0),
                                   child: whitepaperState.hasNextPage
-                                      ? OutlineButton(
-                                          highlightedBorderColor: Colors.orange,
-                                          splashColor: Colors.orange[200],
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text("Show More"),
-                                          //color: Colors.orange,
-                                          borderSide:
-                                              BorderSide(color: Colors.orange),
+                                      ? LoadMore(
                                           onPressed: () {
                                             whitepaperState.setPageNumber();
                                             whitepaperState
@@ -139,7 +137,8 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                                 );
                               } else {
                                 return WhitepaperCard(
-                                    whitepaperData: whitepaperData[index]);
+                                    whitepaperData:
+                                        reversedWhitepaperData[index]);
                               }
                             },
                           )
