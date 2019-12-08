@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: CustomScrollView(slivers: <Widget>[
         SliverAppBar(
           floating: true,
@@ -25,11 +26,12 @@ class _HomeScreenState extends State<HomeScreen> {
           //automaticallyImplyLeading: false,
           actions: <Widget>[
             ActionChip(
-              //backgroundColor: Colors.blue,
+              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
               label: Text('View All',
-                  style: Theme.of(context).textTheme.subtitle.copyWith(
-                      color: Theme.of(context).primaryColor,
-                      fontWeight: FontWeight.bold)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle
+                      .copyWith(color: Color(0xfff5f5f5))),
               onPressed: () {
                 // fetch all whitepapers
                 whitepaperState.initFetchWhitepapers();

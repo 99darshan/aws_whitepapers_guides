@@ -33,9 +33,9 @@ class FilterChipWidgetState extends State<FilterChipWidget> {
     }
     return FilterChip(
       label: Text(widget.labelText),
-      labelStyle: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
-      selectedShadowColor: Colors.teal[200],
-      selectedColor: Colors.teal[200],
+      labelStyle: TextStyle(color: Colors.black87),
+      //selectedShadowColor: Colors.teal[200],
+      selectedColor: Theme.of(context).primaryColorLight,
       selected: _isSelected,
       onSelected: (isSelected) {
         setState(() {

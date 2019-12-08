@@ -61,7 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
         ),
       ),
       body: Container(
-        color: Colors.grey[200],
+        color: Theme.of(context).backgroundColor,
         width: double.infinity,
         child: _searchResults.length == 0
             ? _recentSearches(context, whitepaperState, searchState)
@@ -139,7 +139,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             )
                           : ErrorAndInfoCard(
                               assetName: 'assets/svg/no_search_items.svg',
-                              label: Text("o results found for $_searchText!!",
+                              label: Text("No results found for $_searchText!!",
                                   style: Theme.of(context)
                                       .textTheme
                                       .display1
@@ -200,7 +200,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         IconButton(
                           icon: Icon(
                             Icons.delete,
-                            color: Colors.blueGrey,
+                            color: Theme.of(context).primaryColor,
                           ),
                           onPressed: () {
                             searchState.deleteAllRecentSearches();

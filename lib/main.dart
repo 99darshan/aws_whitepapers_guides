@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     // Changes color of status bar
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-      statusBarColor: Theme.of(context).primaryColor,
+      statusBarColor: Color(0xff303F9F),
     ));
     return MultiProvider(
       providers: [
@@ -67,8 +67,12 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           // Define the default brightness and colors.
           brightness: Brightness.light,
-          primaryColor: Colors.lightBlue[800],
-          accentColor: Colors.orange[600],
+          primaryColor: Colors.indigo,
+          primaryColorLight: Color(0xffC5CAE9),
+          primaryColorDark: Color(0xff303F9F),
+          accentColor: Colors.deepOrange,
+          backgroundColor: Colors.grey[200],
+
           // colorScheme: ColorScheme(
           //     primary: Colors.lightBlue[800],
           //     secondary: Colors.orange[600],
@@ -107,6 +111,7 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
           bottomNavigationBar: BottomNavyBar(
+            backgroundColor: Colors.grey[200],
             selectedIndex: _selectedScreenIndex,
             //animationDuration: Duration(milliseconds: 300),
             onItemSelected: (index) {
@@ -124,72 +129,27 @@ class _MyAppState extends State<MyApp> {
               BottomNavyBarItem(
                   title: Text('Home'),
                   icon: Icon(Icons.home),
-                  activeColor: Colors.orange,
-                  inactiveColor: Colors.grey),
+                  activeColor: Colors.deepOrange,
+                  inactiveColor: Colors.blueGrey[400]),
               BottomNavyBarItem(
                   title: Text('Search'),
                   icon: Icon(
                     Icons.search,
                   ),
-                  activeColor: Colors.orange,
-                  inactiveColor: Colors.grey),
+                  activeColor: Colors.deepOrange,
+                  inactiveColor: Colors.blueGrey[400]),
               BottomNavyBarItem(
                   title: Text('Bookmarks'),
                   icon: Icon(Icons.collections_bookmark),
-                  activeColor: Colors.orange,
-                  inactiveColor: Colors.grey),
+                  activeColor: Colors.deepOrange,
+                  inactiveColor: Colors.blueGrey[400]),
               BottomNavyBarItem(
                   title: Text('Downloads'),
                   icon: Icon(Icons.file_download),
-                  activeColor: Colors.orange,
-                  inactiveColor: Colors.grey),
+                  activeColor: Colors.deepOrange,
+                  inactiveColor: Colors.blueGrey[400]),
             ],
           ),
-          // bottomNavigationBar: BottomNavigationBar(
-          //     //fixedColor: Theme.of(context).primaryColor,
-          //     //backgroundColor: Theme.of(context).accentColor,
-          //     selectedItemColor: Colors.orange,
-          //     //unselectedItemColor: Colors.grey,
-          //     showUnselectedLabels: true,
-          //     currentIndex: _selectedScreenIndex,
-          //     type: BottomNavigationBarType.fixed,
-          //     onTap: (index) {
-          //       setState(() {
-          //         _selectedScreenIndex = index;
-          //       });
-          //     },
-          //     items: [
-          //       BottomNavigationBarItem(
-          //         title: Text('Home'),
-          //         icon: Icon(
-          //           Icons.home,
-          //         ),
-          //       ),
-          //       // BottomNavigationBarItem(
-          //       //   title: Text('Whitepapers'),
-          //       //   icon: Icon(
-          //       //     Icons.receipt,
-          //       //   ),
-          //       // ),
-          //       BottomNavigationBarItem(
-          //         title: Text('Search'),
-          //         icon: Icon(
-          //           Icons.search,
-          //         ),
-          //       ),
-          //       BottomNavigationBarItem(
-          //         title: Text('Bookmarks'),
-          //         icon: Icon(
-          //           Icons.collections_bookmark,
-          //         ),
-          //       ),
-          //       BottomNavigationBarItem(
-          //         title: Text('Downloads'),
-          //         icon: Icon(
-          //           Icons.file_download,
-          //         ),
-          //       ),
-          //     ]),
         ),
         //initialRoute: '/',
         routes: {

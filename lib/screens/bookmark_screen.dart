@@ -47,7 +47,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
         // ],
       ),
       body: Container(
-        color: Colors.grey[200],
+        color: Theme.of(context).backgroundColor,
         width: double.infinity,
         //padding: EdgeInsets.all(8.0),
         child: bookmarkState.bookmarks.length > 0

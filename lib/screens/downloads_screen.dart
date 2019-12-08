@@ -24,7 +24,7 @@ class DownloadsScreen extends StatelessWidget {
           ],
         ),
         body: Container(
-          color: Colors.grey[200],
+          color: Theme.of(context).backgroundColor,
           child: FutureBuilder(
               future: downloadsState.allDownloadedFilesName,
               builder: (context, snapshot) {
