@@ -17,16 +17,19 @@ class _FilterScreenState extends State<FilterScreen> {
   Widget build(BuildContext context) {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
     FilterState filterState = Provider.of<FilterState>(context);
+
+    Future<bool> _onWillPopScopeCallback() async {
+      whitepaperState.resetWhitepaperState();
+      whitepaperState.fetchFilteredWhitepapers(
+          filterState.typesFilterList,
+          filterState.categoriesFilterList,
+          filterState.industriesFilterList,
+          filterState.productsFilterList);
+      return true;
+    }
+
     return WillPopScope(
-      onWillPop: () {
-        whitepaperState.resetWhitepaperState();
-        whitepaperState.fetchFilteredWhitepapers(
-            filterState.typesFilterList,
-            filterState.categoriesFilterList,
-            filterState.industriesFilterList,
-            filterState.productsFilterList);
-        return Navigator.of(context).popAndPushNamed('/whiteppaersScreen');
-      },
+      onWillPop: _onWillPopScopeCallback,
       child: Scaffold(
         appBar: AppBar(
           title: Text('Select Filter'),
