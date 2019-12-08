@@ -28,13 +28,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _pageController = PageController();
-  var _screens = [
-    HomeScreen(),
-    //WhitepapersScreen(),
-    SearchScreen(),
-    BookmarkScreen(),
-    DownloadsScreen()
-  ];
 
   int _selectedScreenIndex = 0;
   @override
@@ -114,6 +107,7 @@ class _MyAppState extends State<MyApp> {
           body: SafeArea(
             //child: _screens[_selectedScreenIndex],
             child: PageView(
+              physics: AlwaysScrollableScrollPhysics(),
               controller: _pageController,
               onPageChanged: (index) {
                 setState(() {
