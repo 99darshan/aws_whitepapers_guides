@@ -33,13 +33,14 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
   Widget build(BuildContext context) {
     FilterState filterState = Provider.of<FilterState>(context);
     return Consumer<WhitepaperState>(builder: (context, whitepaperState, _) {
+      Future<bool> _willPopCallback() async {
+        whitepaperState.resetWhitepaperState();
+        filterState.resetAllFilters();
+        return true;
+      }
+
       return WillPopScope(
-        onWillPop: () {
-          whitepaperState.resetWhitepaperState();
-          filterState.resetAllFilters();
-          Navigator.of(context).pop('/');
-          return;
-        },
+        onWillPop: _willPopCallback,
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () {
