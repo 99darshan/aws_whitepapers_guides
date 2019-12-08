@@ -81,7 +81,8 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                     String errorMessage;
                     if (snapshot.error is SocketException) {
                       errorAsset = 'assets/svg/no_internet.svg';
-                      errorMessage = "No Active Internet Connection Found !!";
+                      errorMessage =
+                          "No Active Internet Connection Found !! \n No worries though, you can view your downloaded whitepapers form the downlads tab !! ";
                     } else {
                       errorAsset = 'assets/svg/unknown_error.svg';
                       errorMessage = "Error Fetching Whitepapers !!";

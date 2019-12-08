@@ -8,6 +8,7 @@ import 'package:aws_whitepapers_guides/state/downloads_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WhitepaperCard extends StatefulWidget {
   final WhitepaperData whitepaperData;
@@ -132,18 +133,20 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                       },
                     ),
                     IconButton(
-                      icon: Icon(
-                        Icons.picture_as_pdf,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return PdfViewScreen(
-                              currentWhitepaper: widget.whitepaperData);
-                        }));
-                      },
-                    ),
+                        icon: Icon(
+                          widget.whitepaperData.item.additionalFields.primaryURL
+                                  .toLowerCase()
+                                  .contains(".pdf")
+                              ? Icons.picture_as_pdf
+                              : Icons.open_in_browser,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        onPressed: widget
+                                .whitepaperData.item.additionalFields.primaryURL
+                                .toLowerCase()
+                                .contains('.pdf')
+                            ? _navigateToPdfScreen
+                            : _lauchUrlForPrimaryWhitepaperLink),
                     Consumer<DownloadsState>(
                         builder: (context, downloadState, _) {
                       return IconButton(
@@ -164,5 +167,20 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
         ),
       ),
     );
+  }
+
+  _navigateToPdfScreen() {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return PdfViewScreen(currentWhitepaper: widget.whitepaperData);
+    }));
+  }
+
+  _lauchUrlForPrimaryWhitepaperLink() async {
+    final url = widget.whitepaperData.item.additionalFields.primaryURL;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
