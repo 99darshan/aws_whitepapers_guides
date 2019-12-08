@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/load_more_button.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
@@ -195,7 +194,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       children: <Widget>[
                         Text(
                           "Recent Searches",
-                          style: Theme.of(context).textTheme.title,
+                          style: Theme.of(context).textTheme.display1,
                         ),
                         IconButton(
                           icon: Icon(
@@ -223,7 +222,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                 borderRadius: BorderRadius.zero),
                             margin: EdgeInsets.only(bottom: 1.0),
                             child: ListTile(
-                              title: Text(searchState.recentSearches[index]),
+                              title: Text(
+                                searchState.recentSearches[index],
+                                style: Theme.of(context).textTheme.subhead,
+                              ),
                             ),
                           ),
                         );

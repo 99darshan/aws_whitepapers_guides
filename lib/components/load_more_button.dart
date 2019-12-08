@@ -7,12 +7,15 @@ class LoadMore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlineButton(
-      highlightedBorderColor: Colors.orange,
-      splashColor: Colors.orange[200],
+      highlightedBorderColor: Theme.of(context).accentColor,
+      splashColor: Theme.of(context).accentColor,
       padding: EdgeInsets.all(8.0),
-      child: Text("Show More"),
-      color: Colors.orange,
-      borderSide: BorderSide(color: Colors.orange),
+      child: Text(
+        "Show More",
+        style: Theme.of(context).textTheme.button,
+      ),
+      color: Theme.of(context).accentColor,
+      borderSide: BorderSide(color: Theme.of(context).accentColor),
       onPressed: this.onPressed,
     );
   }

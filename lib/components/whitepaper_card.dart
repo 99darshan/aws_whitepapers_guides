@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:aws_whitepapers_guides/components/pill.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/screens/pdf_view_screen.dart';
 import 'package:aws_whitepapers_guides/services/download_service.dart';
@@ -46,15 +45,12 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(widget.whitepaperData.item.additionalFields.docTitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline
-                    .copyWith(fontWeight: FontWeight.bold)),
+                style: Theme.of(context).textTheme.headline),
             Divider(thickness: 2.0, height: 32.0),
             Text(
                 widget.whitepaperData.item.additionalFields
                     .getDescriptionText(),
-                style: Theme.of(context).textTheme.subhead),
+                style: Theme.of(context).textTheme.body1),
             SizedBox(height: 12.0),
             // Text(widget.whitepaperData.item.additionalFields
             //     .getIndustriesProductsTags()
@@ -63,7 +59,14 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
               spacing: 8.0,
               children: widget.whitepaperData.item.additionalFields
                   .getIndustriesProductsTags()
-                  .map((item) => Chip(label: Text(item)))
+                  .map((item) => Chip(
+                          label: Text(
+                        item,
+                        style: Theme.of(context)
+                            .textTheme
+                            .body1
+                            .copyWith(fontSize: 12.0),
+                      )))
                   .toList(),
             ),
             SizedBox(height: 8.0),
@@ -76,13 +79,13 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                   children: <Widget>[
                     Text(
                       '${widget.whitepaperData.item.additionalFields.contentType}',
-                      style: TextStyle(color: Colors.grey[600]),
+                      style: Theme.of(context).textTheme.caption,
                     ),
                     widget.whitepaperData.item.additionalFields.featureFlag !=
                             null
                         ? Text(
                             ' | ${widget.whitepaperData.item.additionalFields.featureFlag}',
-                            style: TextStyle(color: Colors.grey[600]),
+                            style: Theme.of(context).textTheme.caption,
                           )
                         : SizedBox(width: 0),
                   ],

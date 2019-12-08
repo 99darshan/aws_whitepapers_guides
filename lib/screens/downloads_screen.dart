@@ -84,9 +84,15 @@ class DownloadsScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
             leading: null,
-            title: Text(item),
+            title: Text(
+              item,
+              style: Theme.of(context).textTheme.subhead,
+            ),
             trailing: IconButton(
-              icon: Icon(Icons.delete),
+              icon: Icon(
+                Icons.delete,
+                color: Theme.of(context).primaryColor,
+              ),
               onPressed: () {
                 downloadsState.deleteFile(item);
                 _downloadsAnimatedListKey.currentState.removeItem(index,

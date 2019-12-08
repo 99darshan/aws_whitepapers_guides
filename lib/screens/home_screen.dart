@@ -26,12 +26,15 @@ class _HomeScreenState extends State<HomeScreen> {
           //automaticallyImplyLeading: false,
           actions: <Widget>[
             ActionChip(
-              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
+              avatar: Icon(
+                Icons.view_list,
+                color: Theme.of(context).primaryColor,
+              ),
+              backgroundColor: Theme.of(context).primaryColorLight,
               label: Text('View All',
-                  style: Theme.of(context)
-                      .textTheme
-                      .subtitle
-                      .copyWith(color: Color(0xfff5f5f5))),
+                  style: Theme.of(context).textTheme.button.copyWith(
+                      color: Theme.of(context).primaryColor,
+                      fontWeight: FontWeight.bold)),
               onPressed: () {
                 // fetch all whitepapers
                 whitepaperState.initFetchWhitepapers();
@@ -47,8 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //   "https://d1.awsstatic.com/webteam/homepage/heroes/backgrounds/Site-Merch_Blue_Pattern_06_Hero-BG.7d47bbb326ce6d8cf1fe024aed2f682d939ddf63.png",
             //   fit: BoxFit.fill,
             // ),
-            title:
-                Text("AWS Whitepapers", style: TextStyle(color: Colors.white)),
+            title: Text("AWS Whitepapers"),
             centerTitle: false,
             titlePadding: EdgeInsets.only(left: 16.0, bottom: 16.0),
           ),
