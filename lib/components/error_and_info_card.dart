@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 
 class ErrorAndInfoCard extends StatelessWidget {
   final String assetName;
-  final Widget label;
+  final String label;
   final Widget actionButton;
   const ErrorAndInfoCard(
       {Key key,
@@ -25,7 +25,11 @@ class ErrorAndInfoCard extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.2,
         ),
         SizedBox(height: 16.0),
-        this.label,
+        Text(
+          this.label,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.subhead,
+        ),
         SizedBox(height: 8.0),
         this.actionButton == null ? SizedBox(height: 0) : this.actionButton
       ],

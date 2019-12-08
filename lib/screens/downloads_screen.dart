@@ -49,16 +49,8 @@ class DownloadsScreen extends StatelessWidget {
                           )
                         : ErrorAndInfoCard(
                             assetName: 'assets/svg/no_downloads.svg',
-                            label: Text(
-                              "You haven't downloaded any files yet! \n Please press the refresh button above to fetch recent downloads. ",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .display1
-                                  .copyWith(
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.bold),
-                            ),
+                            label:
+                                "You haven't downloaded any files yet! \n Please press the refresh button above to fetch recent downloads. ",
                           );
                   }
                 }

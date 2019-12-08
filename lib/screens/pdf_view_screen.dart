@@ -73,9 +73,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
                 }
                 return ErrorAndInfoCard(
                   assetName: errorAsset,
-                  label: Text(errorMessage,
-                      style: Theme.of(context).textTheme.display1.copyWith(
-                          fontSize: 16.0, fontWeight: FontWeight.bold)),
+                  label: errorMessage,
                 );
               } else {
                 print(snapshot.data);

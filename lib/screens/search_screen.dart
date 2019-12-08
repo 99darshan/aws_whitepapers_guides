@@ -82,13 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       }
                       return ErrorAndInfoCard(
                         assetName: errorAsset,
-                        label: Text(errorMessage,
-                            style: Theme.of(context)
-                                .textTheme
-                                .display1
-                                .copyWith(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold)),
+                        label: errorMessage,
                       );
                     } else {
                       // NOTE: snapshot.data is List<RootAwsResponse>
@@ -138,13 +132,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             )
                           : ErrorAndInfoCard(
                               assetName: 'assets/svg/no_search_items.svg',
-                              label: Text("No results found for $_searchText!!",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .display1
-                                      .copyWith(
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold)),
+                              label: "No results found for $_searchText!!",
                             );
                     }
                   }
@@ -236,14 +224,8 @@ class _SearchScreenState extends State<SearchScreen> {
           )
         : ErrorAndInfoCard(
             assetName: 'assets/svg/no_search_items.svg',
-            label: Text(
-              "No Recent Searches! \n You can Start Searching For Whitepapers! ",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .display1
-                  .copyWith(fontSize: 16.0, fontWeight: FontWeight.bold),
-            ),
+            label:
+                "No Recent Searches! \n You can Start Searching For Whitepapers! ",
           );
     // no recet searches widget
   }

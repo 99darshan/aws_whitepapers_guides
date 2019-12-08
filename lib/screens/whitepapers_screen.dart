@@ -87,9 +87,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                     }
                     return ErrorAndInfoCard(
                       assetName: errorAsset,
-                      label: Text(errorMessage,
-                          style: Theme.of(context).textTheme.display1.copyWith(
-                              fontSize: 16.0, fontWeight: FontWeight.bold)),
+                      label: errorMessage,
                     );
                   } else {
                     // NOTE: snapshot.data is List<RootAwsResponse>
@@ -148,13 +146,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                           )
                         : ErrorAndInfoCard(
                             assetName: 'assets/svg/no_data.svg',
-                            label: Text("No Whitepapers Found !!",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .display1
-                                    .copyWith(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold)),
+                            label: "No Whitepapers Found !!",
                           );
                   }
                 }

@@ -64,14 +64,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
               )
             : ErrorAndInfoCard(
                 assetName: 'assets/svg/no_bookmarks.svg',
-                label: Text(
-                  "You haven't bookmarked any whitepapers yet !!",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .display1
-                      .copyWith(fontSize: 16.0, fontWeight: FontWeight.bold),
-                ),
+                label: "You haven't bookmarked any whitepapers yet !!",
               ),
       ),
     );
