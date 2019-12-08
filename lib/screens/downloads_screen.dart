@@ -24,6 +24,7 @@ class DownloadsScreen extends StatelessWidget {
           ],
         ),
         body: Container(
+          width: double.infinity,
           color: Theme.of(context).backgroundColor,
           child: FutureBuilder(
               future: downloadsState.allDownloadedFilesName,

@@ -12,7 +12,12 @@ import 'package:provider/provider.dart';
 class WhitepaperCard extends StatefulWidget {
   final WhitepaperData whitepaperData;
   final Function onBookmarkDeleteAnimation;
-  WhitepaperCard({Key key, this.whitepaperData, this.onBookmarkDeleteAnimation})
+  final isBookmarkScreen;
+  WhitepaperCard(
+      {Key key,
+      this.whitepaperData,
+      this.onBookmarkDeleteAnimation,
+      this.isBookmarkScreen = false})
       : super(key: key);
 
   @override
@@ -97,11 +102,14 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                         bool isBookmarked = bookmarkState.bookmarks
                             .contains(widget.whitepaperData.item.id);
                         return IconButton(
-                          icon: isBookmarked
-                              ? Icon(Icons.bookmark,
+                          icon: widget.isBookmarkScreen
+                              ? Icon(Icons.delete,
                                   color: Theme.of(context).primaryColor)
-                              : Icon(Icons.bookmark_border,
-                                  color: Theme.of(context).primaryColor),
+                              : isBookmarked
+                                  ? Icon(Icons.bookmark,
+                                      color: Theme.of(context).primaryColor)
+                                  : Icon(Icons.bookmark_border,
+                                      color: Theme.of(context).primaryColor),
                           onPressed: () {
                             if (isBookmarked) {
                               if (widget.onBookmarkDeleteAnimation != null) {

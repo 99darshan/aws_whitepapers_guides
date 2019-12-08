@@ -17,6 +17,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
 
   Widget _buildItem(WhitepaperData whitepaperData, int index) {
     return WhitepaperCard(
+        isBookmarkScreen: true,
         whitepaperData: whitepaperData,
         onBookmarkDeleteAnimation: () {
           _animationKey.currentState.removeItem(index, (context, animation) {
