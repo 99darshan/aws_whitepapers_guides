@@ -19,6 +19,7 @@ class _FilterScreenState extends State<FilterScreen> {
     FilterState filterState = Provider.of<FilterState>(context);
     return WillPopScope(
       onWillPop: () {
+        whitepaperState.resetWhitepaperState();
         whitepaperState.fetchFilteredWhitepapers(
             filterState.typesFilterList,
             filterState.categoriesFilterList,
@@ -33,6 +34,7 @@ class _FilterScreenState extends State<FilterScreen> {
             IconButton(
               icon: Icon(Icons.done_all),
               onPressed: () {
+                whitepaperState.resetWhitepaperState();
                 whitepaperState.fetchFilteredWhitepapers(
                     filterState.typesFilterList,
                     filterState.categoriesFilterList,
