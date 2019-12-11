@@ -27,7 +27,7 @@ class SearchState extends ChangeNotifier {
   }
 
   deleteAllRecentSearches() async {
-    _prefs.remove("RECENT_WHITEPAPERS_SEARHES");
+    _prefs.remove("RECENT_WHITEPAPERS_SEARCHES");
     _recentSearches.removeRange(0, _recentSearches.length);
     notifyListeners();
   }
