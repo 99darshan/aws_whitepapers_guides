@@ -27,8 +27,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _pageController = PageController();
-
+  //final _pageController = PageController();
+  final _screens = [
+    HomeScreen(),
+    SearchScreen(),
+    BookmarkScreen(),
+    DownloadsScreen()
+  ];
   int _selectedScreenIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -105,22 +110,22 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           body: SafeArea(
-            //child: _screens[_selectedScreenIndex],
-            child: PageView(
-              physics: AlwaysScrollableScrollPhysics(),
-              controller: _pageController,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedScreenIndex = index;
-                });
-              },
-              children: <Widget>[
-                HomeScreen(),
-                SearchScreen(),
-                BookmarkScreen(),
-                DownloadsScreen()
-              ],
-            ),
+            child: _screens[_selectedScreenIndex],
+            // child: PageView(
+            //   physics: AlwaysScrollableScrollPhysics(),
+            //   controller: _pageController,
+            //   onPageChanged: (index) {
+            //     setState(() {
+            //       _selectedScreenIndex = index;
+            //     });
+            //   },
+            //   children: <Widget>[
+            //     HomeScreen(),
+            //     SearchScreen(),
+            //     BookmarkScreen(),
+            //     DownloadsScreen()
+            //   ],
+            // ),
           ),
           bottomNavigationBar: BottomNavyBar(
             backgroundColor: Colors.grey[200],
@@ -129,7 +134,7 @@ class _MyAppState extends State<MyApp> {
             onItemSelected: (index) {
               setState(() {
                 _selectedScreenIndex = index;
-                _pageController.jumpToPage(index);
+                //_pageController.jumpToPage(index);
                 // _pageController.animateToPage(index,
                 //     curve: Curves.easeIn,
                 //     duration: Duration(milliseconds: 300));
