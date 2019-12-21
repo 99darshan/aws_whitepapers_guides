@@ -33,7 +33,7 @@ dependencies:
   flutter_svg:
   permission_handler:
   url_launcher:
-  admob_flutter:
+  #admob_flutter:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   #cupertino_icons: ^0.1.2
@@ -44,7 +44,12 @@ dev_dependencies:
   json_model:
   build_runner:
   json_serializable:
+  flutter_launcher_icons:
 
+flutter_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/img/icon.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
