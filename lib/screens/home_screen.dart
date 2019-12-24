@@ -1,4 +1,6 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:aws_whitepapers_guides/components/filters_horizontal_list.dart';
+import 'package:aws_whitepapers_guides/constants/app_constants.dart';
 import 'package:aws_whitepapers_guides/constants/filter_constants.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +73,11 @@ class _HomeScreenState extends State<HomeScreen> {
               gradientStartColor: Colors.indigo,
               gradientEndColor: Colors.teal,
             ),
+            SizedBox(height: 24.0),
+            AdmobBanner(
+              adUnitId: AppConstants.BANNER_AD_UNIT_ID,
+              adSize: AdmobBannerSize.LARGE_BANNER,
+            ),
             Padding(
               padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
               child: Text('Types',
@@ -115,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(
               height: 32.0,
-            )
+            ),
           ]),
         ),
       ]),

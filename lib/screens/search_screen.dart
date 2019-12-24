@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/load_more_button.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
+import 'package:aws_whitepapers_guides/constants/app_constants.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/state/search_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
@@ -171,9 +173,16 @@ class _SearchScreenState extends State<SearchScreen> {
             //margin: EdgeInsets.only(top: 8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: AdmobBanner(
+                    adUnitId: AppConstants.BANNER_AD_UNIT_ID,
+                    adSize: AdmobBannerSize.BANNER,
+                  ),
+                ),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
                   child: Row(
