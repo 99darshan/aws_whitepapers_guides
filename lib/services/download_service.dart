@@ -65,7 +65,7 @@ class DownloadService {
     final saveDir = Directory(path);
     bool dirExists = await saveDir.exists();
     if (!dirExists) {
-      saveDir.create();
+      await saveDir.create();
     }
     return saveDir.path;
   }
