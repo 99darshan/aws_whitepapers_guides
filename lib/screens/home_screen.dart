@@ -14,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool _isAdLoadingCompleted = false;
   @override
   Widget build(BuildContext context) {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
@@ -74,10 +75,41 @@ class _HomeScreenState extends State<HomeScreen> {
               gradientEndColor: Colors.teal,
             ),
             SizedBox(height: 24.0),
-            AdmobBanner(
-              adUnitId: AppConstants.BANNER_AD_UNIT_ID,
-              adSize: AdmobBannerSize.LARGE_BANNER,
-            ),
+            Stack(children: <Widget>[
+              Align(
+                child: AdmobBanner(
+                  adUnitId: AppConstants.BANNER_AD_UNIT_ID,
+                  adSize: AdmobBannerSize.LARGE_BANNER,
+                  listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+                    // if (event == AdmobAdEvent.completed) {
+                    // NOTE: the completed was never called
+                    //   print('ad Loading completed');
+                    //   setState(() {
+                    //     _isAdLoadingCompleted = true;
+                    //   });
+                    // }
+                    if (event == AdmobAdEvent.loaded) {
+                      print('ad loaded...');
+                      // IMPORTANT: NOTE: the set state method causes the ad to load multiple times so setState is wrapped if the if block
+                      if (!_isAdLoadingCompleted) {
+                        setState(() {
+                          _isAdLoadingCompleted = true;
+                        });
+                      }
+                    }
+                  },
+                ),
+              ),
+              !_isAdLoadingCompleted
+                  ? Align(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2.0,
+                        backgroundColor:
+                            Theme.of(context).accentColor.withAlpha(900),
+                      ),
+                    )
+                  : SizedBox(height: 0.0),
+            ]),
             Padding(
               padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
               child: Text('Types',
