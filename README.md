@@ -1,16 +1,21 @@
-# aws_whitepapers_guides
+# AWS Whitepapers & Guides
 
-Amazon Web Services AWS Whitepapers, Technical Guides, Reference Material and Architectural Diagram
+Android App developed with Flutter to browse, save, view and download Amazon Web Services (AWS) Whitepapers, Technical Guides, Reference Material and Architectural Diagram
 
-## Getting Started
+This is a reference mobile app for [AWS documentation webpage](https://aws.amazon.com/whitepapers/?whitepapers-main.sort-by=item.additionalFields.sortDate&whitepapers-main.sort-order=desc)
 
-This project is a starting point for a Flutter application.
+# What could be better
+I believe in learning by doing, so I jumped right in and started building this app. Here are few stupid stuff I've done. 
 
-A few resources to get you started if this is your first Flutter project:
+* It makes use of provider package for state management, but the implementation doesn't quite follow the best practices and has room for refactor and improvement. 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+* Stores the bookmarks json in shared preferences :man_facepalming: Even though I didn't want to have user signup and server to store the user specific bookmarks, I could've saved them in local persistant storage using SQLite package sqflite or no sql equivalent packages like sembast or hive.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* Yet to wrap my head around Theming in Flutter. Should've planned a bit more on color scheme and theme beforehand. I so want to add a dark theme. 
+
+* Pulls data from the AWS API.Doesn't support offline mode. App of this nature would've benefited much from having a offline support. However, downloaded files can be accessed offline from within the app :smiley:
+
+# Screenshots :framed_picture:
+
+
+
