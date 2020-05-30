@@ -1,6 +1,4 @@
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:aws_whitepapers_guides/components/filters_horizontal_list.dart';
-import 'package:aws_whitepapers_guides/constants/app_constants.dart';
 import 'package:aws_whitepapers_guides/constants/filter_constants.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool _isAdLoadingCompleted = false;
   @override
   Widget build(BuildContext context) {
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
@@ -49,10 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
           flexibleSpace: FlexibleSpaceBar(
             background: Image.asset('assets/img/aws_whitepapers_banner.png',
                 fit: BoxFit.fill),
-            // background: Image.network(
-            //   "https://d1.awsstatic.com/webteam/homepage/heroes/backgrounds/Site-Merch_Blue_Pattern_06_Hero-BG.7d47bbb326ce6d8cf1fe024aed2f682d939ddf63.png",
-            //   fit: BoxFit.fill,
-            // ),
             title: Text("AWS Whitepapers"),
             centerTitle: false,
             titlePadding: EdgeInsets.only(left: 16.0, bottom: 16.0),
@@ -74,42 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
               gradientStartColor: Colors.indigo,
               gradientEndColor: Colors.teal,
             ),
-            SizedBox(height: 24.0),
-            Stack(children: <Widget>[
-              Align(
-                child: AdmobBanner(
-                  adUnitId: AppConstants.BANNER_AD_UNIT_ID,
-                  adSize: AdmobBannerSize.LARGE_BANNER,
-                  listener: (AdmobAdEvent event, Map<String, dynamic> args) {
-                    // if (event == AdmobAdEvent.completed) {
-                    // NOTE: the completed was never called
-                    //   print('ad Loading completed');
-                    //   setState(() {
-                    //     _isAdLoadingCompleted = true;
-                    //   });
-                    // }
-                    if (event == AdmobAdEvent.loaded) {
-                      print('ad loaded...');
-                      // IMPORTANT: NOTE: the set state method causes the ad to load multiple times so setState is wrapped if the if block
-                      if (!_isAdLoadingCompleted) {
-                        setState(() {
-                          _isAdLoadingCompleted = true;
-                        });
-                      }
-                    }
-                  },
-                ),
-              ),
-              !_isAdLoadingCompleted
-                  ? Align(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.0,
-                        backgroundColor:
-                            Theme.of(context).accentColor.withAlpha(900),
-                      ),
-                    )
-                  : SizedBox(height: 0.0),
-            ]),
             Padding(
               padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
               child: Text('Types',

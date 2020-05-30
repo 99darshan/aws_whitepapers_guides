@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:aws_whitepapers_guides/components/error_and_info_card.dart';
 import 'package:aws_whitepapers_guides/components/load_more_button.dart';
 import 'package:aws_whitepapers_guides/components/shimmer_list.dart';
 import 'package:aws_whitepapers_guides/components/whitepaper_card.dart';
-import 'package:aws_whitepapers_guides/constants/app_constants.dart';
 import 'package:aws_whitepapers_guides/models/index.dart';
 import 'package:aws_whitepapers_guides/state/search_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
@@ -22,7 +20,6 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController _searchTextController = TextEditingController();
   String _searchText;
-  bool _isAdLoadingCompleted = false;
   List<Future<RootAwsResponse>> _searchResults =
       []; // store and use the results in a local variable to clear the previous search actions
   @override
@@ -167,101 +164,61 @@ class _SearchScreenState extends State<SearchScreen> {
     _searchTextController.text = _searchText;
   }
 
-  Widget _bannerAd() {
-    return Stack(children: <Widget>[
-      Align(
-        child: AdmobBanner(
-          adUnitId: AppConstants.BANNER_AD_UNIT_ID,
-          adSize: AdmobBannerSize.BANNER,
-          listener: (AdmobAdEvent event, Map<String, dynamic> args) {
-            // if (event == AdmobAdEvent.completed) {
-            // NOTE: the completed was never called
-            //   print('ad Loading completed');
-            //   setState(() {
-            //     _isAdLoadingCompleted = true;
-            //   });
-            // }
-            if (event == AdmobAdEvent.loaded) {
-              print('ad loaded...');
-              // IMPORTANT: NOTE: the set state method causes the ad to load multiple times so setState is wrapped if the if block
-              if (!_isAdLoadingCompleted) {
-                setState(() {
-                  _isAdLoadingCompleted = true;
-                });
-              }
-            }
-          },
-        ),
-      ),
-      !_isAdLoadingCompleted
-          ? Align(
-              child: CircularProgressIndicator(
-                strokeWidth: 2.0,
-                backgroundColor: Theme.of(context).accentColor.withAlpha(900),
-              ),
-            )
-          : SizedBox(height: 0.0),
-    ]);
-  }
-
   Widget _recentSearches(BuildContext context, WhitepaperState whitepaperState,
       SearchState searchState) {
     return searchState.recentSearches.length > 0
-        ? Container(
-            //margin: EdgeInsets.only(top: 8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Padding(padding: EdgeInsets.all(16.0), child: _bannerAd()),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
-                  child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          "Recent Searches",
-                          style: Theme.of(context).textTheme.display1,
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
+                child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        "Recent Searches",
+                        style: Theme.of(context).textTheme.display1,
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Theme.of(context).primaryColor,
                         ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.delete,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          onPressed: () {
-                            searchState.deleteAllRecentSearches();
-                          },
-                        ),
-                      ]),
-                ),
-                Expanded(
-                    flex: 2,
-                    child: ListView.builder(
-                      itemCount: searchState.recentSearches.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            _onSearch(whitepaperState, searchState,
-                                searchState.recentSearches[index]);
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero),
-                            margin: EdgeInsets.only(bottom: 1.0),
-                            child: ListTile(
-                              title: Text(
-                                searchState.recentSearches[index],
-                                style: Theme.of(context).textTheme.subhead,
-                              ),
-                            ),
-                          ),
-                        );
+                        onPressed: () {
+                          searchState.deleteAllRecentSearches();
+                        },
+                      ),
+                    ]),
+              ),
+              Expanded(
+                flex: 2,
+                child: ListView.builder(
+                  itemCount: searchState.recentSearches.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        _onSearch(whitepaperState, searchState,
+                            searchState.recentSearches[index]);
                       },
-                    ))
-              ],
-            ),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero),
+                        margin: EdgeInsets.only(bottom: 1.0),
+                        child: ListTile(
+                          title: Text(
+                            searchState.recentSearches[index],
+                            style: Theme.of(context).textTheme.subhead,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )
+            ],
           )
         : ErrorAndInfoCard(
             assetName: 'assets/svg/no_search_items.svg',

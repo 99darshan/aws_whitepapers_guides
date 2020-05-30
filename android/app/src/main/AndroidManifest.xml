@@ -12,9 +12,6 @@
         android:name=".WhitepapersApplication"
         android:label="aws_whitepapers_guides"
         android:icon="@mipmap/launcher_icon">
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8453560050460431~5664806712"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

@@ -1,4 +1,3 @@
-import 'package:admob_flutter/admob_flutter.dart';
 import 'package:aws_whitepapers_guides/screens/bookmark_screen.dart';
 import 'package:aws_whitepapers_guides/screens/downloads_screen.dart';
 import 'package:aws_whitepapers_guides/screens/filter_screen.dart';
@@ -21,7 +20,6 @@ void main() {
   // NOTE: ideally main shouldn't be waited, if flutter downloader is intialized with await add below line to avoid getting an exception
   WidgetsFlutterBinding.ensureInitialized();
   FlutterDownloader.initialize();
-  Admob.initialize("np.com.a99darshan.aws_whitepapers_guides");
   runApp(MyApp());
 }
 
@@ -116,21 +114,6 @@ class _MyAppState extends State<MyApp> {
         home: Scaffold(
           body: SafeArea(
             child: _screens[_selectedScreenIndex],
-            // child: PageView(
-            //   physics: AlwaysScrollableScrollPhysics(),
-            //   controller: _pageController,
-            //   onPageChanged: (index) {
-            //     setState(() {
-            //       _selectedScreenIndex = index;
-            //     });
-            //   },
-            //   children: <Widget>[
-            //     HomeScreen(),
-            //     SearchScreen(),
-            //     BookmarkScreen(),
-            //     DownloadsScreen()
-            //   ],
-            // ),
           ),
           bottomNavigationBar: BottomNavyBar(
             backgroundColor: Colors.grey[200],
