@@ -10,7 +10,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name=".WhitepapersApplication"
-        android:label="aws_whitepapers_guides"
+        android:label="AWS Whitepapers Guides"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
