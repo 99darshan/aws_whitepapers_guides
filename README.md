@@ -1,3 +1,5 @@
+[![Google Play Store Download](https://play.google.com/store/apps/details?id=np.com.a99darshan.aws_whitepapers_guides&hl=en)
+
 # AWS Whitepapers & Guides
 
 Android App developed with Flutter to browse, save, view and download Amazon Web Services (AWS) Whitepapers, Technical Guides, Reference Material and Architectural Diagram
@@ -11,9 +13,9 @@ I believe in learning by doing, so I jumped right in and started building this a
 
 * Stores the bookmarks json in shared preferences :man_facepalming: Even though I didn't want to have user signup and server to store the user specific bookmarks, I could've saved them in local persistant storage using SQLite package sqflite or no sql equivalent packages like sembast or hive.
 
-* Yet to wrap my head around Theming in Flutter. Should've planned a bit more on color scheme and theme beforehand. I so want to add a dark theme. 
+* Should've planned a bit more on color scheme and theme beforehand. I so want to add a dark theme. Yet to wrap my head around Theming in Flutter.
 
-* Pulls data from the AWS API.Doesn't support offline mode. App of this nature would've benefited much from having a offline support. However, downloaded files can be accessed offline from within the app :smiley:
+* Pulls data from the AWS API. Doesn't support offline mode. App of this nature would've benefited much from having a offline support. However, downloaded files can be accessed offline from within the app :smiley:
 
 # Screenshots :framed_picture:
 
