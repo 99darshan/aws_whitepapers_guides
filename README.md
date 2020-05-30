@@ -1,4 +1,4 @@
-[![Google Play Store Download](https://play.google.com/store/apps/details?id=np.com.a99darshan.aws_whitepapers_guides&hl=en)
+[![Google Play Store Download](https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=np.com.a99darshan.aws_whitepapers_guides&hl=en)
 
 # AWS Whitepapers & Guides
 
