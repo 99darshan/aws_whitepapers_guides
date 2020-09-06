@@ -6,7 +6,7 @@ enum FilterBy { Types, Categories, Industries, Products }
 class TypesFilter {
   static const whitepaper = "Whitepaper";
   static const technicalGuide = "Technical Guide";
-  static const referenceMaterial = "Reference Material";
+  static const referenceMaterial = "Compliance Guide";
   static const architectureDiagram = "Architecture Diagram";
 
   static const List<String> types = [
@@ -19,8 +19,8 @@ class TypesFilter {
   static const Map<String, String> mapTypesFilterToQueryString = {
     TypesFilter.whitepaper: 'whitepaper',
     TypesFilter.technicalGuide: 'tech-guide',
-    TypesFilter.referenceMaterial: 'reference',
-    TypesFilter.architectureDiagram: 'arch-diagram'
+    TypesFilter.referenceMaterial: 'reference-material',
+    TypesFilter.architectureDiagram: 'reference-arch-diagram'
   };
 }
 

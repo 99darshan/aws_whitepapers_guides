@@ -77,7 +77,7 @@ class WhitepaperState extends ChangeNotifier {
       // 1. With only one type filter applied |whitepapers is not used
       // 2. When multiple type filter is applied all filters have |whitepapers appended at end except for the last one
       // e.g. https://aws.amazon.com/api/dirs/items/search?item.directoryId=whitepapers&sort_by=item.additionalFields.sortDate&sort_order=desc&size=15&item.locale=en_US&tags.id=whitepapers%23content-type%23whitepaper%7Cwhitepapers%23content-type%23tech-guide
-      queryUrl = '$queryUrl&tags.id=whitepapers';
+      queryUrl = '$queryUrl&tags.id=GLOBAL';
       for (int i = 0; i < typeFiltersList.length; i++) {
         if (i == typeFiltersList.length - 1) {
           queryUrl =
