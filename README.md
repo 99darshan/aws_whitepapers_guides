@@ -21,17 +21,29 @@ I believe in learning by doing, so I jumped right in and started building this a
 * App crashes when clicked on urls in the PDF rendered with the app. This app uses **flutter_pdfview** plugin to render the PDFs. The links in PDF needs to be handled to open in browser with plugin like url_laucher or open in a web view within the app itself.
 
 # Screenshots :framed_picture:
-![111149356_335704477427932_8049768234843640249_n](https://user-images.githubusercontent.com/9456191/87846625-eb15c480-c8f0-11ea-879a-3c984fc750a4.png)
+<a href="url"><img src="https://user-images.githubusercontent.com/9456191/87846625-eb15c480-c8f0-11ea-879a-3c984fc750a4.png" width="250" ></a>
 
-![109810653_369087880725978_8187818426417472750_n](https://user-images.githubusercontent.com/9456191/87846621-e6511080-c8f0-11ea-925a-7947e3096874.png)
+<br/>
+<br/>
 
-![109777369_1764206517053923_5585990652434035723_n](https://user-images.githubusercontent.com/9456191/87846622-e9e49780-c8f0-11ea-809b-9ec13df3625d.png)
+<a href="url"><img src="https://user-images.githubusercontent.com/9456191/87846621-e6511080-c8f0-11ea-925a-7947e3096874.png" width="250" ></a>
+<br/>
+<br/>
 
-![109653353_921270611670828_7310832453450219382_n](https://user-images.githubusercontent.com/9456191/87846623-ea7d2e00-c8f0-11ea-8ae4-4429bcc414bd.png)
+<a href="url"><img src="https://user-images.githubusercontent.com/9456191/87846622-e9e49780-c8f0-11ea-809b-9ec13df3625d.png" width="250" ></a>
+<br/>
+<br/>
 
-![110842772_707287560050678_4157732686626384594_n](https://user-images.githubusercontent.com/9456191/87846624-eb15c480-c8f0-11ea-92f2-96a77f427850.png)
+<a href="url"><img src="https://user-images.githubusercontent.com/9456191/87846623-ea7d2e00-c8f0-11ea-8ae4-4429bcc414bd.png" width="250" ></a>
+<br/>
+<br/>
 
-![110209399_302366764299538_3535746216408643850_n](https://user-images.githubusercontent.com/9456191/87846626-ebae5b00-c8f0-11ea-8c21-0e6b473355a4.png)
+<a href="url"><img src="https://user-images.githubusercontent.com/9456191/87846624-eb15c480-c8f0-11ea-92f2-96a77f427850.png" width="250" ></a>
+<br/>
+<br/>
+
+<a href="url"><img src="https://user-images.githubusercontent.com/9456191/87846626-ebae5b00-c8f0-11ea-8c21-0e6b473355a4.png" width="250" ></a>
+
 
 
 
