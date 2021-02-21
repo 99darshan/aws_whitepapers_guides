@@ -53,7 +53,6 @@ class DownloadService {
     return '$path/$fileName';
   }
 
-  // TODO: answer this https://stackoverflow.com/questions/51776109/how-to-get-the-absolute-path-to-the-download-folder/51777119
   static Future<String> _findLocalPath() async {
     // getExternalStorageDirectory() use this if to save to downloads dir
     //final directory = await getApplicationDocumentsDirectory();
