@@ -1,7 +1,7 @@
 name: aws_whitepapers_guides
 description: Amazon Web Services AWS Whitepapers, Technical Guides, Reference Material and Architectural Diagram
 
-version: 1.0.1+8
+version: 1.1.0+10
 
 environment:
   sdk: ">=2.2.2 <3.0.0"
@@ -15,7 +15,7 @@ dependencies:
   shared_preferences:
   html:
   path_provider:
-  flutter_pdfview:
+  flutter_pdfview: ^1.0.4
   flutter_downloader:
   shimmer:
   path:

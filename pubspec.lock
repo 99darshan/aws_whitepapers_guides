@@ -222,7 +222,7 @@ packages:
       name: flutter_pdfview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0+9"
+    version: "1.0.4"
   flutter_svg:
     dependency: "direct main"
     description:
