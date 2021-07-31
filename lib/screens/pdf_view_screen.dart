@@ -87,6 +87,7 @@ class _PdfViewScreenState extends State<PdfViewScreen> {
                   pageFling: false,
                   nightMode: false,
                   onRender: (_pages) {},
+                  preventLinkNavigation: false,
                   onError: (error) {
                     print(error.toString());
                   },

@@ -17,7 +17,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   // add this, and it should be the first line in main method
-  // NOTE: ideally main shouldn't be waited, if flutter downloader is intialized with await add below line to avoid getting an exception
+  // NOTE: ideally main shouldn't be waited, if flutter downloader is initialized with await add below line to avoid getting an exception
   WidgetsFlutterBinding.ensureInitialized();
   FlutterDownloader.initialize();
   runApp(MyApp());

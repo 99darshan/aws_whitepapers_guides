@@ -1,4 +1,4 @@
-import 'package:aws_whitepapers_guides/constants/filter_constants.dart';
+import 'package:aws_whitepapers_guides/constants/filters/filter_by.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,18 +19,12 @@ class FilterChipWidgetState extends State<FilterChipWidget> {
   @override
   Widget build(BuildContext context) {
     final FilterState filterState = Provider.of<FilterState>(context);
-    if ((widget.filterBy == FilterBy.Types &&
-            filterState.typesFilterList.contains(widget.labelText)) ||
-        (widget.filterBy == FilterBy.Categories &&
-            filterState.categoriesFilterList.contains(widget.labelText)) ||
-        (widget.filterBy == FilterBy.Industries &&
-            filterState.industriesFilterList.contains(widget.labelText)) ||
-        (widget.filterBy == FilterBy.Products &&
-            filterState.productsFilterList.contains(widget.labelText))) {
+    if (_allFilters(filterState).contains(widget.labelText)) {
       setState(() {
         _isSelected = true;
       });
     }
+
     return FilterChip(
       //backgroundColor: Theme.of(context).primaryColorLight,
       label: Text(widget.labelText),
@@ -48,8 +42,30 @@ class FilterChipWidgetState extends State<FilterChipWidget> {
         if (!isSelected) {
           filterState.removeFilter(widget.labelText, widget.filterBy);
         }
-        // TODO: make function?? or just a map??
       },
     );
+  }
+
+  List<String> _allFilters(FilterState filterState) {
+    switch (widget.filterBy) {
+      case FilterBy.ContentTypes:
+        return filterState.contentTypeFilters;
+        break;
+      case FilterBy.Methodology:
+        return filterState.methodologyFilters;
+        break;
+      case FilterBy.TechnologyCategories:
+        return filterState.technologyCategoryFilters;
+        break;
+      case FilterBy.Industries:
+        return filterState.industryFilters;
+        break;
+      case FilterBy.BusinessCategories:
+        return filterState.businessCategoryFilters;
+        break;
+      default:
+        return [];
+        break;
+    }
   }
 }

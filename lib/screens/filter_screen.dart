@@ -1,5 +1,10 @@
 import 'package:aws_whitepapers_guides/components/filter_chip_widget.dart';
-import 'package:aws_whitepapers_guides/constants/filter_constants.dart';
+import 'package:aws_whitepapers_guides/constants/filters/filter_by.dart';
+import 'package:aws_whitepapers_guides/constants/filters/business_categories.dart';
+import 'package:aws_whitepapers_guides/constants/filters/content_types.dart';
+import 'package:aws_whitepapers_guides/constants/filters/industries.dart';
+import 'package:aws_whitepapers_guides/constants/filters/methodology.dart';
+import 'package:aws_whitepapers_guides/constants/filters/technology_categories.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +26,11 @@ class _FilterScreenState extends State<FilterScreen> {
     Future<bool> _onWillPopScopeCallback() async {
       whitepaperState.resetWhitepaperState();
       whitepaperState.fetchFilteredWhitepapers(
-          filterState.typesFilterList,
-          filterState.categoriesFilterList,
-          filterState.industriesFilterList,
-          filterState.productsFilterList);
+          filterState.contentTypeFilters,
+          filterState.methodologyFilters,
+          filterState.industryFilters,
+          filterState.technologyCategoryFilters,
+          filterState.businessCategoryFilters);
       return true;
     }
 
@@ -39,10 +45,11 @@ class _FilterScreenState extends State<FilterScreen> {
               onPressed: () {
                 whitepaperState.resetWhitepaperState();
                 whitepaperState.fetchFilteredWhitepapers(
-                    filterState.typesFilterList,
-                    filterState.categoriesFilterList,
-                    filterState.industriesFilterList,
-                    filterState.productsFilterList);
+                    filterState.contentTypeFilters,
+                    filterState.methodologyFilters,
+                    filterState.industryFilters,
+                    filterState.technologyCategoryFilters,
+                    filterState.businessCategoryFilters);
                 return Navigator.of(context)
                     .popAndPushNamed('/whiteppaersScreen');
               },
@@ -55,7 +62,7 @@ class _FilterScreenState extends State<FilterScreen> {
             builder: (context, filterBloc, _) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Types',
+                Text('Content Types',
                     style: Theme.of(context)
                         .textTheme
                         .display1
@@ -65,10 +72,10 @@ class _FilterScreenState extends State<FilterScreen> {
                 Wrap(
                   //alignment: WrapAlignment.center,
                   spacing: 8.0,
-                  children: TypesFilter.types
+                  children: ContentTypes.all
                       .map((item) => FilterChipWidget(
                             labelText: item,
-                            filterBy: FilterBy.Types,
+                            filterBy: FilterBy.ContentTypes,
                           ))
                       .toList(),
                 ),
@@ -77,7 +84,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   height: 32.0,
                 ),
                 //SizedBox(height: 8.0),
-                Text('Categories',
+                Text('Methodology',
                     style: Theme.of(context)
                         .textTheme
                         .display1
@@ -87,10 +94,10 @@ class _FilterScreenState extends State<FilterScreen> {
                 Wrap(
                   //alignment: WrapAlignment.center,
                   spacing: 8.0,
-                  children: CategoriesFilter.categories
+                  children: Methodology.all
                       .map((item) => FilterChipWidget(
                             labelText: item,
-                            filterBy: FilterBy.Categories,
+                            filterBy: FilterBy.Methodology,
                           ))
                       .toList(),
                 ),
@@ -109,7 +116,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 Wrap(
                   //alignment: WrapAlignment.center,
                   spacing: 8.0,
-                  children: IndustriesFilter.industries
+                  children: Industries.all
                       .map((item) => FilterChipWidget(
                             labelText: item,
                             filterBy: FilterBy.Industries,
@@ -121,7 +128,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   height: 32.0,
                 ),
                 //SizedBox(height: 8.0),
-                Text('Products',
+                Text('Technology Categories',
                     style: Theme.of(context)
                         .textTheme
                         .display1
@@ -130,11 +137,31 @@ class _FilterScreenState extends State<FilterScreen> {
 
                 Wrap(
                   spacing: 8.0,
-                  children: ProductsFilter.products
+                  children: TechnologyCategories.all
                       .map((item) => FilterChipWidget(
                             labelText: item,
-                            filterBy: FilterBy.Products,
+                            filterBy: FilterBy.TechnologyCategories,
                           ))
+                      .toList(),
+                ),
+                Divider(
+                  thickness: 2.0,
+                  height: 32.0,
+                ),
+                Text(
+                  'Business Categories',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8.0),
+                Wrap(
+                  spacing: 8.0,
+                  children: BusinessCategories.all
+                      .map((item) => FilterChipWidget(
+                          labelText: item,
+                          filterBy: FilterBy.BusinessCategories))
                       .toList(),
                 )
               ],

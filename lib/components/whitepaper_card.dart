@@ -146,7 +146,7 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                                 .toLowerCase()
                                 .contains('.pdf')
                             ? _navigateToPdfScreen
-                            : _lauchUrlForPrimaryWhitepaperLink),
+                            : _launchUrlForPrimaryWhitepaperLink),
                     Consumer<DownloadsState>(
                         builder: (context, downloadState, _) {
                       return IconButton(
@@ -175,7 +175,7 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
     }));
   }
 
-  _lauchUrlForPrimaryWhitepaperLink() async {
+  _launchUrlForPrimaryWhitepaperLink() async {
     final url = widget.whitepaperData.item.additionalFields.primaryURL;
     if (await canLaunch(url)) {
       await launch(url);

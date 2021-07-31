@@ -1,4 +1,4 @@
-import 'package:aws_whitepapers_guides/constants/filter_constants.dart';
+import 'package:aws_whitepapers_guides/constants/filters/filter_by.dart';
 import 'package:aws_whitepapers_guides/state/filter_state.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +21,7 @@ class FiltersHorizontalList extends StatelessWidget {
   Widget build(BuildContext context) {
     FilterState filterState = Provider.of<FilterState>(context);
     WhitepaperState whitepaperState = Provider.of<WhitepaperState>(context);
+    print(filters);
     return SizedBox(
       height: 150.0,
       child: ListView.builder(
@@ -33,10 +34,11 @@ class FiltersHorizontalList extends StatelessWidget {
             onTap: () {
               filterState.addFilter(filters[index], filterBy);
               whitepaperState.fetchFilteredWhitepapers(
-                  filterState.typesFilterList,
-                  filterState.categoriesFilterList,
-                  filterState.industriesFilterList,
-                  filterState.productsFilterList);
+                  filterState.contentTypeFilters,
+                  filterState.methodologyFilters,
+                  filterState.industryFilters,
+                  filterState.technologyCategoryFilters,
+                  filterState.businessCategoryFilters);
 
               Navigator.of(context).pushNamed('/whitepapersScreen');
             },

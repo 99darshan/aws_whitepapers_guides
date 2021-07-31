@@ -1,5 +1,10 @@
 import 'package:aws_whitepapers_guides/components/filters_horizontal_list.dart';
-import 'package:aws_whitepapers_guides/constants/filter_constants.dart';
+import 'package:aws_whitepapers_guides/constants/filters/filter_by.dart';
+import 'package:aws_whitepapers_guides/constants/filters/business_categories.dart';
+import 'package:aws_whitepapers_guides/constants/filters/content_types.dart';
+import 'package:aws_whitepapers_guides/constants/filters/industries.dart';
+import 'package:aws_whitepapers_guides/constants/filters/methodology.dart';
+import 'package:aws_whitepapers_guides/constants/filters/technology_categories.dart';
 import 'package:aws_whitepapers_guides/state/whitepaper_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -55,43 +60,29 @@ class _HomeScreenState extends State<HomeScreen> {
           delegate: SliverChildListDelegate([
             Padding(
               padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
-              child: Text('Categories',
+              child: Text('Content Types',
                   style: Theme.of(context)
                       .textTheme
                       .display1
                       .copyWith(fontWeight: FontWeight.bold)),
             ),
             FiltersHorizontalList(
-              filterBy: FilterBy.Categories,
-              filters: CategoriesFilter.categories,
-              gradientStartColor: Colors.indigo,
-              gradientEndColor: Colors.teal,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
-              child: Text('Types',
-                  style: Theme.of(context)
-                      .textTheme
-                      .display1
-                      .copyWith(fontWeight: FontWeight.bold)),
-            ),
-            FiltersHorizontalList(
-              filters: TypesFilter.types,
-              filterBy: FilterBy.Types,
+              filters: ContentTypes.all,
+              filterBy: FilterBy.ContentTypes,
               gradientStartColor: Colors.deepPurple,
               gradientEndColor: Colors.deepOrange,
             ),
             Padding(
               padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
-              child: Text('Products',
+              child: Text('Technology Categories',
                   style: Theme.of(context)
                       .textTheme
                       .display1
                       .copyWith(fontWeight: FontWeight.bold)),
             ),
             FiltersHorizontalList(
-              filters: ProductsFilter.products,
-              filterBy: FilterBy.Products,
+              filters: TechnologyCategories.all,
+              filterBy: FilterBy.TechnologyCategories,
               gradientStartColor: Colors.indigo,
               gradientEndColor: Colors.teal,
             ),
@@ -104,10 +95,38 @@ class _HomeScreenState extends State<HomeScreen> {
                       .copyWith(fontWeight: FontWeight.bold)),
             ),
             FiltersHorizontalList(
-              filters: IndustriesFilter.industries,
+              filters: Industries.all,
               filterBy: FilterBy.Industries,
               gradientStartColor: Colors.deepPurple,
               gradientEndColor: Colors.deepOrange,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
+              child: Text('Business Categories',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontWeight: FontWeight.bold)),
+            ),
+            FiltersHorizontalList(
+              filters: BusinessCategories.all,
+              filterBy: FilterBy.BusinessCategories,
+              gradientStartColor: Colors.deepPurple,
+              gradientEndColor: Colors.deepOrange,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 16.0, bottom: 16.0, top: 24.0),
+              child: Text('Methodology',
+                  style: Theme.of(context)
+                      .textTheme
+                      .display1
+                      .copyWith(fontWeight: FontWeight.bold)),
+            ),
+            FiltersHorizontalList(
+              filterBy: FilterBy.Methodology,
+              filters: Methodology.all,
+              gradientStartColor: Colors.indigo,
+              gradientEndColor: Colors.teal,
             ),
             SizedBox(
               height: 32.0,

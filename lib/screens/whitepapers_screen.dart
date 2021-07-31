@@ -102,17 +102,14 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                       rootAwsResItem.items
                           .forEach((wpData) => whitepaperData.add(wpData));
                     });
-                    // reverse the list so the latest items are displayed at top
 
-                    final reversedWhitepaperData =
-                        whitepaperData.reversed.toList();
                     return whitepaperData.length > 0
                         ? ListView.builder(
                             // NOTE: the additional last item will either be a load more button or an empty sized box with height so the FAB won't hide the downloads icon on the last item
-                            itemCount: reversedWhitepaperData.length + 1,
+                            itemCount: whitepaperData.length + 1,
 
                             itemBuilder: (context, index) {
-                              if (index == reversedWhitepaperData.length) {
+                              if (index == whitepaperData.length) {
                                 return Container(
                                   margin: EdgeInsets.symmetric(
                                     vertical: 8.0,
@@ -124,15 +121,14 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                                       ? LoadMore(
                                           onPressed: () {
                                             whitepaperState.setPageNumber();
-                                            whitepaperState
-                                                .fetchFilteredWhitepapers(
-                                                    filterState.typesFilterList,
-                                                    filterState
-                                                        .categoriesFilterList,
-                                                    filterState
-                                                        .industriesFilterList,
-                                                    filterState
-                                                        .productsFilterList);
+                                            whitepaperState.fetchFilteredWhitepapers(
+                                                filterState.contentTypeFilters,
+                                                filterState.methodologyFilters,
+                                                filterState.industryFilters,
+                                                filterState
+                                                    .technologyCategoryFilters,
+                                                filterState
+                                                    .businessCategoryFilters);
                                           },
                                         )
                                       : SizedBox(
@@ -141,8 +137,7 @@ class _WhitepapersScreenState extends State<WhitepapersScreen> {
                                 );
                               } else {
                                 return WhitepaperCard(
-                                    whitepaperData:
-                                        reversedWhitepaperData[index]);
+                                    whitepaperData: whitepaperData[index]);
                               }
                             },
                           )
