@@ -65,7 +65,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 Text('Content Types',
                     style: Theme.of(context)
                         .textTheme
-                        .display1
+                        .headline5
                         .copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: 8.0),
                 // FILTER BY CONTENT TYPES
@@ -87,7 +87,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 Text('Methodology',
                     style: Theme.of(context)
                         .textTheme
-                        .display1
+                        .headline5
                         .copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: 8.0),
                 // FILTER BY CATEGORIES
@@ -109,7 +109,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 Text('Industries',
                     style: Theme.of(context)
                         .textTheme
-                        .display1
+                        .headline5
                         .copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: 8.0),
                 // FILTER BY INDUSTRY
@@ -131,7 +131,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 Text('Technology Categories',
                     style: Theme.of(context)
                         .textTheme
-                        .display1
+                        .headline5
                         .copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: 8.0),
 

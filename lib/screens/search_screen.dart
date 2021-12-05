@@ -180,7 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: <Widget>[
                       Text(
                         "Recent Searches",
-                        style: Theme.of(context).textTheme.display1,
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       IconButton(
                         icon: Icon(
@@ -210,7 +210,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         child: ListTile(
                           title: Text(
                             searchState.recentSearches[index],
-                            style: Theme.of(context).textTheme.subhead,
+                            style: Theme.of(context).textTheme.subtitle1,
                           ),
                         ),
                       ),

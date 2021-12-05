@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Content Types',
                   style: Theme.of(context)
                       .textTheme
-                      .display1
+                      .headline5
                       .copyWith(fontWeight: FontWeight.bold)),
             ),
             FiltersHorizontalList(
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Industries',
                   style: Theme.of(context)
                       .textTheme
-                      .display1
+                      .headline5
                       .copyWith(fontWeight: FontWeight.bold)),
             ),
             FiltersHorizontalList(
@@ -105,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Business Categories',
                   style: Theme.of(context)
                       .textTheme
-                      .display1
+                      .headline5
                       .copyWith(fontWeight: FontWeight.bold)),
             ),
             FiltersHorizontalList(
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Methodology',
                   style: Theme.of(context)
                       .textTheme
-                      .display1
+                      .headline5
                       .copyWith(fontWeight: FontWeight.bold)),
             ),
             FiltersHorizontalList(

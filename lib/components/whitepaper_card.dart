@@ -51,12 +51,12 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(widget.whitepaperData.item.additionalFields.docTitle,
-                style: Theme.of(context).textTheme.headline),
+                style: Theme.of(context).textTheme.headline6),
             Divider(thickness: 2.0, height: 32.0),
             Text(
                 widget.whitepaperData.item.additionalFields
                     .getDescriptionText(),
-                style: Theme.of(context).textTheme.body1),
+                style: Theme.of(context).textTheme.bodyText1),
             SizedBox(height: 12.0),
             // Text(widget.whitepaperData.item.additionalFields
             //     .getIndustriesProductsTags()
@@ -70,7 +70,7 @@ class _WhitepaperCardState extends State<WhitepaperCard> {
                         item,
                         style: Theme.of(context)
                             .textTheme
-                            .body1
+                            .bodyText1
                             .copyWith(fontSize: 12.0),
                       )))
                   .toList(),

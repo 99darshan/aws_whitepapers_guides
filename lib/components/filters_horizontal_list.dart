@@ -59,7 +59,7 @@ class FiltersHorizontalList extends StatelessWidget {
                       filters[index],
                       style: Theme.of(context)
                           .textTheme
-                          .title
+                          .headline6
                           .copyWith(color: Colors.white),
                     ),
                     Container(
@@ -69,7 +69,7 @@ class FiltersHorizontalList extends StatelessWidget {
                       child: Text('${index + 1} of ${filters.length}',
                           style: Theme.of(context)
                               .textTheme
-                              .body1
+                              .bodyText1
                               .copyWith(color: Colors.white)),
                     )
                   ],

@@ -28,7 +28,7 @@ class ErrorAndInfoCard extends StatelessWidget {
         Text(
           this.label,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.subhead,
+          style: Theme.of(context).textTheme.subtitle1,
         ),
         SizedBox(height: 8.0),
         this.actionButton == null ? SizedBox(height: 0) : this.actionButton

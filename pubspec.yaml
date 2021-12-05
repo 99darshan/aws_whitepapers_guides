@@ -4,7 +4,7 @@ description: Amazon Web Services AWS Whitepapers, Technical Guides, Reference Ma
 version: 1.1.0+10
 
 environment:
-  sdk: ">=2.2.2 <3.0.0"
+  sdk: '>=2.2.2 <3.0.0'
 
 dependencies:
   flutter:
@@ -22,7 +22,7 @@ dependencies:
   bottom_navy_bar:
   permission_handler:
   url_launcher:
-  flutter_svg: ^0.18.1
+  flutter_svg:
 
 dev_dependencies:
   flutter_launcher_icons:
@@ -33,9 +33,9 @@ dev_dependencies:
   json_serializable:
 
 flutter_icons:
-  android: "launcher_icon"
+  android: 'launcher_icon'
   ios: false
-  image_path: "assets/img/icon.png"
+  image_path: 'assets/img/icon.png'
 
 flutter:
   uses-material-design: true
@@ -53,4 +53,3 @@ flutter:
     - family: GFSDidot
       fonts:
         - asset: assets/fonts/GFSDidot-Regular.ttf
-

@@ -7,7 +7,8 @@ class HttpService {
   static Future<RootAwsResponse> fetchData(String queryUrl) async {
     try {
       print('query url is: ' + queryUrl);
-      final response = await http.get(queryUrl);
+      Uri uri = Uri.parse(queryUrl);
+      final response = await http.get(uri);
       print('fetching data... ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         return RootAwsResponse.fromJson(json.decode(response.body));

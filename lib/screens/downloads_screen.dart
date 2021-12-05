@@ -79,7 +79,7 @@ class DownloadsScreen extends StatelessWidget {
             leading: null,
             title: Text(
               item,
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
             trailing: IconButton(
               icon: Icon(

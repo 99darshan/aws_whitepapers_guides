@@ -85,26 +85,26 @@ class _MyAppState extends State<MyApp> {
           // Define the default TextTheme. Use this to specify the default
           // text styling for headlines, titles, bodies of text, and more.
           textTheme: TextTheme(
-            display1: Theme.of(context).textTheme.display1.copyWith(
+            headline5: Theme.of(context).textTheme.headline5.copyWith(
                 fontSize: 24.0,
                 fontFamily: 'GFSDidot',
                 fontWeight: FontWeight.bold),
-            headline: Theme.of(context).textTheme.headline.copyWith(
+            headline6: Theme.of(context).textTheme.headline6.copyWith(
                 fontSize: 20.0,
                 fontFamily: 'GFSDidot',
                 fontWeight: FontWeight.bold,
                 color: Colors.black54),
-            subhead: Theme.of(context).textTheme.subhead.copyWith(
+            subtitle1: Theme.of(context).textTheme.subtitle1.copyWith(
                 fontSize: 16.0,
                 fontFamily: 'GFSDidot',
                 color: Colors.black54,
                 fontWeight: FontWeight.bold),
-            title: Theme.of(context).textTheme.title.copyWith(
-                  fontSize: 20.0,
-                ),
-            body1: Theme.of(context)
+            // subtitle2: Theme.of(context).textTheme.subtitle2.copyWith(
+            //       fontSize: 20.0,
+            //     ),
+            bodyText1: Theme.of(context)
                 .textTheme
-                .body1
+                .bodyText1
                 .copyWith(fontSize: 16.0, color: Colors.grey[700]),
 
             //body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),

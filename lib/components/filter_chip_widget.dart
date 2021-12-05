@@ -28,7 +28,8 @@ class FilterChipWidgetState extends State<FilterChipWidget> {
     return FilterChip(
       //backgroundColor: Theme.of(context).primaryColorLight,
       label: Text(widget.labelText),
-      labelStyle: Theme.of(context).textTheme.body1.copyWith(fontSize: 12.0),
+      labelStyle:
+          Theme.of(context).textTheme.bodyText1.copyWith(fontSize: 12.0),
       //selectedShadowColor: Colors.teal[200],
       selectedColor: Theme.of(context).accentColor.withOpacity(0.4),
       selected: _isSelected,
