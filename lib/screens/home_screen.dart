@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Technology Categories',
                   style: Theme.of(context)
                       .textTheme
-                      .display1
+                      .headline5
                       .copyWith(fontWeight: FontWeight.bold)),
             ),
             FiltersHorizontalList(

@@ -152,7 +152,7 @@ class _FilterScreenState extends State<FilterScreen> {
                   'Business Categories',
                   style: Theme.of(context)
                       .textTheme
-                      .display1
+                      .headline5
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 8.0),
